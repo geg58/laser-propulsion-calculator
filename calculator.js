@@ -1,33 +1,6 @@
 /**
  * This document uses JSDoc (http://usejsdoc.org) for documentation.
-
-  TODO:
-
-  ✓   1) The sail still seems to be circular not square - 
-        you can tell as 1 micron at 1 g/cc with a 1 gram m0_payload_mass and optimized - the sail size should be 1.0 m
-  ✓   2) Please put Areal density in g/m^2 instead of g/cm^2
-  ?   3) Move the efficiency from Laser Energy at L0 to Kinetic Energy at L0
-  ✓   4) Please add a Beam Efficiency input (0 to 1 with default of 1) between Laser Power at Wavelength. 
-        Integrate into the solution by multiplying the Laser Power by the beam efficiency and then using 
-        this as the "Laser Power" when you do the calculations. The beam efficiency is the fraction of the 
-        laser power that appears on the sail.
-  ✓   5) Please add tons of TNT to Kinetic Energy  - 1 ton TNT = 4.2x10^9 J
-      6) Please add Limiting Kinetic Energy below Limiting Speed in GW-hr and J and tons TNT
-      7) Can you change fractions c to percent c (ie 0.1 c to 10% c)
-      8) Add Joules to Laser Energy to L0 in addition to GW-hr
-
-  ✓   9) Can you add the Sail mass (g) below the Sail Size
-  ✓   10) Can you add the total system mass (spacecraft + sail) below the sail mass
-  x   11) I will add the beam efficiency into the Roadmap paper to make it a little clearer.
-  ✓   12) Please add electrical efficiency (fraction of electrical power in that ends up as total laser 
-        power out) into the calculator (0 to 1) 
-  ✓   13) Please add Electrical Energy Used to L0
-
-  ✓   14) Can you please add an input for electrical energy cost ($/KW-h) with a default of 0.1 $/KW-h 
-        and then add an output of the electrical cost in $ per launch to time t0. You already have the 
-        electyrical energy to t0 in GW-h so this would be easy to calcutate.
-
-*/
+ */
 
 // Units
 var m = 1;
