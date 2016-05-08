@@ -251,7 +251,7 @@ var outputs = {
 	},
 	electrical_cost:
 	{
-		label: 'Electrical Energy Cost',
+		label: 'Electrical Energy Cost at &equiv; L<sub>0</sub>',
 		unit:
 		{
 			'$': 1
