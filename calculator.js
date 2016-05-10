@@ -37,6 +37,7 @@ Note that Po (Laser Power in main beam) does not depend on the electrical effici
 var m = 1;
 var km = 1e3 * m;
 var au = 149597870700 * m;
+var ly = 9.4607e15 * m;
 var cm = 1e-2 * m;
 var um = 1e-6 * m;
 var nm = 1e-9 * m;
@@ -59,6 +60,7 @@ var d = 86400 * s;
 // Constants
 var c_speed_light = 299792458 * m / s;
 var g_n = 9.80665 * m / Math.pow( s, 2 );
+var h_planck = 6.626070040e-34 * J / s;
 
 /**
  * Input variables
@@ -178,6 +180,33 @@ var inputs = {
 			'$/GW-hr': ( 1 / ( GW * hr ) )
 		},
 		val: 1e6
+	},
+	Laser_comm_spacecraft_power_peak:
+	{
+		label: 'Peak Laser Comm Power',
+		unit:
+		{
+			'W': W
+		},
+		val: 1
+	},
+	Laser_comm_spacecraft_optics_size:
+	{
+		label: 'Spacecraft Laser Comm Optical Size',
+		unit:
+		{
+			'm': m
+		},
+		val: 1
+	},
+	L_target:
+	{
+		label: 'Target Distance',
+		unit:
+		{
+			'ly': ly
+		},
+		val: 4.37
 	}
 };
 
@@ -368,6 +397,32 @@ var outputs = {
 		{
 			this.val = Math.sqrt( 2 ) * outputs.v_0_speed_to_L0.val;
 		}
+	},
+	Laser_comm_flux_at_earth:
+	{
+		label: 'Laser Comm Flux at Earth',
+		unit:
+		{
+			's<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
+		},
+		update()
+		{
+			this.val = inputs.Laser_comm_spacecraft_power_peak.val /
+				( h_planck * c_speed_light / ( inputs.lambda_wavelength.val ) ) /
+				Math.pow( inputs.L_target.val * 2 * inputs.lambda_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
+		}
+	},
+	laser_comm_rate_at_earth:
+	{
+		label: 'Laser Comm Rate at Earth Received in Array',
+		unit:
+		{
+			's<sup>-1</sup>': ( 1 / s )
+		},
+		update()
+		{
+			this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
+		}
 	}
 };
 
@@ -424,7 +479,7 @@ function isDefined( v )
 			// Convert default values to their correct units
 			for ( var unit in input.unit )
 			{
-				label.innerHTML += ' ' + unit;
+				label.innerHTML += ' (' + unit + ')';
 
 				input.unit = input.unit[ unit ];
 				input.val *= input.unit;
