@@ -479,7 +479,7 @@ function isDefined( v )
 			// Convert default values to their correct units
 			for ( var unit in input.unit )
 			{
-				label.innerHTML += ' (' + unit + ')';
+				label.innerHTML += ' <label class="unit">(' + unit + ')</label>';
 
 				input.unit = input.unit[ unit ];
 				input.val *= input.unit;
@@ -516,6 +516,7 @@ function isDefined( v )
 		{
 			var unitVal = document.createElement( 'div' );
 			var unitLabel = document.createElement( 'label' );
+			unitLabel.className = 'unit';
 			unitLabel.innerHTML = ' ' + unit;
 
 			rowCells.push( [ unitVal, unitLabel ] );
