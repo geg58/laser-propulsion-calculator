@@ -169,6 +169,15 @@ var inputs = {
 			'$/KW-h': ( 1 / ( kW * hr ) )
 		},
 		val: 0.1
+	},
+	energy_storage_cost:
+	{
+		label: 'Energy Storage Cost',
+		unit:
+		{
+			'$/GW-hr': ( 1 / ( GW * hr ) )
+		},
+		val: 1e6
 	}
 };
 
@@ -325,7 +334,7 @@ var outputs = {
 				inputs.epsilon_sub_beam_beam_eff.val;
 		}
 	},
-	electrical_cost:
+	energy_cost_per_launch:
 	{
 		label: 'Electrical Energy Cost at &equiv; L<sub>0</sub>',
 		unit:
@@ -335,6 +344,18 @@ var outputs = {
 		update()
 		{
 			this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_cost.val;
+		}
+	},
+	energy_storage_cost_per_launch:
+	{
+		label: 'Energy Storage Cost at &equiv; L<sub>0</sub>',
+		unit:
+		{
+			'$': 1
+		},
+		update()
+		{
+			this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_storage_cost.val;
 		}
 	},
 	v_infinity_speed_with_continued_illumination:
