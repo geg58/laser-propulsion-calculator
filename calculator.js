@@ -1,5 +1,36 @@
 /**
  * This document uses JSDoc (http://usejsdoc.org) for documentation.
+
+1) Electrical Energy Cost at = Lo
+2) Add Total Optical Power (GW)  as input - this is P_optical
+what you call Laser Power is Po in the paper and is the power in the main beam. 
+Po (Laser Power in Main beam)= epsilon_sub_beam_beam_eff*P_optical
+epsilon_sub_beam_beam_eff is what you now call the Beam Efficiency
+Thus Po (Laser Power in Main beam) is computed - not input
+Please make sure to change the name Laser Power to Laser Power in Main Beam
+Place Total Optical Power (P_optical) where Laser Power is now and then put Laser Power in Main Beam after the Beam Efficiency.
+
+3) Please add Energy Storage Cost (G$/GW-hr) after Electrical Energy Cost. Then add Energy Storage Cost per Launch (=Electrical Energy at L0 (GW-hr)/ Energy Storage Cost (G$/GW-hr)
+5) Please check that Electrical Energy at L0 (GW-hr) = Total Optical Power (GW)/Electrical Efficiency
+6) Add Input tab = Laser Comm Spacecraft Transmit Power (w)
+7) Add Input tab = Laser Comm Transmit Optics Size (m)
+8) Add Input tab = Target Distance (ly) = L_target
+9) Add Output = Laser Comm Flux at Earth (ph/s-m^2)=[Laser Comm Spacecraft Transmit Power (w)/(h*c/(lambda)]/{[L_target_m*2*lambda/Laser Comm Transmit Optics Size (m)]^2}
+10) Add output = Laser Comm Rate at Earth Received in Array(ph/s)= Laser Comm Flux at Earth (ph/s-m^2)*[(d_array_size)^2]
+
+---
+
+1) Specify Total Optical Power P_optical
+2) Specify
+epsilon_sub_beam_beam_eff  (beam eff) 
+epsilon_sub_elec_photon_to_electrical_eff (electrical efficiency)
+3) Compute Po = Laser Power (in main beam) Po (Laser Power in Main beam)=epsilon_sub_beam_beam_eff*P_optical
+4) From Po compute as you  have Lo, to , Acceleration etc
+5) Compute Electrical Energy to "to" = to*P_optical/epsilon_sub_elec_photon_to_electrical_eff
+
+Please check your code as I do not think this is how it is being computed. 
+Note that Po (Laser Power in main beam) does not depend on the electrical efficiency (epsilon_sub_elec_photon_to_electrical_eff)
+
  */
 
 // Units
@@ -330,6 +361,7 @@ function isNumeric( n )
  */
 function isDefined( v )
 {
+
 	return typeof v !== 'undefined';
 }
 
