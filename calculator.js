@@ -97,7 +97,11 @@ var inputs = {
 		{
 			'GW': GW
 		},
-		val: 10
+		val: 10,
+		update()
+		{
+			this.val = this.rawVal * inputs.epsilon_sub_beam_beam_eff.val * inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
+		}
 	},
 	epsilon_sub_beam_beam_eff:
 	{
@@ -309,7 +313,7 @@ var outputs = {
 	}
 };
 
-/** Return whether the variable is a number
+/** Determine if variable is a number
  *
  * @param {*} n - Variable to check
  * @return {Boolean}
@@ -317,6 +321,16 @@ var outputs = {
 function isNumeric( n )
 {
 	return !isNaN( parseFloat( n ) ) && isFinite( n );
+}
+
+/** Determine if variable has a value
+ *
+ * @param {*} v - Variable to check
+ * @return {Boolean}
+ */
+function isDefined( v )
+{
+	return typeof v !== 'undefined';
 }
 
 /** Initializes the HTML input and output tables
@@ -348,14 +362,7 @@ function isNumeric( n )
 			element.setAttribute( 'value', input.val );
 			element.addEventListener( 'input', update, false );
 
-			// Add attributes to the DOMElement (such as max, min, and step for inputs)
-			for ( var attribute in input.attributes )
-			{
-				element.setAttribute( attribute, input.attributes[ attribute ] );
-			}
-
 			// Convert default values to their correct units
-			// Create a table cell with the output and its units
 			for ( var unit in input.unit )
 			{
 				label.innerHTML += ' ' + unit;
@@ -366,6 +373,12 @@ function isNumeric( n )
 				// Only allow one unit for inputs
 				break;
 			}
+		}
+
+		// Add attributes to the DOMElement (such as max, min, and step for inputs)
+		for ( var attribute in input.attributes )
+		{
+			element.setAttribute( attribute, input.attributes[ attribute ] );
 		}
 
 		// Create a table row for the input element and its label
@@ -446,27 +459,34 @@ function createTableRow( cells )
 function load( input_element )
 {
 	var input = inputs[ input_element.getAttribute( 'id' ) ];
-	input.val = input_element.value;
+	input.val = input.rawVal = input_element.value;
 
+	// Numerical input
 	if ( isNumeric( input.val ) )
 	{
-		if ( typeof input.attributes !== 'undefined' )
+		if ( isDefined( input.attributes ) )
 		{
-			// Value is below range
-			if ( typeof input.attributes.min !== 'undefined' && input.val <= input.attributes.min )
+			// Value is below allowed range
+			if ( isDefined( input.attributes.min ) && input.val <= input.attributes.min )
 			{
 				return;
 			}
 
-			// Value is above range
-			if ( typeof input.attributes.min !== 'undefined' && input.val > input.attributes.max )
+			// Value is above allowed range
+			if ( isDefined( input.attributes.min ) && input.val > input.attributes.max )
 			{
 				return;
 			}
 		}
 
+		// Update function to modify the entered value
+		if ( isDefined( input.update ) )
+		{
+			input.update();
+		}
+
 		// Convert to SI units
-		if ( typeof input.unit !== 'undefined' )
+		if ( isDefined( input.unit ) )
 		{
 			input.val *= input.unit;
 		}
@@ -474,7 +494,8 @@ function load( input_element )
 		return true;
 	}
 
-	if ( typeof ( input.checked ) !== 'undefined' )
+	// Checkbox input
+	if ( isDefined( input.checked ) )
 	{
 		input.checked = input_element.checked;
 
@@ -502,19 +523,10 @@ function optimize()
  */
 function calculate()
 {
-	/** Adjust laser power according to its efficiency
-	 * TODO: Remove these lines and the last line in this func. for cleanliness
-	 */
-	var P0_laser_power_in_main_beam = inputs.P0_laser_power_in_main_beam.val;
-	inputs.P0_laser_power_in_main_beam.val *= inputs.epsilon_sub_beam_beam_eff.val * inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
-
 	for ( var id in outputs )
 	{
 		outputs[ id ].update();
 	}
-
-	// Restore the perfect efficiency laser
-	inputs.P0_laser_power_in_main_beam.val = P0_laser_power_in_main_beam;
 }
 
 /** Render the outputs
