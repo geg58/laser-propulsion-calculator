@@ -43,8 +43,11 @@ var g_n = 9.80665 * m / Math.pow( s, 2 );
 var inputs = {
 	m0_payload_mass:
 	{
-		label: 'Payload (kg)',
-		unit: kg,
+		label: 'Payload',
+		unit:
+		{
+			kg: kg
+		},
 		val: 0.1
 	},
 	auto_sail:
@@ -54,56 +57,86 @@ var inputs = {
 	},
 	D_sail_size:
 	{
-		label: 'Sail Size (m/cm<sup>2</sup>)',
-		unit: m
+		label: 'Sail Size',
+		unit:
+		{
+			'm/cm<sup>2</sup>': m
+		}
 	},
 	h_sail_thickness:
 	{
-		label: 'Sail Thickness (&mu;m)',
-		unit: um,
+		label: 'Sail Thickness',
+		unit:
+		{
+			'&mu;m': um
+		},
 		val: 10
 	},
 	rho_sail_density:
 	{
-		label: 'Sail Density (g/cm<sup>3</sup>)',
-		unit: ( g / Math.pow( cm, 3 ) ), // Grams per centimeter cubed
+		label: 'Sail Density',
+		unit:
+		{
+			'g/cm<sup>3</sup>': ( g / Math.pow( cm, 3 ) ) // Grams per centimeter cubed
+		},
 		val: 1
 	},
 	d_array_size:
 	{
-		label: 'Laser Size (m)',
-		unit: m,
+		label: 'Laser Size',
+		unit:
+		{
+			'm': m
+		},
 		val: 100
 	},
 	P0_laser_power_in_main_beam:
 	{
-		label: 'Laser Power (GW)',
-		unit: GW,
+		label: 'Laser Power',
+		unit:
+		{
+			'GW': GW
+		},
 		val: 10
 	},
 	epsilon_sub_beam_beam_eff:
 	{
 		label: 'Beam Efficiency',
 		val: 1,
-		max_val: 1
+		attributes:
+		{
+			max: 1
+		}
 	},
 	lambda_wavelength:
 	{
-		label: 'Wavelength (nm)',
-		unit: nm,
+		label: 'Wavelength',
+		unit:
+		{
+			'nm': nm
+		},
 		val: 1060,
-		min_val: 1
+		attributes:
+		{
+			min: 1
+		}
 	},
 	epsilon_sub_elec_photon_to_electrical_eff:
 	{
 		label: 'Electrical Efficiency',
 		val: 1,
-		max_val: 1
+		attributes:
+		{
+			max: 1
+		}
 	},
 	energy_cost:
 	{
-		label: 'Electrical Energy Cost ($/KW-h)',
-		unit: ( 1 / ( kW * hr ) ),
+		label: 'Electrical Energy Cost',
+		unit:
+		{
+			'$/KW-h': ( 1 / ( kW * hr ) )
+		},
 		val: 0.1
 	}
 };
@@ -311,22 +344,27 @@ function isNumeric( n )
 		}
 		else
 		{
-			// Numerical input
-			input.min_val = input.min_val || 0;
-			input.max_val = input.max_val || Infinity;
-			input.step_val = input.step_val || 'any';
-
 			element.setAttribute( 'type', 'number' );
-			element.setAttribute( 'min', input.min_val );
-			element.setAttribute( 'max', input.max_val );
-			element.setAttribute( 'step', input.step_val );
 			element.setAttribute( 'value', input.val );
 			element.addEventListener( 'input', update, false );
 
-			// Convert default values to their correct units
-			if ( typeof input.unit !== 'undefined' )
+			// Add attributes to the DOMElement (such as max, min, and step for inputs)
+			for ( var attribute in input.attributes )
 			{
+				element.setAttribute( attribute, input.attributes[ attribute ] );
+			}
+
+			// Convert default values to their correct units
+			// Create a table cell with the output and its units
+			for ( var unit in input.unit )
+			{
+				label.innerHTML += ' ' + unit;
+
+				input.unit = input.unit[ unit ];
 				input.val *= input.unit;
+
+				// Only allow one unit for inputs
+				break;
 			}
 		}
 
@@ -412,16 +450,19 @@ function load( input_element )
 
 	if ( isNumeric( input.val ) )
 	{
-		// Value is below range
-		if ( typeof input.min_val !== 'undefined' && input.val <= input.min_val )
+		if ( typeof input.attributes !== 'undefined' )
 		{
-			return;
-		}
+			// Value is below range
+			if ( typeof input.attributes.min !== 'undefined' && input.val <= input.attributes.min )
+			{
+				return;
+			}
 
-		// Value is above range
-		if ( typeof input.max_val !== 'undefined' && input.val > input.max_val )
-		{
-			return;
+			// Value is above range
+			if ( typeof input.attributes.min !== 'undefined' && input.val > input.attributes.max )
+			{
+				return;
+			}
 		}
 
 		// Convert to SI units
