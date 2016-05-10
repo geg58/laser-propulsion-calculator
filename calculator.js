@@ -121,18 +121,14 @@ var inputs = {
 		},
 		val: 100
 	},
-	P0_laser_power_in_main_beam:
+	P_optical:
 	{
-		label: 'Laser Power',
+		label: 'Total Optical Power',
 		unit:
 		{
 			'GW': GW
 		},
-		val: 10,
-		update()
-		{
-			this.val = this.rawVal * inputs.epsilon_sub_beam_beam_eff.val * inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
-		}
+		val: 1
 	},
 	epsilon_sub_beam_beam_eff:
 	{
@@ -222,6 +218,18 @@ var outputs = {
 			this.val = inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
 		}
 	},
+	P0_laser_power_in_main_beam:
+	{
+		label: 'Laser Power',
+		unit:
+		{
+			'GW': GW
+		},
+		update()
+		{
+			this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
+		}
+	},
 	a_acceleration:
 	{
 		label: 'Peak Acceleration',
@@ -232,7 +240,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = 2 * inputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
+			this.val = 2 * outputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
 		}
 	},
 	l0_dist:
@@ -259,7 +267,7 @@ var outputs = {
 		update()
 		{
 			this.val = Math.sqrt( c_speed_light * inputs.d_array_size.val * inputs.D_sail_size.val * outputs.m_total_mass.val /
-				( 2 * inputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val ) );
+				( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val ) );
 		}
 	},
 	v_0_speed_to_L0:
@@ -272,7 +280,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = Math.sqrt( 2 * inputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
+			this.val = Math.sqrt( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
 				( c_speed_light * inputs.lambda_wavelength.val * outputs.m_total_mass.val ) );
 		}
 	},
@@ -299,7 +307,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = inputs.P0_laser_power_in_main_beam.val * outputs.t0_time_to_L0.val;
+			this.val = outputs.P0_laser_power_in_main_beam.val * outputs.t0_time_to_L0.val;
 		}
 	},
 	E_elec_total_electrical_energy_used_to_t0:
