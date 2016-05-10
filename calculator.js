@@ -329,8 +329,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = outputs.E_gamma_photon_energy_in_main_beam_to_time_t0.val /
-				inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
+			this.val = inputs.P_optical.val / inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
 		}
 	},
 	energy_cost_per_launch:
