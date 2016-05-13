@@ -466,6 +466,18 @@ var outputs = {
         Math.pow( inputs.L_target.val * 2 * inputs.lambda_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
     }
   },
+  laser_comm_photometric_magnitude:
+  {
+    label: 'Equivalent Photometric Magnitude m<sub>v</sub>',
+    unit:
+    {
+      '': 1 // Unitless
+    },
+    update()
+    {
+      this.val = -2.5 * Math.log( outputs.Laser_comm_flux_at_earth.val / 3e10 ) / Math.log( 10 );
+    }
+  },
   laser_comm_rate_at_earth:
   {
     label: 'Laser Comm Rate at Earth Received in Array',
