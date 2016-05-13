@@ -1,7 +1,7 @@
 2016-05-13
 
 Implemented Enhancements
-* Updated standalone file
+* Add output: Equivalent Photometric Magnitude: -2.5 log (Laser Comm Flux at Earth/ 3E10)
 * Changed energy cost to $/W-hr from $/kW-hr
 * Changed energy storage cost to $/W-hr from $/GW-hr
 * Changed default value for Energy Storage Cost to 0.1 $/W-hr
