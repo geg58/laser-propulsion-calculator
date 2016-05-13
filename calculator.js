@@ -137,7 +137,7 @@ var inputs = {
 		label: 'Electrical Energy Cost',
 		unit:
 		{
-			'$/W-h': ( 1 / ( W * hr ) )
+			'$/W-hr': ( 1 / ( W * hr ) )
 		},
 		val: 0.1
 	},
@@ -146,7 +146,7 @@ var inputs = {
 		label: 'Energy Storage Cost',
 		unit:
 		{
-			'$/GW-hr': ( 1 / ( GW * hr ) )
+			'$/W-hr': ( 1 / ( W * hr ) )
 		},
 		val: 1e6
 	},

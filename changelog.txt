@@ -3,6 +3,7 @@
 Implemented Enhancements
 * Updated standalone file
 * Changed energy cost to $/W-hr from $/kW-hr
+* Changed energy storage cost to $/W-hr from $/GW-hr
 
 2016-05-10
 
