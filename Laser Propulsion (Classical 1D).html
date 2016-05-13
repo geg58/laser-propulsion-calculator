@@ -5,65 +5,13 @@
   <meta charset="UTF-8">
   <style>
     html, body {
-      background: #202025;
       font-family: arial, sans-serif;
-      text-align: center;
+      margin: 0;
+      color: #FFF;
     }
 
-    #main {
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(180, 180, 180, 0.2));
-      border-radius: 10px;
-      display: inline-block;
-      padding: 20px;
-    }
-
-    #title {
-      color: #202023;
-      font-size: 16pt;
-      margin-top: 0;
-    }
-
-    #inputs {
-      background-color: rgba(5, 5, 15, 0.6);
-      color: #cacaca;
-      font-size: 12pt;
-      padding: 10px;
-    }
-
-    td {
-      height: 20px;
-      line-height: 20px;
-      padding: 2px;
-      text-align: right;
-    }
-
-      td > div {
-        display: inline-block;
-      }
-
-    input {
-      background-color: #bababa;
-      border: 0;
-      font-size: 12pt;
-      padding: 2px;
-      width: 300px;
-    }
-
-    #auto_sail {
-      width: unset;
-    }
-
-    #outputs {
-      background-color: rgba(0, 0, 5, 0.4);
-      color: #cacaca;
-      font-size: 12pt;
-      margin: 10px auto 0 auto;
-      padding: 5px 0;
-      width: 100%;
-    }
-
-    #outputs td {
-      padding: 0;
+    body {
+      background-color: #202025;
     }
 
     span {
@@ -72,16 +20,115 @@
       padding-left: 5px;
       text-align: left;
     }
+
+    h1, h2 {
+      font-weight: 100;
+    }
+      
+      h1 {
+        color: #FFF;
+      }
+
+    a {
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    table {
+      display: inline-block;
+      vertical-align: top;
+      font-size: 12pt;
+      width: 50%;
+    }
+
+      caption {
+        text-align: left;
+      }
+
+      td {
+        height: 20px;
+        padding: 0.4rem;
+        text-align: right;
+      }
+
+        td > div {
+          display: inline-block;
+        }
+
+    input {
+      background: none;
+      /* background-color: #94c27d; */
+      border: none;
+      border-bottom: 1px dotted #666;
+      color: #94c27d;
+      font-size: 1rem;
+    }
+
+      input:disabled {
+        color: #999;
+      }
+
+    header, footer {
+      width: calc(100% - 4rem);
+      padding: 2rem;
+      background-color: #3B8686;
+      box-shadow: 0 0 1px 1px #050505;
+    }
+
+      header > p {
+        color: #DDD;
+      }
+
+    #main {
+      display: inline-block;
+      width: calc(100% - 4rem);
+      padding: 2rem;
+    }
+
+        .unit {
+          font-size: 0.8rem;
+          color: #999;
+        }
+
+        table tr:nth-child(odd) {
+          background-color: #32323a;
+        }
+
+        #outputs td {
+          color: #94c27d; 
+        }
+
+          #outputs td:first-child {
+            color: unset;
+          }
   </style>
 </head>
 <body>
+  <header>
+    <p>Breakthrough Starshot</p>
+    <h1>Laser Propulsion (Classical 1D)</h1>
+  </header>
   <div id="main">
-    <h1 id="title">Laser Propulsion (Classical 1D)</h1>
     <table id="inputs">
-    </table>
-    <table id="outputs">
+      <caption>
+        <h2>
+          Inputs
+          <hr>
+        </h2>
+      </caption>
+    </table><!-- 
+ --><table id="outputs">
+      <caption>
+        <h2>
+          Outputs
+          <hr>
+        </h2>
+      </caption>
     </table>
   </div>
+  <footer>
+    <a href='https://github.com/ucsbdeepspace/laser-propulsion-calculator'>Github Source</a>
+  </footer>
   <script type='text/javascript' src='calculator.js'></script>
 </body>
 </html>
