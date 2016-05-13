@@ -5,65 +5,13 @@
   <meta charset="UTF-8">
   <style>
     html, body {
-      background: #202025;
       font-family: arial, sans-serif;
-      text-align: center;
+      margin: 0;
+      color: #FFF;
     }
 
-    #main {
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(180, 180, 180, 0.2));
-      border-radius: 10px;
-      display: inline-block;
-      padding: 20px;
-    }
-
-    #title {
-      color: #202023;
-      font-size: 16pt;
-      margin-top: 0;
-    }
-
-    #inputs {
-      background-color: rgba(5, 5, 15, 0.6);
-      color: #cacaca;
-      font-size: 12pt;
-      padding: 10px;
-    }
-
-    td {
-      height: 20px;
-      line-height: 20px;
-      padding: 2px;
-      text-align: right;
-    }
-
-      td > div {
-        display: inline-block;
-      }
-
-    input {
-      background-color: #bababa;
-      border: 0;
-      font-size: 12pt;
-      padding: 2px;
-      width: 300px;
-    }
-
-    #auto_sail {
-      width: unset;
-    }
-
-    #outputs {
-      background-color: rgba(0, 0, 5, 0.4);
-      color: #cacaca;
-      font-size: 12pt;
-      margin: 10px auto 0 auto;
-      padding: 5px 0;
-      width: 100%;
-    }
-
-    #outputs td {
-      padding: 0;
+    body {
+      background-color: #202025;
     }
 
     span {
@@ -72,52 +20,156 @@
       padding-left: 5px;
       text-align: left;
     }
+
+    h1, h2 {
+      font-weight: 100;
+    }
+      
+      h1 {
+        color: #FFF;
+      }
+
+    a {
+      color: #FFF;
+      text-decoration: none;
+    }
+
+    table {
+      display: inline-block;
+      vertical-align: top;
+      font-size: 12pt;
+      width: 50%;
+    }
+
+      caption {
+        text-align: left;
+      }
+
+      td {
+        height: 20px;
+        padding: 0.4rem;
+        text-align: right;
+      }
+
+        td > div {
+          display: inline-block;
+        }
+
+    input {
+      background: none;
+      /* background-color: #94c27d; */
+      border: none;
+      border-bottom: 1px dotted #666;
+      color: #94c27d;
+      font-size: 1rem;
+    }
+
+      input:disabled {
+        color: #999;
+      }
+
+    header, footer {
+      width: calc(100% - 4rem);
+      padding: 2rem;
+      background-color: #3B8686;
+      box-shadow: 0 0 1px 1px #050505;
+    }
+
+      header > p {
+        color: #DDD;
+      }
+
+    #main {
+      display: inline-block;
+      width: calc(100% - 4rem);
+      padding: 2rem;
+    }
+
+        .unit {
+          font-size: 0.8rem;
+          color: #999;
+        }
+
+        table tr:nth-child(odd) {
+          background-color: #32323a;
+        }
+
+        #outputs td {
+          color: #94c27d; 
+        }
+
+          #outputs td:first-child {
+            color: unset;
+          }
   </style>
 </head>
 <body>
+  <header>
+    <p>Breakthrough Starshot</p>
+    <h1>Laser Propulsion (Classical 1D)</h1>
+  </header>
   <div id="main">
-    <h1 id="title">Laser Propulsion (Classical 1D)</h1>
     <table id="inputs">
-    </table>
-    <table id="outputs">
+      <caption>
+        <h2>
+          Inputs
+          <hr>
+        </h2>
+      </caption>
+    </table><!-- 
+ --><table id="outputs">
+      <caption>
+        <h2>
+          Outputs
+          <hr>
+        </h2>
+      </caption>
     </table>
   </div>
+  <footer>
+    <a href='https://github.com/ucsbdeepspace/laser-propulsion-calculator'>Github Source</a>
+  </footer>
   <script type='text/javascript'>
-    /**
+/**
  * This document uses JSDoc (http://usejsdoc.org) for documentation.
 
-  TODO:
+1) Electrical Energy Cost at = Lo
+2) Add Total Optical Power (GW)  as input - this is P_optical
+what you call Laser Power is Po in the paper and is the power in the main beam. 
+Po (Laser Power in Main beam)= epsilon_sub_beam_beam_eff*P_optical
+epsilon_sub_beam_beam_eff is what you now call the Beam Efficiency
+Thus Po (Laser Power in Main beam) is computed - not input
+Please make sure to change the name Laser Power to Laser Power in Main Beam
+Place Total Optical Power (P_optical) where Laser Power is now and then put Laser Power in Main Beam after the Beam Efficiency.
 
-  ✓   1) The sail still seems to be circular not square - 
-        you can tell as 1 micron at 1 g/cc with a 1 gram m0_payload_mass and optimized - the sail size should be 1.0 m
-  ✓   2) Please put Areal density in g/m^2 instead of g/cm^2
-  ?   3) Move the efficiency from Laser Energy at L0 to Kinetic Energy at L0
-  ✓   4) Please add a Beam Efficiency input (0 to 1 with default of 1) between Laser Power at Wavelength. 
-        Integrate into the solution by multiplying the Laser Power by the beam efficiency and then using 
-        this as the "Laser Power" when you do the calculations. The beam efficiency is the fraction of the 
-        laser power that appears on the sail.
-  ✓   5) Please add tons of TNT to Kinetic Energy  - 1 ton TNT = 4.2x10^9 J
-      6) Please add Limiting Kinetic Energy below Limiting Speed in GW-hr and J and tons TNT
-      7) Can you change fractions c to percent c (ie 0.1 c to 10% c)
-      8) Add Joules to Laser Energy to L0 in addition to GW-hr
+3) Please add Energy Storage Cost (G$/GW-hr) after Electrical Energy Cost. Then add Energy Storage Cost per Launch (=Electrical Energy at L0 (GW-hr)/ Energy Storage Cost (G$/GW-hr)
+5) Please check that Electrical Energy at L0 (GW-hr) = Total Optical Power (GW)/Electrical Efficiency
+6) Add Input tab = Laser Comm Spacecraft Transmit Power (w)
+7) Add Input tab = Laser Comm Transmit Optics Size (m)
+8) Add Input tab = Target Distance (ly) = L_target
+9) Add Output = Laser Comm Flux at Earth (ph/s-m^2)=[Laser Comm Spacecraft Transmit Power (w)/(h*c/(lambda)]/{[L_target_m*2*lambda/Laser Comm Transmit Optics Size (m)]^2}
+10) Add output = Laser Comm Rate at Earth Received in Array(ph/s)= Laser Comm Flux at Earth (ph/s-m^2)*[(d_array_size)^2]
 
-  ✓   9) Can you add the Sail mass (g) below the Sail Size
-  ✓   10) Can you add the total system mass (spacecraft + sail) below the sail mass
-  x   11) I will add the beam efficiency into the Roadmap paper to make it a little clearer.
-  ✓   12) Please add electrical efficiency (fraction of electrical power in that ends up as total laser 
-        power out) into the calculator (0 to 1) 
-  ✓   13) Please add Electrical Energy Used to L0
+---
 
-  ✓   14) Can you please add an input for electrical energy cost ($/KW-h) with a default of 0.1 $/KW-h 
-        and then add an output of the electrical cost in $ per launch to time t0. You already have the 
-        electyrical energy to t0 in GW-h so this would be easy to calcutate.
+1) Specify Total Optical Power P_optical
+2) Specify
+epsilon_sub_beam_beam_eff  (beam eff) 
+epsilon_sub_elec_photon_to_electrical_eff (electrical efficiency)
+3) Compute Po = Laser Power (in main beam) Po (Laser Power in Main beam)=epsilon_sub_beam_beam_eff*P_optical
+4) From Po compute as you  have Lo, to , Acceleration etc
+5) Compute Electrical Energy to "to" = to*P_optical/epsilon_sub_elec_photon_to_electrical_eff
 
-*/
+Please check your code as I do not think this is how it is being computed. 
+Note that Po (Laser Power in main beam) does not depend on the electrical efficiency (epsilon_sub_elec_photon_to_electrical_eff)
+
+ */
 
 // Units
 var m = 1;
 var km = 1e3 * m;
 var au = 149597870700 * m;
+var ly = 9.4607e15 * m;
 var cm = 1e-2 * m;
 var um = 1e-6 * m;
 var nm = 1e-9 * m;
@@ -140,6 +192,7 @@ var d = 86400 * s;
 // Constants
 var c_speed_light = 299792458 * m / s;
 var g_n = 9.80665 * m / Math.pow( s, 2 );
+var h_planck = 6.626070040e-34 * J / s;
 
 /**
  * Input variables
@@ -155,8 +208,11 @@ var g_n = 9.80665 * m / Math.pow( s, 2 );
 var inputs = {
   m0_payload_mass:
   {
-    label: 'Payload (kg)',
-    unit: kg,
+    label: 'Payload',
+    unit:
+    {
+      kg: kg
+    },
     val: 0.1
   },
   auto_sail:
@@ -166,57 +222,123 @@ var inputs = {
   },
   D_sail_size:
   {
-    label: 'Sail Size (m/cm<sup>2</sup>)',
-    unit: m
+    label: 'Sail Size',
+    unit:
+    {
+      'm/cm<sup>2</sup>': m
+    }
   },
   h_sail_thickness:
   {
-    label: 'Sail Thickness (&mu;m)',
-    unit: um,
+    label: 'Sail Thickness',
+    unit:
+    {
+      '&mu;m': um
+    },
     val: 10
   },
   rho_sail_density:
   {
-    label: 'Sail Density (g/cm<sup>3</sup>)',
-    unit: ( g / Math.pow( cm, 3 ) ), // Grams per centimeter cubed
+    label: 'Sail Density',
+    unit:
+    {
+      'g/cm<sup>3</sup>': ( g / Math.pow( cm, 3 ) ) // Grams per centimeter cubed
+    },
     val: 1
   },
   d_array_size:
   {
-    label: 'Laser Size (m)',
-    unit: m,
+    label: 'Laser Size',
+    unit:
+    {
+      'm': m
+    },
     val: 100
   },
-  P0_laser_power_in_main_beam:
+  P_optical:
   {
-    label: 'Laser Power (GW)',
-    unit: GW,
-    val: 10
+    label: 'Total Optical Power',
+    unit:
+    {
+      'GW': GW
+    },
+    val: 1
   },
   epsilon_sub_beam_beam_eff:
   {
     label: 'Beam Efficiency',
     val: 1,
-    max_val: 1
+    attributes:
+    {
+      max: 1
+    }
   },
   lambda_wavelength:
   {
-    label: 'Wavelength (nm)',
-    unit: nm,
+    label: 'Wavelength',
+    unit:
+    {
+      'nm': nm
+    },
     val: 1060,
-    min_val: 1
+    attributes:
+    {
+      min: 1
+    }
   },
   epsilon_sub_elec_photon_to_electrical_eff:
   {
     label: 'Electrical Efficiency',
     val: 1,
-    max_val: 1
+    attributes:
+    {
+      max: 1
+    }
   },
   energy_cost:
   {
-    label: 'Electrical Energy Cost ($/KW-h)',
-    unit: ( 1 / ( kW * hr ) ),
+    label: 'Electrical Energy Cost',
+    unit:
+    {
+      '$/KW-h': ( 1 / ( kW * hr ) )
+    },
     val: 0.1
+  },
+  energy_storage_cost:
+  {
+    label: 'Energy Storage Cost',
+    unit:
+    {
+      '$/GW-hr': ( 1 / ( GW * hr ) )
+    },
+    val: 1e6
+  },
+  Laser_comm_spacecraft_power_peak:
+  {
+    label: 'Peak Laser Comm Power',
+    unit:
+    {
+      'W': W
+    },
+    val: 1
+  },
+  Laser_comm_spacecraft_optics_size:
+  {
+    label: 'Spacecraft Laser Comm Optical Size',
+    unit:
+    {
+      'm': m
+    },
+    val: 1
+  },
+  L_target:
+  {
+    label: 'Target Distance',
+    unit:
+    {
+      'ly': ly
+    },
+    val: 4.37
   }
 };
 
@@ -266,6 +388,18 @@ var outputs = {
       this.val = inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
     }
   },
+  P0_laser_power_in_main_beam:
+  {
+    label: 'Laser Power',
+    unit:
+    {
+      'GW': GW
+    },
+    update()
+    {
+      this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
+    }
+  },
   a_acceleration:
   {
     label: 'Peak Acceleration',
@@ -276,7 +410,7 @@ var outputs = {
     },
     update()
     {
-      this.val = 2 * inputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
+      this.val = 2 * outputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
     }
   },
   l0_dist:
@@ -303,7 +437,7 @@ var outputs = {
     update()
     {
       this.val = Math.sqrt( c_speed_light * inputs.d_array_size.val * inputs.D_sail_size.val * outputs.m_total_mass.val /
-        ( 2 * inputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val ) );
+        ( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val ) );
     }
   },
   v_0_speed_to_L0:
@@ -316,7 +450,7 @@ var outputs = {
     },
     update()
     {
-      this.val = Math.sqrt( 2 * inputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
+      this.val = Math.sqrt( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
         ( c_speed_light * inputs.lambda_wavelength.val * outputs.m_total_mass.val ) );
     }
   },
@@ -343,7 +477,7 @@ var outputs = {
     },
     update()
     {
-      this.val = inputs.P0_laser_power_in_main_beam.val * outputs.t0_time_to_L0.val;
+      this.val = outputs.P0_laser_power_in_main_beam.val * outputs.t0_time_to_L0.val;
     }
   },
   E_elec_total_electrical_energy_used_to_t0:
@@ -356,14 +490,12 @@ var outputs = {
     },
     update()
     {
-      this.val = outputs.E_gamma_photon_energy_in_main_beam_to_time_t0.val /
-        inputs.epsilon_sub_elec_photon_to_electrical_eff.val /
-        inputs.epsilon_sub_beam_beam_eff.val;
+      this.val = inputs.P_optical.val / inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
     }
   },
-  electrical_cost:
+  energy_cost_per_launch:
   {
-    label: 'Electrical Energy Cost',
+    label: 'Electrical Energy Cost at &equiv; L<sub>0</sub>',
     unit:
     {
       '$': 1
@@ -371,6 +503,18 @@ var outputs = {
     update()
     {
       this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_cost.val;
+    }
+  },
+  energy_storage_cost_per_launch:
+  {
+    label: 'Energy Storage Cost at &equiv; L<sub>0</sub>',
+    unit:
+    {
+      '$': 1
+    },
+    update()
+    {
+      this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_storage_cost.val;
     }
   },
   v_infinity_speed_with_continued_illumination:
@@ -385,10 +529,36 @@ var outputs = {
     {
       this.val = Math.sqrt( 2 ) * outputs.v_0_speed_to_L0.val;
     }
+  },
+  Laser_comm_flux_at_earth:
+  {
+    label: 'Laser Comm Flux at Earth',
+    unit:
+    {
+      's<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
+    },
+    update()
+    {
+      this.val = inputs.Laser_comm_spacecraft_power_peak.val /
+        ( h_planck * c_speed_light / ( inputs.lambda_wavelength.val ) ) /
+        Math.pow( inputs.L_target.val * 2 * inputs.lambda_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
+    }
+  },
+  laser_comm_rate_at_earth:
+  {
+    label: 'Laser Comm Rate at Earth Received in Array',
+    unit:
+    {
+      's<sup>-1</sup>': ( 1 / s )
+    },
+    update()
+    {
+      this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
+    }
   }
 };
 
-/** Return whether the variable is a number
+/** Determine if variable is a number
  *
  * @param {*} n - Variable to check
  * @return {Boolean}
@@ -396,6 +566,17 @@ var outputs = {
 function isNumeric( n )
 {
   return !isNaN( parseFloat( n ) ) && isFinite( n );
+}
+
+/** Determine if variable has a value
+ *
+ * @param {*} v - Variable to check
+ * @return {Boolean}
+ */
+function isDefined( v )
+{
+
+  return typeof v !== 'undefined';
 }
 
 /** Initializes the HTML input and output tables
@@ -423,23 +604,27 @@ function isNumeric( n )
     }
     else
     {
-      // Numerical input
-      input.min_val = input.min_val || 0;
-      input.max_val = input.max_val || Infinity;
-      input.step_val = input.step_val || 'any';
-
       element.setAttribute( 'type', 'number' );
-      element.setAttribute( 'min', input.min_val );
-      element.setAttribute( 'max', input.max_val );
-      element.setAttribute( 'step', input.step_val );
       element.setAttribute( 'value', input.val );
       element.addEventListener( 'input', update, false );
 
       // Convert default values to their correct units
-      if ( typeof input.unit !== 'undefined' )
+      for ( var unit in input.unit )
       {
+        label.innerHTML += ' <label class="unit">(' + unit + ')</label>';
+
+        input.unit = input.unit[ unit ];
         input.val *= input.unit;
+
+        // Only allow one unit for inputs
+        break;
       }
+    }
+
+    // Add attributes to the DOMElement (such as max, min, and step for inputs)
+    for ( var attribute in input.attributes )
+    {
+      element.setAttribute( attribute, input.attributes[ attribute ] );
     }
 
     // Create a table row for the input element and its label
@@ -463,6 +648,7 @@ function isNumeric( n )
     {
       var unitVal = document.createElement( 'div' );
       var unitLabel = document.createElement( 'label' );
+      unitLabel.className = 'unit';
       unitLabel.innerHTML = ' ' + unit;
 
       rowCells.push( [ unitVal, unitLabel ] );
@@ -520,24 +706,34 @@ function createTableRow( cells )
 function load( input_element )
 {
   var input = inputs[ input_element.getAttribute( 'id' ) ];
-  input.val = input_element.value;
+  input.val = input.rawVal = input_element.value;
 
+  // Numerical input
   if ( isNumeric( input.val ) )
   {
-    // Value is below range
-    if ( typeof input.min_val !== 'undefined' && input.val <= input.min_val )
+    if ( isDefined( input.attributes ) )
     {
-      return;
+      // Value is below allowed range
+      if ( isDefined( input.attributes.min ) && input.val <= input.attributes.min )
+      {
+        return;
+      }
+
+      // Value is above allowed range
+      if ( isDefined( input.attributes.min ) && input.val > input.attributes.max )
+      {
+        return;
+      }
     }
 
-    // Value is above range
-    if ( typeof input.max_val !== 'undefined' && input.val > input.max_val )
+    // Update function to modify the entered value
+    if ( isDefined( input.update ) )
     {
-      return;
+      input.update();
     }
 
     // Convert to SI units
-    if ( typeof input.unit !== 'undefined' )
+    if ( isDefined( input.unit ) )
     {
       input.val *= input.unit;
     }
@@ -545,7 +741,8 @@ function load( input_element )
     return true;
   }
 
-  if ( typeof ( input.checked ) !== 'undefined' )
+  // Checkbox input
+  if ( isDefined( input.checked ) )
   {
     input.checked = input_element.checked;
 
@@ -573,19 +770,10 @@ function optimize()
  */
 function calculate()
 {
-  /** Adjust laser power according to its efficiency
-   * TODO: Remove these lines and the last line in this func. for cleanliness
-   */
-  var P0_laser_power_in_main_beam = inputs.P0_laser_power_in_main_beam.val;
-  inputs.P0_laser_power_in_main_beam.val *= inputs.epsilon_sub_beam_beam_eff.val * inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
-
   for ( var id in outputs )
   {
     outputs[ id ].update();
   }
-
-  // Restore the perfect efficiency laser
-  inputs.P0_laser_power_in_main_beam.val = P0_laser_power_in_main_beam;
 }
 
 /** Render the outputs
