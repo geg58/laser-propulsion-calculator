@@ -4,7 +4,6 @@ Implemented Enhancements
 * Updated standalone file
 * Changed energy cost to $/W-hr from $/kW-hr
 * Changed energy storage cost to $/W-hr from $/GW-hr
-
 * Changed default value for Energy Storage Cost to 0.1 $/W-hr
 * Changed default value for Total Optical Power to 100 GW
 * Changed default value for array size to 1000 m
