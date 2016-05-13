@@ -1,0 +1,22 @@
+2016-05-13
+
+Implemented Enhancements
+* Updated standalone file
+* Changed energy cost to $/W-hr from $/kW-hr
+
+2016-05-10
+
+Implemented Enhancements
+* Add input - Total Optical Power
+* Add input: Energy Storage Cost
+* Add output: Energy Storage Cost per Launch
+* Add input: Laser Comm Spacecraft Transmit Power
+* Add input: Laser Comm Transmit Optics Size
+* Add input: Target Distance
+* Add output: Laser Comm Flux at Earth
+* Add output: Laser Comm Rate at Earth Received in Array
+
+Fixed Bugs
+* Electrical Energy Cost at = Lo
+* Change Laser Power in Main Beam from input to output
+* Electrical Energy at L0 computation
