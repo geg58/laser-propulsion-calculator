@@ -50,7 +50,7 @@ var inputs = {
 		{
 			kg: kg
 		},
-		val: 0.1
+		val: 0.001
 	},
 	auto_sail:
 	{
@@ -72,7 +72,7 @@ var inputs = {
 		{
 			'&mu;m': um
 		},
-		val: 10
+		val: 1
 	},
 	rho_sail_density:
 	{
@@ -90,7 +90,7 @@ var inputs = {
 		{
 			'm': m
 		},
-		val: 100
+		val: 1000
 	},
 	P_optical:
 	{
@@ -99,7 +99,7 @@ var inputs = {
 		{
 			'GW': GW
 		},
-		val: 1
+		val: 100
 	},
 	epsilon_sub_beam_beam_eff:
 	{
@@ -148,7 +148,7 @@ var inputs = {
 		{
 			'$/W-hr': ( 1 / ( W * hr ) )
 		},
-		val: 1e6
+		val: 0.1
 	},
 	Laser_comm_spacecraft_power_peak:
 	{
@@ -227,7 +227,7 @@ var outputs = {
 	},
 	P0_laser_power_in_main_beam:
 	{
-		label: 'Laser Power',
+		label: 'Laser Power in Main Beam',
 		unit:
 		{
 			'GW': GW
