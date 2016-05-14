@@ -1,6 +1,24 @@
+2016-05-14
+
+Implemented Enhancements
+* Renamed "Laser Comm Rate at Earth Received in Array" to "Laser Comm Rate Received in Array"
+* Changed Laser Comm Photon Rate at Earth Received in Array units to ph/s
+* Add input: Laser Comm Wavelength (nm) after Peak Laser Comm Power (W)
+* Add input: Default Laser Comm Beam Efficiency to 1. The multiply Laser Comm Flux at Earth by Laser Comm Beam Efficiency
+* Add input: Photons per bit for communication (ph/bit) after Peak Laser Comm Power (W)
+* Add output: Bit rate received at Earth  (units will be bits/s) = Laser Comm Rate at Earth Received in Array/ Photons per bit for communication (ph/bit) after Laser Comm Rate at Earth Received in Array
+Note I replaced "lambda (main high power laser) wavelength with Laser Comm Wavelength (nm) below to allow for a different laser comm wavelength that the main high power laser in the drive array.
+* Change output: Laser_comm_spacecraft_power_peak= peak laser comm power in watts
+* Change output: Laser_comm_spacecraft_optics_size= spacecraft laser comm optical size lambda_laser_comm_wavelength(nm)
+* Change output: Laser Comm Flux at Earth (ph/s-m^2)= epsilon_sub_laser_comm_beam_eff*
+ [Laser Comm Spacecraft Transmit Power (w)/(h*c/( lambda_laser_comm_wavelength(nm)*10^-9 )]/{[L_target_m*2* lambda_laser_comm_wavelength(nm)*10^-9 /Laser Comm Transmit Optics Size (m)]^2}
+Change output formula: Laser Comm Rate at Earth Received in Array(ph/s)= Laser Comm Flux at Earth (ph/s-m^2)*[(d_array_size)^2]
+Change output formula: Laser Comm_effective_photometric_magnitude = -2.5* log (Laser Comm Flux at Earth (ph/s-m^2)/3x1010)
+
 2016-05-13
 
 Implemented Enhancements
+add Laser Comm Beam Efficiency
 * Add output: Equivalent Photometric Magnitude: -2.5 log (Laser Comm Flux at Earth/ 3E10)
 * Changed energy cost to $/W-hr from $/kW-hr
 * Changed energy storage cost to $/W-hr from $/GW-hr

@@ -159,6 +159,30 @@ var inputs = {
 		},
 		val: 1
 	},
+	Photons_per_bit_for_communication:
+	{
+		label: 'Photons Per Bit for Communication',
+		unit:
+		{
+			'ph/bit': 1
+		},
+		val: 1
+	},
+	Laser_comm_wavelength:
+	{
+		label: 'Laser Comm Wavelength',
+		unit:
+		{
+			'um': um
+		},
+		val: 600
+	},
+	Laser_comm_beam_efficiency:
+	{
+		label: 'Laser Comm Beam Efficiency',
+
+		val: 1
+	},
 	Laser_comm_spacecraft_optics_size:
 	{
 		label: 'Spacecraft Laser Comm Optical Size',
@@ -376,9 +400,9 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = inputs.Laser_comm_spacecraft_power_peak.val /
-				( h_planck * c_speed_light / ( inputs.lambda_wavelength.val ) ) /
-				Math.pow( inputs.L_target.val * 2 * inputs.lambda_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
+			this.val = inputs.Laser_comm_beam_efficiency.val *
+				inputs.Laser_comm_spacecraft_power_peak.val / ( h_planck * c_speed_light / inputs.Laser_comm_wavelength.val ) /
+				( Math.pow( inputs.L_target.val * 2 * inputs.Laser_comm_wavelength / inputs.Laser_comm_spacecraft_optics_size ), 2 );
 		}
 	},
 	laser_comm_photometric_magnitude:
@@ -395,7 +419,7 @@ var outputs = {
 	},
 	laser_comm_rate_at_earth:
 	{
-		label: 'Laser Comm Rate at Earth Received in Array',
+		label: 'Laser Comm Rate Received in Array',
 		unit:
 		{
 			's<sup>-1</sup>': ( 1 / s )
