@@ -1,5 +1,7 @@
 Constants
-* c_speed_light
+* c_speed_light: Speed of Light
+* h_planck: Planck's Constant
+* g_n: Gravitational Constant
 
 Inputs
 * m0_payload_mass: Payload

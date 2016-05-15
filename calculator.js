@@ -173,7 +173,7 @@ var inputs = {
 		label: 'Laser Comm Wavelength',
 		unit:
 		{
-			'um': um
+			'nm': nm
 		},
 		val: 600
 	},
