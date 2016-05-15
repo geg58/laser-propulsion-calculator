@@ -168,7 +168,7 @@ var inputs = {
 		},
 		val: 1
 	},
-	Laser_comm_wavelength:
+	lambda_laser_comm_wavelength:
 	{
 		label: 'Laser Comm Wavelength',
 		unit:
@@ -192,7 +192,7 @@ var inputs = {
 		},
 		val: 1
 	},
-	L_target:
+	L_target_m:
 	{
 		label: 'Target Distance',
 		unit:
@@ -274,7 +274,7 @@ var outputs = {
 			this.val = 2 * outputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
 		}
 	},
-	l0_dist:
+	L0_distance_to_spot_size_equals_sail_size:
 	{
 		label: 'Accel Dist &equiv; L<sub>0</sub>',
 		unit:
@@ -401,11 +401,11 @@ var outputs = {
 		update()
 		{
 			this.val = inputs.Laser_comm_beam_efficiency.val *
-				inputs.Laser_comm_spacecraft_power_peak.val / ( h_planck * c_speed_light / inputs.Laser_comm_wavelength.val ) /
-				( Math.pow( inputs.L_target.val * 2 * inputs.Laser_comm_wavelength / inputs.Laser_comm_spacecraft_optics_size ), 2 );
+				inputs.Laser_comm_spacecraft_power_peak.val / ( h_planck * c_speed_light / inputs.lambda_laser_comm_wavelength.val ) /
+				( Math.pow( inputs.L_target_m.val * 2 * inputs.lambda_laser_comm_wavelength / inputs.Laser_comm_spacecraft_optics_size ), 2 );
 		}
 	},
-	laser_comm_photometric_magnitude:
+	Laser_comm_photometric_magnitude:
 	{
 		label: 'Equivalent Photometric Magnitude m<sub>v</sub>',
 		unit:
@@ -417,7 +417,7 @@ var outputs = {
 			this.val = -2.5 * Math.log( outputs.Laser_comm_flux_at_earth.val / 3e10 ) / Math.log( 10 );
 		}
 	},
-	laser_comm_rate_at_earth:
+	Laser_comm_rate_at_earth:
 	{
 		label: 'Laser Comm Rate Received in Array',
 		unit:
