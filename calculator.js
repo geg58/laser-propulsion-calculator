@@ -192,7 +192,7 @@ var inputs = {
 		},
 		val: 1
 	},
-	L_target_m:
+	L_target:
 	{
 		label: 'Target Distance',
 		unit:
@@ -400,9 +400,9 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = inputs.Laser_comm_beam_efficiency.val *
-				inputs.Laser_comm_spacecraft_power_peak.val / ( h_planck * c_speed_light / inputs.lambda_laser_comm_wavelength.val ) /
-				( Math.pow( inputs.L_target_m.val * 2 * inputs.lambda_laser_comm_wavelength / inputs.Laser_comm_spacecraft_optics_size ), 2 );
+			this.val = inputs.Laser_comm_beam_efficiency.val * inputs.Laser_comm_spacecraft_power_peak.val /
+				( h_planck * c_speed_light / ( inputs.lambda_laser_comm_wavelength.val ) ) /
+				Math.pow( inputs.L_target.val * 2 * inputs.lambda_laser_comm_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
 		}
 	},
 	Laser_comm_photometric_magnitude:
@@ -422,7 +422,7 @@ var outputs = {
 		label: 'Laser Comm Rate Received in Array',
 		unit:
 		{
-			's<sup>-1</sup>': ( 1 / s )
+			'ph/s': ( 1 / s )
 		},
 		update()
 		{
