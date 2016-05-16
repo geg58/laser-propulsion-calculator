@@ -157,6 +157,7 @@ var tons_TNT = 4.2e9 * J;
 var s = 1;
 var hr = 3600 * s;
 var d = 86400 * s;
+var yr = 365 * d;
 
 // Constants
 var c_speed_light = 299792458 * m / s;
@@ -217,7 +218,7 @@ var inputs = {
   },
   d_array_size:
   {
-    label: 'Laser Size',
+    label: 'Laser Array Size',
     unit:
     {
       'm': m
@@ -235,7 +236,7 @@ var inputs = {
   },
   epsilon_sub_beam_beam_eff:
   {
-    label: 'Beam Efficiency',
+    label: 'Beam Efficiency (0 - 1)',
     val: 1,
     attributes:
     {
@@ -257,7 +258,7 @@ var inputs = {
   },
   epsilon_sub_elec_photon_to_electrical_eff:
   {
-    label: 'Electrical Efficiency',
+    label: 'Electrical Efficiency (0 - 1)',
     val: 1,
     attributes:
     {
@@ -269,7 +270,7 @@ var inputs = {
     label: 'Electrical Energy Cost',
     unit:
     {
-      '$/W-hr': ( 1 / ( W * hr ) )
+      '$/kW-hr': ( 1 / ( kW * hr ) )
     },
     val: 0.1
   },
@@ -311,8 +312,7 @@ var inputs = {
   },
   Laser_comm_beam_efficiency:
   {
-    label: 'Laser Comm Beam Efficiency',
-
+    label: 'Laser Comm Beam Efficiency (0 - 1)',
     val: 1
   },
   Laser_comm_spacecraft_optics_size:
@@ -462,7 +462,7 @@ var outputs = {
   },
   E_gamma_photon_energy_in_main_beam_to_time_t0:
   {
-    label: 'Laser Energy at &equiv; L<sub>0</sub>',
+    label: 'Laser Energy in Main Beam at &equiv; L<sub>0</sub>',
     unit:
     {
       'GW*hr': ( GW * hr ),
@@ -483,7 +483,19 @@ var outputs = {
     },
     update()
     {
-      this.val = inputs.P_optical.val / inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
+      this.val = inputs.P_optical.val * outputs.t0_time_to_L0.val / inputs.epsilon_sub_elec_photon_to_electrical_eff.val;
+    }
+  },
+  launch_efficiency_at_L0:
+  {
+    label: 'Launch Efficiency at &equiv; L<sub>0</sub> (KE / Electrical Energy)',
+    unit:
+    {
+      '%': 1 / 100
+    },
+    update()
+    {
+      this.val = outputs.l0_ke.val / outputs.E_elec_total_electrical_energy_used_to_t0.val;
     }
   },
   energy_cost_per_launch:
@@ -523,6 +535,18 @@ var outputs = {
       this.val = Math.sqrt( 2 ) * outputs.v_0_speed_to_L0.val;
     }
   },
+  time_to_target_at_limiting_speed:
+  {
+    label: 'Time to Target at Limiting Speed',
+    unit:
+    {
+      'yr': yr
+    },
+    update()
+    {
+      this.val = inputs.L_target.val / outputs.v_infinity_speed_with_continued_illumination.val;
+    }
+  },
   Laser_comm_flux_at_earth:
   {
     label: 'Laser Comm Flux at Earth',
@@ -559,6 +583,34 @@ var outputs = {
     update()
     {
       this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
+    }
+  },
+  Laser_comm_received_wavelength_at_L0:
+  {
+    label: 'Laser Comm Wavelength at Speed at L0',
+    unit:
+    {
+      'nm': nm
+    },
+    update()
+    {
+      var beta_0 = outputs.v_0_speed_to_L0.val / c_speed_light;
+
+      this.val = inputs.lambda_laser_comm_wavelength.val * Math.pow( ( 1 + beta_0 ) / ( 1 - beta_0 ), 1 / 2 );
+    }
+  },
+  Laser_comm_received_wavelength_at_limiting_speed:
+  {
+    label: 'Laser Comm Wavelength at Limiting Speed',
+    unit:
+    {
+      'nm': nm
+    },
+    update()
+    {
+      var beta_infinity = outputs.v_infinity_speed_with_continued_illumination.val / c_speed_light;
+
+      this.val = inputs.lambda_laser_comm_wavelength.val * Math.pow( ( 1 + beta_infinity ) / ( 1 - beta_infinity ), 1 / 2 );
     }
   }
 };
@@ -792,7 +844,7 @@ function render()
 
     for ( var unit in output.unit )
     {
-      output.element[ unit ].innerHTML = parseFloat( value / output.unit[ unit ] ).toPrecision( 3 ) + ' ';
+      output.element[ unit ].innerHTML = ( value / output.unit[ unit ] ).toPrecision( 3 ) + ' ';
     }
   }
 }
@@ -813,6 +865,6 @@ function update( e )
   calculate();
   render();
 }
-  </script>
+</script>
 </body>
 </html>
