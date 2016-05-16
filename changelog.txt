@@ -1,3 +1,15 @@
+2016-05-16
+
+Implemented Enhancements
+* Renamed "Laser Power" to "Laser Power in Main Beam"
+* Add output: Launch Efficiency at L0
+* Add output: Laser Comm Wavelength at Speed at L0
+* Add output: Laser Comm Wavelength at Limiting Speed
+* Changed units for Energy Cost to $/kW*hr from $/W*hr
+
+Fixed Bugs
+* Electrical Energy at L0 - multiply by t0_time_to_L0
+
 2016-05-14
 
 Implemented Enhancements
