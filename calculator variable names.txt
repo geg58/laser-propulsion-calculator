@@ -20,7 +20,7 @@ Inputs
 * lambda_laser_comm_wavelength: Laser Comm Wavelength (nm)
 * Laser_comm_beam_efficiency: Laser Comm Beam Efficiency
 * Laser_comm_spacecraft_optics_size: Spacecraft Laser Comm Optical Size
-* L_target_m: Target Distance
+* L_target: Target Distance
 
 Outputs
 * m_sail: Sail Mass
