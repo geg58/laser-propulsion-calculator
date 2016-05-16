@@ -428,6 +428,34 @@ var outputs = {
 		{
 			this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
 		}
+	},
+	Laser_comm_received_wavelength_at_L0:
+	{
+		label: 'Laser Comm Wavelength at Speed at L0',
+		unit:
+		{
+			'nm': nm
+		},
+		update()
+		{
+			var beta_0 = outputs.v_0_speed_to_L0.val / c_speed_light;
+
+			this.val = inputs.lambda_laser_comm_wavelength.val * Math.pow( ( 1 + beta_0 ) / ( 1 - beta_0 ), 1 / 2 );
+		}
+	},
+	Laser_comm_received_wavelength_at_limiting_speed:
+	{
+		label: 'Laser Comm Wavelength at Limiting Speed',
+		unit:
+		{
+			'nm': nm
+		},
+		update()
+		{
+			var beta_infinity = outputs.v_infinity_speed_with_continued_illumination.val / c_speed_light;
+
+			this.val = inputs.lambda_laser_comm_wavelength.val * Math.pow( ( 1 + beta_infinity ) / ( 1 - beta_infinity ), 1 / 2 );
+		}
 	}
 };
 
