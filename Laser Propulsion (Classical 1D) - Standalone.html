@@ -585,6 +585,18 @@ var outputs = {
       this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
     }
   },
+  Laser_comm_bit_rate_received_in_array:
+  {
+    label: 'Laser Comm Bit Rate Received in Array',
+    unit:
+    {
+      'bits/s': 1
+    },
+    update()
+    {
+      this.val = outputs.Laser_comm_rate_at_earth.val / inputs.Photons_per_bit_for_communication.val;
+    }
+  },
   Laser_comm_received_wavelength_at_L0:
   {
     label: 'Laser Comm Wavelength at Speed at L0',
