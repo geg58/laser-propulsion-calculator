@@ -105,7 +105,7 @@
 </head>
 <body>
   <header>
-    <p>Photon Propulsion Calculator - Based on the calculations in "A Roadmap to Interstellar Flight" - <a href=http://arxiv.org/abs/1604.01356 target="_blank">http://arxiv.org/abs/1604.01356</a></p>
+    <p>Photon Propulsion Calculator-Based on the calculations in "A Roadmap to Interstellar Flight" - <a href=http://arxiv.org/abs/1604.01356 target="_blank">http://arxiv.org/abs/1604.01356</a></p>
     <h1>UC Santa Barbara Laser Propulsion (Classical 1D)</h1>
   </header>
   <div id="main">
@@ -127,6 +127,7 @@
     </table>
   </div>
   <footer>
+    <a href=</a>
   </footer>
   <script type='text/javascript'>
 /**
@@ -392,18 +393,6 @@ var outputs = {
       this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
     }
   },
-  flux_on_sail:
-  {
-    label: 'Flux on Sail',
-    unit:
-    {
-      'GW/m<sup>2</sup>': ( GW / Math.pow( m, 2 ) )
-    },
-    update()
-    {
-      this.val = outputs.P0_laser_power_in_main_beam.val / Math.pow( inputs.D_sail_size.val, 2 );
-    }
-  },
   a_acceleration:
   {
     label: 'Peak Acceleration',
@@ -563,7 +552,7 @@ var outputs = {
     label: 'Laser Comm Flux at Earth',
     unit:
     {
-      's<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
+      'ph-s<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
     },
     update()
     {

@@ -63,7 +63,7 @@ var inputs = {
 		label: 'Sail Size',
 		unit:
 		{
-			'm/cm<sup>2</sup>': m
+			'm': m
 		}
 	},
 	h_sail_thickness:
@@ -259,6 +259,18 @@ var outputs = {
 		update()
 		{
 			this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
+		}
+	},
+	flux_on_sail:
+	{
+		label: 'Flux on Sail',
+		unit:
+		{
+			'GW/m<sup>2</sup>': ( GW / Math.pow( m, 2 ) )
+		},
+		update()
+		{
+			this.val = outputs.P0_laser_power_in_main_beam.val / Math.pow( inputs.D_sail_size.val, 2 );
 		}
 	},
 	a_acceleration:
