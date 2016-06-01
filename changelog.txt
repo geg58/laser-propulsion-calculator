@@ -1,3 +1,9 @@
+2016-05-31
+
+Implemented Enhancements
+* Changed output L0 naming convention (no more = signs)
+* CHanged default value for laser array size to 10,000m
+
 2015-05-29
 
 Implemented Enhancements

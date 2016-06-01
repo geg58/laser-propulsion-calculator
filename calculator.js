@@ -91,7 +91,7 @@ var inputs = {
 		{
 			'm': m
 		},
-		val: 1000
+		val: 10000
 	},
 	P_optical:
 	{
@@ -288,7 +288,7 @@ var outputs = {
 	},
 	L0_distance_to_spot_size_equals_sail_size:
 	{
-		label: 'Accel Dist &equiv; L<sub>0</sub>',
+		label: 'Accel Dist at L<sub>0</sub>',
 		unit:
 		{
 			au: au,
@@ -301,7 +301,7 @@ var outputs = {
 	},
 	t0_time_to_L0:
 	{
-		label: 'Time to &equiv; L<sub>0</sub>',
+		label: 'Time to L<sub>0</sub>',
 		unit:
 		{
 			d: d,
@@ -315,7 +315,7 @@ var outputs = {
 	},
 	v_0_speed_to_L0:
 	{
-		label: 'Speed at &equiv; L<sub>0</sub>',
+		label: 'Speed at L<sub>0</sub>',
 		unit:
 		{
 			'km/s': ( km / s ),
@@ -329,7 +329,7 @@ var outputs = {
 	},
 	l0_ke:
 	{
-		label: 'Kinetic Energy at &equiv; L<sub>0</sub>',
+		label: 'Kinetic Energy at L<sub>0</sub>',
 		unit:
 		{
 			'GW*hr': ( GW * hr ),
@@ -342,7 +342,7 @@ var outputs = {
 	},
 	E_gamma_photon_energy_in_main_beam_to_time_t0:
 	{
-		label: 'Laser Energy in Main Beam at &equiv; L<sub>0</sub>',
+		label: 'Laser Energy in Main Beam at L<sub>0</sub>',
 		unit:
 		{
 			'GW*hr': ( GW * hr ),
@@ -355,7 +355,7 @@ var outputs = {
 	},
 	E_elec_total_electrical_energy_used_to_t0:
 	{
-		label: 'Electrical Energy at &equiv; L<sub>0</sub>',
+		label: 'Electrical Energy at L<sub>0</sub>',
 		unit:
 		{
 			'GW*hr': ( GW * hr ),
@@ -368,7 +368,7 @@ var outputs = {
 	},
 	launch_efficiency_at_L0:
 	{
-		label: 'Launch Efficiency at &equiv; L<sub>0</sub> (KE / Electrical Energy)',
+		label: 'Launch Efficiency at L<sub>0</sub> (KE / Electrical Energy)',
 		unit:
 		{
 			'%': 1 / 100
@@ -380,7 +380,7 @@ var outputs = {
 	},
 	energy_cost_per_launch:
 	{
-		label: 'Electrical Energy Cost at &equiv; L<sub>0</sub>',
+		label: 'Electrical Energy Cost at L<sub>0</sub>',
 		unit:
 		{
 			'$': 1
@@ -392,7 +392,7 @@ var outputs = {
 	},
 	energy_storage_cost_per_launch:
 	{
-		label: 'Energy Storage Cost at &equiv; L<sub>0</sub>',
+		label: 'Energy Storage Cost at L<sub>0</sub>',
 		unit:
 		{
 			'$': 1
