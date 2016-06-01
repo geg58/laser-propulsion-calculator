@@ -533,6 +533,39 @@ function isDefined( v )
  */
 ( function init()
 {
+	/** Create a two column row
+	 * 
+	 * @param {Array} cells - Array of cells/ columns to populate the row
+	 * @return {DOMElement} Table row/ tr DOM Element
+	 */
+	function createTableRow( cells )
+	{
+		var row = document.createElement( 'tr' );
+
+		for ( var i = 0; i < cells.length; i++ )
+		{
+			var cell = document.createElement( 'td' );
+
+			// Create a cell with multiple children
+			if ( Array.isArray( cells[ i ] ) )
+			{
+				for ( var j = 0; j < cells[ i ].length; j++ )
+				{
+					cell.appendChild( cells[ i ][ j ] );
+				}
+			}
+			else
+			{
+				// Create a cell with one child
+				cell.appendChild( cells[ i ] );
+			}
+
+			row.appendChild( cell );
+		}
+
+		return row;
+	}
+
 	// Populate the input form/ table with inputs
 	var inputs_element = document.getElementById( 'inputs' );
 	for ( var id in inputs )
@@ -558,15 +591,19 @@ function isDefined( v )
 			element.addEventListener( 'input', update, false );
 
 			// Convert default values to their correct units
+			var i = 0;
 			for ( var unit in input.unit )
 			{
-				label.innerHTML += ' <label class="unit">(' + unit + ')</label>';
+				if ( i > 0 )
+				{
+					throw "Only one input unit allowed";
+				}
 
-				input.unit = input.unit[ unit ];
-				input.val *= input.unit;
+				label.innerHTML += ' <label class="unit">(' + unit + ')</label>';
+				input.val *= input.unit[ unit ];
 
 				// Only allow one unit for inputs
-				break;
+				i++;
 			}
 		}
 
@@ -592,6 +629,9 @@ function isDefined( v )
 
 		label.innerHTML = output.label;
 
+		// Create object to store values for each unit
+		outputs[ id ].unitVal = {};
+
 		// Create a table cell with the output and its units
 		for ( var unit in output.unit )
 		{
@@ -612,40 +652,9 @@ function isDefined( v )
 	optimize();
 	calculate();
 	render();
+
+	document.getElementById( 'download_csv' ).addEventListener( 'click', downloadCSV, false );
 } )();
-
-/** Create a two column row
- * 
- * @param {Array} cells - Array of cells/ columns to populate the row
- * @return {DOMElement} Table row/ tr DOM Element
- */
-function createTableRow( cells )
-{
-	var row = document.createElement( 'tr' );
-
-	for ( var i = 0; i < cells.length; i++ )
-	{
-		var cell = document.createElement( 'td' );
-
-		// Create a cell with multiple children
-		if ( Array.isArray( cells[ i ] ) )
-		{
-			for ( var j = 0; j < cells[ i ].length; j++ )
-			{
-				cell.appendChild( cells[ i ][ j ] );
-			}
-		}
-		else
-		{
-			// Create a cell with one child
-			cell.appendChild( cells[ i ] );
-		}
-
-		row.appendChild( cell );
-	}
-
-	return row;
-}
 
 /** Record changes to an HTML input
  *
@@ -681,10 +690,10 @@ function load( input_element )
 			input.update();
 		}
 
-		// Convert to SI units
-		if ( isDefined( input.unit ) )
+		// Convert to standard units
+		for ( var unit in input.unit )
 		{
-			input.val *= input.unit;
+			input.val *= input.unit[ unit ];
 		}
 
 		return true;
@@ -721,7 +730,14 @@ function calculate()
 {
 	for ( var id in outputs )
 	{
+		// Calculate standard output value
 		outputs[ id ].update();
+
+		// Convert output's value to non-standard units
+		for ( var unit in outputs[ id ].unit )
+		{
+			outputs[ id ].unitVal[ unit ] = ( outputs[ id ].val / outputs[ id ].unit[ unit ] ).toPrecision( 3 );
+		}
 	}
 }
 
@@ -731,12 +747,9 @@ function render()
 {
 	for ( var id in outputs )
 	{
-		var output = outputs[ id ];
-		var value = output.val;
-
-		for ( var unit in output.unit )
+		for ( var unit in outputs[ id ].unitVal )
 		{
-			output.element[ unit ].innerHTML = ( value / output.unit[ unit ] ).toPrecision( 3 ) + ' ';
+			outputs[ id ].element[ unit ].innerHTML = outputs[ id ].unitVal[ unit ] + ' ';
 		}
 	}
 }
@@ -756,4 +769,148 @@ function update( e )
 	optimize();
 	calculate();
 	render();
+}
+
+/*
+ * CSV download functionality
+ */
+
+function downloadCSV()
+{
+	exportToCsv( "test.csv", createCSV() );
+}
+
+function exportToCsv( filename, rows )
+{
+	var processRow = function ( row )
+	{
+		var finalVal = '';
+		for ( var j = 0; j < row.length; j++ )
+		{
+			var innerValue = typeof row[ j ] === 'undefined' ? '' : row[ j ].toString();
+			if ( row[ j ] instanceof Date )
+			{
+				innerValue = row[ j ].toLocaleString();
+			};
+			var result = innerValue.replace( /"/g, '""' );
+			if ( result.search( /("|,|\n)/g ) >= 0 )
+				result = '"' + result + '"';
+			if ( j > 0 )
+				finalVal += ',';
+			finalVal += result;
+		}
+		return finalVal + '\n';
+	};
+
+	var csvFile = '';
+	for ( var i = 0; i < rows.length; i++ )
+	{
+		csvFile += processRow( rows[ i ] );
+	}
+
+	var blob = new Blob( [ csvFile ],
+	{
+		type: 'text/csv;charset=utf-8;'
+	} );
+	if ( navigator.msSaveBlob )
+	{ // IE 10+
+		navigator.msSaveBlob( blob, filename );
+	}
+	else
+	{
+		var link = document.createElement( "a" );
+		if ( link.download !== undefined )
+		{ // feature detection
+			// Browsers that support HTML5 download attribute
+			var url = URL.createObjectURL( blob );
+			link.setAttribute( "href", url );
+			link.setAttribute( "download", filename );
+			link.style.visibility = 'hidden';
+			document.body.appendChild( link );
+			link.click();
+			document.body.removeChild( link );
+		}
+	}
+}
+
+function createCSV()
+{
+	var lineArray = [
+		[ "Inputs", "Value", "Unit", "Outputs", "Value", "Unit" ]
+	];
+
+	var inputsArray = Object.getOwnPropertyNames( inputs );
+	var outputsArray = Object.getOwnPropertyNames( outputs );
+
+	for ( var i = 0; i < Math.max( inputsArray.length, outputsArray.length ); i++ )
+	{
+		var input = inputs[ inputsArray[ i ] ];
+		var output = outputs[ outputsArray[ i ] ];
+
+		var line = [];
+
+		if ( isDefined( input ) )
+		{
+			line.push( htmlToText( input.label ) );
+			line.push( input.val );
+
+			var j = 0;
+			for ( var unit in input.unit )
+			{
+				line.push( htmlToText( unit ) );
+				j++;
+			}
+
+			// For unitless inputs
+			if ( j != 1 )
+			{
+				line.push( "" );
+			}
+		}
+		else
+		{
+			// More outputs than inputs so add empty input line
+			line = line.concat( [ "", "", "" ] );
+		}
+
+		if ( isDefined( output ) )
+		{
+			line.push( htmlToText( output.label ) );
+
+			for ( var unit in output.unitVal )
+			{
+				line.push( output.unitVal[ unit ] );
+				line.push( htmlToText( unit ) );
+			}
+
+			lineArray.push( line );
+		}
+	}
+
+	return lineArray;
+}
+
+/*
+ * Convert unit in HTML format to text
+ */
+function htmlToText( unitHTML )
+{
+	if ( !isDefined( unitHTML ) )
+	{
+		return unitHTML;
+	}
+
+	unitHTML = String( unitHTML ).replace( /&mu;/g, "u" );
+	unitHTML = String( unitHTML ).replace( /<sup>/g, "^" );
+	unitHTML = String( unitHTML ).replace( /<sub>/g, "_" );
+
+	unitHTML = String( unitHTML ).replace( /<\/sup>/g, "" );
+	unitHTML = String( unitHTML ).replace( /<\/sub>/g, "" );
+
+	return unitHTML;
+}
+
+function unitToHTML( unitText )
+{
+
 }
