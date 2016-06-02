@@ -80,6 +80,14 @@
         color: #DDD;
       }
 
+    nav > ul {
+      list-style-type: none;
+    }
+
+      nav li {
+        display: inline-block;
+      }
+
     #main {
       display: inline-block;
       width: calc(100% - 4rem);
@@ -108,6 +116,13 @@
   <header>
     <h1>UC Santa Barbara Laser Propulsion (Classical 1D)</h1>
   </header>
+  <nav>
+    <ul>
+      <li>
+        <button id='download_csv'>Download CSV</button>
+      </li>
+    </ul>
+  </nav>
   <div id="main">
     <table id="inputs">
       <caption>
@@ -420,7 +435,7 @@ var outputs = {
   },
   L0_distance_to_spot_size_equals_sail_size:
   {
-    label: 'Accel Dist at L<sub>0</sub>',
+    label: 'L<sub>0</sub>',
     unit:
     {
       au: au,

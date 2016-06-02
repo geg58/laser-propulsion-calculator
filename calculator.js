@@ -288,7 +288,7 @@ var outputs = {
 	},
 	L0_distance_to_spot_size_equals_sail_size:
 	{
-		label: 'Accel Dist at L<sub>0</sub>',
+		label: 'L<sub>0</sub>',
 		unit:
 		{
 			au: au,
