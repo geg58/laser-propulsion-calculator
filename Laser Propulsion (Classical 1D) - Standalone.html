@@ -998,24 +998,24 @@ function createCSV()
 
     if ( isDefined( input ) )
     {
-        line.push( htmlToText( input.label ) );
+      line.push( htmlToText( input.label ) );
 
-        var j = 0;
-        for ( var unit in input.unit )
-        {
-          // Convert standard unit values
-          line.push( input.val / input.unit[ unit ] );
-          line.push( htmlToText( unit ) );
+      var j = 0;
+      for ( var unit in input.unit )
+      {
+        // Convert standard unit values
+        line.push( input.val / input.unit[ unit ] );
+        line.push( htmlToText( unit ) );
 
-          j++;
-        }
+        j++;
+      }
 
-        // For unitless inputs
-        if ( j != 1 )
-        {
-          line.push( input.val );
-          line.push( "" );
-        }
+      // For unitless inputs
+      if ( j != 1 )
+      {
+        line.push( input.val );
+        line.push( "" );
+      }
     }
     else
     {
