@@ -856,6 +856,7 @@ function createCSV()
 			var j = 0;
 			for ( var unit in input.unit )
 			{
+				// Convert standard unit values
 				line.push( input.val / input.unit[ unit ] );
 				line.push( htmlToText( unit ) );
 
@@ -865,6 +866,7 @@ function createCSV()
 			// For unitless inputs
 			if ( j != 1 )
 			{
+				line.push( input.val );
 				line.push( "" );
 			}
 		}
