@@ -999,12 +999,13 @@ function createCSV()
     if ( isDefined( input ) )
     {
       line.push( htmlToText( input.label ) );
-      line.push( input.val );
 
       var j = 0;
       for ( var unit in input.unit )
       {
+        line.push( input.val / input.unit[ unit ] );
         line.push( htmlToText( unit ) );
+
         j++;
       }
 

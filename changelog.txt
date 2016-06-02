@@ -1,5 +1,10 @@
 2016-06-01
 
+Fixed Bugs
+* CSV file inputs were outputting standard unit values
+
+2016-06-01
+
 Implemented Enhancements
 * Added download CSV feature
 
