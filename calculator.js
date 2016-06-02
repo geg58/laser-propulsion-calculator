@@ -909,8 +909,3 @@ function htmlToText( unitHTML )
 
 	return unitHTML;
 }
-
-function unitToHTML( unitText )
-{
-
-}
