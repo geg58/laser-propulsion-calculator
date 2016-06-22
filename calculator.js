@@ -98,7 +98,7 @@ var inputs = {
 		val: 1,
 		attributes:
 		{
-			min: 0
+			min: 0,
 			max: 1
 		}
 	},
@@ -131,6 +131,7 @@ var inputs = {
 		val: 1,
 		attributes:
 		{
+			min: 0,
 			max: 1
 		}
 	},
@@ -153,6 +154,7 @@ var inputs = {
 		val: 1,
 		attributes:
 		{
+			min: 0,
 			max: 1
 		}
 	},
@@ -660,6 +662,7 @@ function isDefined( v )
 		{
 			element.setAttribute( 'type', 'number' );
 			element.setAttribute( 'value', input.val );
+			element.setAttribute( 'style', 'width: 100%;');
 			element.addEventListener( 'input', update, false );
 
 			// Convert default values to their correct units
