@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * This document uses JSDoc (http://usejsdoc.org) for documentation.
  */
@@ -31,6 +33,7 @@ var yr = 365 * d;
 var c_speed_light = 299792458 * m / s;
 var g_n = 9.80665 * m / Math.pow( s, 2 );
 var h_planck = 6.626070040e-34 * J / s;
+var pi = 3.14159265359;
 
 /**
  * Input variables
@@ -53,6 +56,11 @@ var inputs = {
 		},
 		val: 0.001
 	},
+	use_circular_sail:
+	{
+		label: 'Use Circular Sail',
+		checked: false
+	},
 	auto_sail:
 	{
 		label: 'Use Optimal Sail Size',
@@ -60,7 +68,7 @@ var inputs = {
 	},
 	D_sail_size:
 	{
-		label: 'Sail Size',
+		label: 'Sail Side Length',
 		unit:
 		{
 			'm': m
@@ -84,9 +92,14 @@ var inputs = {
 		},
 		val: 1
 	},
+	use_circular_array:
+	{
+		label: 'Use Circular Laser Array',
+		checked: false
+	},
 	d_array_size:
 	{
-		label: 'Laser Array Size',
+		label: 'Laser Array Side Length',
 		unit:
 		{
 			'm': m
@@ -183,6 +196,11 @@ var inputs = {
 		label: 'Laser Comm Beam Efficiency (0 - 1)',
 		val: 1
 	},
+	use_circular_laser_comm_optics:
+	{
+		label: 'Use Circular Comm Optics',
+		checked: true
+	},
 	Laser_comm_spacecraft_optics_size:
 	{
 		label: 'Spacecraft Laser Comm Optical Size',
@@ -204,6 +222,37 @@ var inputs = {
 };
 
 /**
+ * Hidden variables
+ *
+ * @typedef {Object} Output
+ * @property {Number} val - Calculated value
+ * @property {Function} update() - Updates val
+ */
+ var hiddens = {
+ 	xi_sail_constant:
+ 	{
+ 		update: function ()
+ 		{
+ 			this.val = use_circular_sail.checked ? pi/4 : 1;
+ 		}
+ 	},
+	alpha_array_constant:
+ 	{
+ 		update: function ()
+ 		{
+ 			this.val = use_circular_array.checked ? 1.22 : 1;
+ 		}
+ 	},
+	alpha_laser_comm_optics_constant:
+ 	{
+ 		update: function ()
+ 		{
+ 			this.val = use_circular_laser_comm_optics.checked ? 1.22 : 1;
+ 		}
+ 	}
+}
+
+/**
  * Output variables
  *
  * @typedef {Object} Output
@@ -222,7 +271,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = Math.pow( inputs.D_sail_size.val, 2 ) * inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
+			this.val = hiddens.xi_sail_constant.val * Math.pow( inputs.D_sail_size.val, 2 ) * inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
 		}
 	},
 	m_total_mass:
@@ -270,7 +319,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = outputs.P0_laser_power_in_main_beam.val / Math.pow( inputs.D_sail_size.val, 2 );
+			this.val = outputs.P0_laser_power_in_main_beam.val /(hiddens.xi_sail_constant.val * Math.pow( inputs.D_sail_size.val, 2 ));
 		}
 	},
 	a_acceleration:
@@ -296,7 +345,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = inputs.d_array_size.val * inputs.D_sail_size.val / ( 2 * inputs.lambda_wavelength.val );
+			this.val = inputs.d_array_size.val * inputs.D_sail_size.val / ( 2 * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val);
 		}
 	},
 	t0_time_to_L0:
@@ -310,7 +359,7 @@ var outputs = {
 		update()
 		{
 			this.val = Math.sqrt( c_speed_light * inputs.d_array_size.val * inputs.D_sail_size.val * outputs.m_total_mass.val /
-				( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val ) );
+				( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val ) );
 		}
 	},
 	v_0_speed_to_L0:
@@ -324,7 +373,7 @@ var outputs = {
 		update()
 		{
 			this.val = Math.sqrt( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
-				( c_speed_light * inputs.lambda_wavelength.val * outputs.m_total_mass.val ) );
+				( c_speed_light * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val * outputs.m_total_mass.val ) );
 		}
 	},
 	l0_ke:
@@ -432,13 +481,16 @@ var outputs = {
 		label: 'Laser Comm Flux at Earth',
 		unit:
 		{
-			's<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
+			'ph s<sup>-1</sup>m<sup>-2</sup>': ( 1 / ( s * Math.pow( m, 2 ) ) )
 		},
 		update()
 		{
+
+
+
 			this.val = inputs.Laser_comm_beam_efficiency.val * inputs.Laser_comm_spacecraft_power_peak.val /
 				( h_planck * c_speed_light / ( inputs.lambda_laser_comm_wavelength.val ) ) /
-				Math.pow( inputs.L_target.val * 2 * inputs.lambda_laser_comm_wavelength.val / inputs.Laser_comm_spacecraft_optics_size.val, 2 );
+				Math.pow( inputs.L_target.val * 2 * inputs.lambda_laser_comm_wavelength.val / (inputs.Laser_comm_spacecraft_optics_size.val*hiddens.alpha_laser_comm_optics_constant.val), 2 );
 		}
 	},
 	Laser_comm_photometric_magnitude:
@@ -462,7 +514,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = outputs.Laser_comm_flux_at_earth.val * Math.pow( inputs.d_array_size.val, 2 );
+			this.val = outputs.Laser_comm_flux_at_earth.val * hiddens.xi_sail_constant.val * Math.pow( inputs.d_array_size.val, 2 );
 		}
 	},
 	Laser_comm_bit_rate_received_in_array:
@@ -507,6 +559,10 @@ var outputs = {
 	}
 };
 
+function getLength(obj) {
+	return Object.keys(obj).length;
+}
+
 /** Determine if variable is a number
  *
  * @param {*} n - Variable to check
@@ -534,7 +590,7 @@ function isDefined( v )
 ( function init()
 {
 	/** Create a two column row
-	 * 
+	 *
 	 * @param {Array} cells - Array of cells/ columns to populate the row
 	 * @return {DOMElement} Table row/ tr DOM Element
 	 */
@@ -571,17 +627,22 @@ function isDefined( v )
 	for ( var id in inputs )
 	{
 		var input = inputs[ id ];
-		var label = document.createElement( 'label' );
+		var label = input.htmlLabel =  document.createElement( 'label' );
 		var element = input.element = document.createElement( 'input' );
 
+
 		label.innerHTML = input.label;
+		label.setAttribute( 'for', id)
 		element.setAttribute( 'id', id );
 
 		// Checkbox input
 		if ( typeof input.checked !== 'undefined' )
 		{
 			element.setAttribute( 'type', 'checkbox' );
-			element.setAttribute( 'checked', input.checked );
+			if(input.checked)
+			{
+				element.setAttribute( 'checked', true); // checked doesn't take a true/false, if it exists the box is checked.
+			}
 			element.addEventListener( 'click', update, false );
 		}
 		else
@@ -649,6 +710,7 @@ function isDefined( v )
 	}
 
 	// Calculate and display outputs according to the default input values
+	checkCircular();
 	optimize();
 	calculate();
 	render();
@@ -708,6 +770,66 @@ function load( input_element )
 	}
 }
 
+/** Updates the HTML <label> tag's contents to be the same as input.label;
+ *  Input must be an input from the inputs object defined at the top of the file
+ *  and it must be called once the HTML for the tables is fully generated.
+ */
+function updateHTMLLabelToMatch(input) {
+	input.htmlLabel.innerHTML = input.label;
+	if (getLength(input.unit) == 1) {
+		var unit = Object.keys(input.unit)[0];
+		input.htmlLabel.innerHTML += ' <label class="unit">(' + unit + ')</label>';
+	} else {
+		throw "Only one input unit allowed";
+	}
+}
+
+/** Called in update(), this function checks if sail_circular or laser_circular
+ *  has been changed, and if so, changes the hidden variables they control
+ *  and updates the text.
+ */
+function checkCircular() {
+	var laser_circular = use_circular_array.checked;
+
+	if (laser_circular) {
+		inputs.d_array_size.label = "Laser Array Diameter";
+		inputs.use_circular_sail.element.enabled = true;
+		inputs.use_circular_sail.label = "Use Circular Sail";
+		inputs.use_circular_sail.htmlLabel.innerHTML = "Use Circular Sail";
+	}else {
+		inputs.d_array_size.label = "Laser Array Side Length";
+		inputs.use_circular_sail.element.checked = false;
+		inputs.use_circular_sail.element.enabled = false;
+		inputs.use_circular_sail.label = "Use Circular Sail (Disabled)";
+		inputs.use_circular_sail.htmlLabel.innerHTML = "Use Circular Sail (Disabled)";
+	}
+
+	var sail_circular = use_circular_sail.checked;
+
+	if (laser_circular && sail_circular) {
+		inputs.D_sail_size.label = "Sail Diameter";
+	}else {
+		inputs.D_sail_size.label = "Sail Side Length";
+	}
+
+	var comm_circular = use_circular_laser_comm_optics.checked;
+
+	if (comm_circular) {
+		inputs.Laser_comm_spacecraft_optics_size.label = "Laser Comm Optical Diameter";
+	}else {
+		inputs.Laser_comm_spacecraft_optics_size.label = "Laser Comm Optical Side Length";
+	}
+
+	updateHTMLLabelToMatch(inputs.D_sail_size);
+	updateHTMLLabelToMatch(inputs.d_array_size);
+	updateHTMLLabelToMatch(inputs.Laser_comm_spacecraft_optics_size);
+
+	for ( var id in hiddens )
+	{
+		hiddens[ id ].update();
+	}
+}
+
 /** Optimize the size of the sail
  */
 function optimize()
@@ -721,7 +843,7 @@ function optimize()
 
 	// Calculate sail size for sail mass = m0_payload_mass mass
 	inputs.D_sail_size.element.value = inputs.D_sail_size.val =
-		Math.sqrt( inputs.m0_payload_mass.val / ( inputs.rho_sail_density.val * inputs.h_sail_thickness.val ) );
+		Math.sqrt( inputs.m0_payload_mass.val / ( hiddens.xi_sail_constant.val * inputs.rho_sail_density.val * inputs.h_sail_thickness.val ) );
 }
 
 /** Calculate the outputs
@@ -766,6 +888,7 @@ function update( e )
 		return;
 	}
 
+	checkCircular();
 	optimize();
 	calculate();
 	render();
