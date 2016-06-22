@@ -92,6 +92,15 @@ var inputs = {
 		},
 		val: 1
 	},
+	epsilon_sub_r_reflection_coef:
+	{
+		label: 'Sail Reflection Efficiency (0 - 1)',
+		val: 1,
+		attributes:
+		{
+			max: 1
+		}
+	},
 	use_circular_array:
 	{
 		label: 'Use Circular Laser Array',
@@ -332,7 +341,8 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = 2 * outputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
+			this.val = (1+inputs.epsilon_sub_r_reflection_coef.val) *
+			 outputs.P0_laser_power_in_main_beam.val / ( outputs.m_total_mass.val * c_speed_light );
 		}
 	},
 	L0_distance_to_spot_size_equals_sail_size:
@@ -359,7 +369,7 @@ var outputs = {
 		update()
 		{
 			this.val = Math.sqrt( c_speed_light * inputs.d_array_size.val * inputs.D_sail_size.val * outputs.m_total_mass.val /
-				( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val ) );
+				( (1+inputs.epsilon_sub_r_reflection_coef.val) * outputs.P0_laser_power_in_main_beam.val * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val ) );
 		}
 	},
 	v_0_speed_to_L0:
@@ -372,7 +382,7 @@ var outputs = {
 		},
 		update()
 		{
-			this.val = Math.sqrt( 2 * outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
+			this.val = Math.sqrt( (1+inputs.epsilon_sub_r_reflection_coef.val) * outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val * inputs.D_sail_size.val /
 				( c_speed_light * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val * outputs.m_total_mass.val ) );
 		}
 	},
@@ -726,7 +736,7 @@ function isDefined( v )
 function load( input_element )
 {
 	var input = inputs[ input_element.getAttribute( 'id' ) ];
-	input.val = input.rawVal = input_element.value;
+	input.val = input.rawVal = parseInt(input_element.value);
 
 	// Numerical input
 	if ( isNumeric( input.val ) )
@@ -734,15 +744,15 @@ function load( input_element )
 		if ( isDefined( input.attributes ) )
 		{
 			// Value is below allowed range
-			if ( isDefined( input.attributes.min ) && input.val <= input.attributes.min )
+			if ( isDefined( input.attributes.min ) && input.val < input.attributes.min )
 			{
-				return;
+				input.val = input.rawVal = input.attributes.min;
 			}
 
 			// Value is above allowed range
-			if ( isDefined( input.attributes.min ) && input.val > input.attributes.max )
+			if ( isDefined( input.attributes.max ) && input.val > input.attributes.max )
 			{
-				return;
+				input.val = input.rawVal = input.attributes.max;
 			}
 		}
 
