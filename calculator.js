@@ -736,7 +736,7 @@ function isDefined( v )
 function load( input_element )
 {
 	var input = inputs[ input_element.getAttribute( 'id' ) ];
-	input.val = input.rawVal = parseInt(input_element.value);
+	input.val = input.rawVal = parseFloat(input_element.value);
 
 	// Numerical input
 	if ( isNumeric( input.val ) )
