@@ -98,6 +98,7 @@ var inputs = {
 		val: 1,
 		attributes:
 		{
+			min: 0
 			max: 1
 		}
 	},
