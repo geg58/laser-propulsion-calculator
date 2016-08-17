@@ -59,6 +59,19 @@ var inputs = {
     },
     val: 0.001,
   },
+  auto_sail: {
+    label: 'Use Optimal Sail',
+    type: 'checkbox',
+    val: false,
+  },
+  use_square_sail: {
+    label: 'Use Square Sail',
+    type: 'radio',
+    val: true,
+    attributes: {
+      name: 0
+    },
+  },
   use_circular_sail: {
     label: 'Use Circular Sail',
     checked: false,
@@ -125,7 +138,19 @@ var inputs = {
   },
   use_circular_array: {
     label: 'Use Circular Laser Array',
-    checked: false,
+    type: 'checkbox',
+    val: true,
+    update: function() {
+      if (this.val) {
+        enableInput(inputs.use_circular_sail);
+        enableInput(inputs.use_spherical_sail);
+      } else {
+        disableInput(inputs.use_circular_sail);
+        disableInput(inputs.use_spherical_sail);
+        inputs.use_square_sail.val = true;
+        inputs.use_square_sail.element.checked = true;
+      }
+    },
   },
   d_array_size: {
     label: 'Laser Array Side Length',
@@ -919,8 +944,9 @@ function render() {
  *
  * @param {Event} e
  */
-function update(e) {
-  if (!load(e.target)) {
+function optimizeSailSize() {
+  inputs.D_sail_size.element.disabled = inputs.auto_sail.val;
+  if (!inputs.auto_sail.val) {
     return;
   }
 
