@@ -11,7 +11,11 @@
     }
 
     body {
-      background-color: #202025;
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3f51+0,263545+100 */
+      background: #2d3f51; /* Old browsers */
+      background: -moz-linear-gradient(-45deg, #2d3f51 0%, #263545 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(-45deg, #2d3f51 0%,#263545 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(135deg, #2d3f51 0%,#263545 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     }
 
     span {
@@ -25,10 +29,14 @@
       font-weight: 100;
     }
 
-      h1 {
-        color: #FFF;
-        font-size: 1rem;
-      }
+    h1 {
+      color: #FFF;
+      font-size: 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
 
     a {
       color: #FFF;
@@ -39,59 +47,151 @@
       display: inline-block;
       vertical-align: top;
       font-size: 12pt;
-      width: 50%;
+      margin: 1rem;
+      border-radius: 5px;
+      width: calc(50% - 2px - 2rem);
+      background-color: rgba(0, 0, 0, 0.4);
+      box-shadow: inset 0 0px 10px #11181f;
+      border: 1px solid #333;
     }
 
-      caption {
-        text-align: left;
-      }
+    tbody {
+      padding: 1rem;
+    }
 
-      td {
-        height: 20px;
-        padding: 0.4rem;
-        text-align: right;
-      }
+    tr:nth-child(even) {
+      background-color: #1f2c38;
+    }
 
-        td > div {
-          display: inline-block;
-        }
+    tr:hover td {
+      transition: background 0.3s;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    td {
+      height: 1.3rem;
+      padding: 0.4rem;
+      text-align: right;
+    }
+
+    td > div {
+      display: inline-block;
+    }
+
+    /* Numbers are green */
+    #outputs td {
+      color: #94c27d;
+    }
+
+    /* Labels are white */
+    #outputs td:first-child {
+      color: unset;
+    }
+
+    caption {
+      display: block;
+      background-color: #1f2c38;
+      box-shadow: 0 2px 2px #11181f;
+    }
+
+    caption > h2 {
+      display: inline-block;
+      padding: 0.85rem 4%;
+      border-radius: 4px;
+      background-color: #D4664C;
+      box-shadow: 0 0 4px #11181f;
+    }
+
+    caption:after {
+      content: '';
+      display: block;
+      margin-top: -2.5rem;
+      margin-bottom: 2.6rem;
+      border-bottom: 1px solid #11181f;
+    }
 
     input {
-      
+      margin: 0;
+      padding: 0;
+      background: none;
+      border: none;
+      font-size: unset;
     }
 
-      input[type="number"] {
-        background: none;
-        border: none;
-        border-bottom: 1px dotted #666;
-        color: #94c27d;
-        font-size: 1rem;
-        width: 100%;
-      }
+    input[type="button"] {
+      color: unset;
+      cursor: pointer;
+    }
 
-      input[type="number"]:disabled {
-        color: #999;
-      }
+    input[type="number"] {
+      border-bottom: 1px dotted #666;
+      color: #94c27d;
+      width: 100%;
+    }
+
+    input[type="number"]:disabled {
+      color: #999;
+    }
+
+    input[type="radio"] {
+      margin: 0.49rem 0;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .custom-file-upload {
+      line-height: 3rem;
+      cursor: pointer;
+    }
 
     header, footer {
-      width: calc(100% - 4rem);
-      padding: 1rem 2rem;
       background-color: #3B8686;
-      box-shadow: 0 0 1px 1px #050505;
+      box-shadow: inset 0 0 4px #2f6b6b;
     }
 
-      header > p {
-        color: #DDD;
-      }
+    header {
+      width: 100%;
+    }
+
+    nav {}
 
     nav > ul {
-      list-style-type: none;
+      border-top: 1px solid #295d5d;
+      list-style: none;
       padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
     }
 
-      nav li {
-        display: inline-block;
-      }
+    nav li {
+      display: flex;
+      flex: 1 1 auto;
+      height: 3rem;
+      border-right: 1px solid #295d5d;
+      box-shadow: 2px 0 4px #2f6b6b;
+    }
+
+    nav li > * {
+      width: 100%;
+      text-align: center;
+    }
+
+    nav h1 {
+      line-height: 1.4rem;
+    }
+
+    nav li:first-child {
+      background-color: #419494;
+    }
+
+    nav li:hover {
+      transition: background 0.3s;
+      background-color: #419494;
+    }
 
     #main {
       display: inline-block;
@@ -99,59 +199,146 @@
       padding: 1rem 2rem;
     }
 
-        .unit {
-          font-size: 0.8rem;
-          color: #999;
-        }
+    .unit, .dark {
+      color: #97b3b3;
+    }
 
-        table tr:nth-child(odd) {
-          background-color: #32323a;
-        }
-
-        #outputs td {
-          color: #94c27d;
-        }
-
-          #outputs td:first-child {
-            color: unset;
-          }
+    .unit {
+      font-size: 0.8rem;
+    }
   </style>
+
+  <!-- Piwik -->
+  <script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(["setDomains", ["*.www.deepspace.ucsb.edu/wp-content/uploads/2015/04/Laser-Propulsion-Classical-1D-Standalone.html"]]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="https://rjdlee.com/analytics/";
+      _paq.push(['setTrackerUrl', u+'piwik.php']);
+      _paq.push(['setSiteId', 5]);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+  </script>
+  <noscript><p><img src="https://rjdlee.com/analytics/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+  <!-- End Piwik Code -->
 </head>
 <body>
-  <header>
-    <h1>UC Santa Barbara Laser Propulsion (Classical 1D)</h1>
-    <nav>
-      <ul>
-        <li>
-          <input type='button' id='download_csv' value='Save as CSV'/>
-          <input type='file' id='import_csv' value='Import CSV'/>
-        </li>
-      </ul>
-    </nav>
-  </header>
-  <div id="main">
-    <table id="inputs">
-      <caption>
-        <h2>
-          Inputs
-          <hr>
-        </h2>
-      </caption>
-    </table><!--
- --><table id="outputs">
-      <caption>
-        <h2>
-          Outputs
-          <hr>
-        </h2>
-      </caption>
-    </table>
-  </div>
-  <footer>
-    <p>Photon Propulsion Calculator - Based on the calculations in "A Roadmap to Interstellar Flight" - <a href=http://arxiv.org/abs/1604.01356 target="_blank">http://arxiv.org/abs/1604.01356</a></p>
-  </footer>
-  <script type='text/javascript'>
-'use strict';
+  <div id='app'>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <h1>
+              UC Santa Barbara Laser Propulsion 
+              <label class='dark'>
+                (Classical 1D)
+              </label>
+            </h1>
+          </li>
+          <li>
+            <input type='button' value='Save as CSV' v-on:click='saveCSV'/>
+          </li>
+          <li>
+            <label class='custom-file-upload'>
+              <input type='file' v-on:change='importCSV'/>
+              Import CSV
+            </label>
+          </li>
+          <li>
+            <input type='button' value='Reset' v-on:click='reset'/>
+          </li>
+          <li v-on:click='debug_mode = !debug_mode'>
+            <input type='button' :value='(debug_mode ? "Hide" : "Show") + " Debug"'/>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <div id="main">
+      <table class="modal" id="hiddens" v-show='debug_mode'>
+        <caption>
+          <h2>
+            Hiddens
+          </h2>
+        </caption>
+        <tbody>
+          <tr v-for='(hidden, id) in hiddens'>
+            <td>
+              {{id}}: {{hidden.val}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="modal" id="inputs">
+        <caption>
+          <h2>
+            Inputs
+          </h2>
+        </caption>
+        <tbody>
+          <tr v-for='(input, id) in inputs'>
+            <td>
+              <label>
+                {{ input.label }}
+                <label v-for="(_, unit) in input.unit" class="unit" v-html="'(' + unit + ')'"></label>
+              </label>
+            </td>
+            <td>
+              <input v-if="input.type === 'number'" v-model.number="input.displayVal" v-on:change="saveLocalStorage" type="number" :id="id" :min="input.min" :max="input.max" :title="input.label">
+              <input v-if="input.type === 'checkbox'" v-model="input.val" v-on:change="saveLocalStorage" type="checkbox" :id="id" :title="input.label">
+
+              <div v-if="input.type === 'radio'">
+                <div v-for="radio in input.radios" >
+                  <label :for="radio.val">{{ radio.label}}&nbsp;</label>
+                  <input v-model="input.val" v-on:change="saveLocalStorage" type="radio" :value="radio.val" :id="radio.val" :title="input.label">
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table><!--
+  --><table class="modal" id="outputs">
+  <caption>
+    <h2>
+      Outputs
+    </h2>
+  </caption>
+  <tr v-for='(output, id) in outputs'>
+    <td>
+      <label v-html="output.label"></label>
+    </td>
+    <td v-for="(conversion, unit) in output.unit">
+      <div>
+        {{ output.val / conversion | formatFloat }}
+      </div>
+      <label class="unit" v-html="unit"></label>
+    </td>
+  </tr>
+</table>
+</div>
+
+<footer>
+  <nav>
+    <ul>
+      <li>
+        <h1>Photon Propulsion Calculator</h1>
+      </li>
+      <li>
+        <p><a href='https://arxiv.org/abs/1604.01356' target='_blank'>Based on the calculations in "A Roadmap to Interstellar Flight" - https://arxiv.org/abs/1604.01356</a></p>
+      </li>
+      <li>
+        <p><a href='https://github.com/ucsbdeepspace/laser-propulsion-calculator' target='_blank'>Github</a></p>
+      </li>
+    </ul>
+  </nav>
+</footer>
+</div>
+
+<script src='https://unpkg.com/vue@2.1.8/dist/vue.min.js'></script>
+<script>
+  'use strict';
 
 /**
  * This document uses JSDoc (http://usejsdoc.org) for documentation.
@@ -210,6 +397,7 @@ var inputs = {
     unit: {
       kg: kg,
     },
+    type: 'number',
     val: 0.001,
   },
   auto_sail: {
@@ -217,42 +405,52 @@ var inputs = {
     type: 'checkbox',
     val: true,
   },
-  use_square_sail: {
-    label: 'Use Square Sail',
+  sail_shape: {
+    label: 'Sail Shape',
     type: 'radio',
-    val: true,
-    attributes: {
-      name: 0
-    },
-  },
-  use_circular_sail: {
-    label: 'Use Circular Sail',
-    type: 'radio',
-    val: false,
-    attributes: {
-      name: 0
-    },
-  },
-  use_spherical_sail: {
-    label: 'Use Spherical Sail',
-    type: 'radio',
-    val: false,
-    attributes: {
-      name: 0
-    },
+    val: 'square',
+    radios: [{
+      label: 'Square',
+      val: 'square',
+    }, {
+      label: 'Circular',
+      val: 'circular',
+    }, {
+      label: 'Spherical',
+      val: 'spherical',
+    }]
   },
   D_sail_size: {
     label: 'Sail Diameter',
     unit: {
       m: m,
     },
+    type: 'number',
     val: 1,
+    update: function() {
+      var element = document.getElementById('D_sail_size');
+      if (element) {
+        element.disabled = inputs.auto_sail.val;
+      }
+
+      // Automatically compute sail diameter when using auto sail
+      if (inputs.auto_sail.val) {
+        this.displayVal = inputs.D_sail_size.val = Math.sqrt(inputs.m0_payload_mass.val /
+          (hiddens.xi_sail_constant.val * inputs.rho_sail_density.val * inputs.h_sail_thickness.val));
+
+        // May be Infinite for initial page load
+        if (!isFinite(this.displayVal)) {
+          this.displayVal = this.val = 1;
+        }
+      }
+    }
   },
   h_sail_thickness: {
     label: 'Sail Thickness',
     unit: {
       '&mu;m': um,
     },
+    type: 'number',
     val: 1,
   },
   rho_sail_density: {
@@ -260,58 +458,68 @@ var inputs = {
     unit: {
       'g/cm<sup>3</sup>': (g / Math.pow(cm, 3)), // Grams per centimeter cubed
     },
+    type: 'number',
     val: 1,
   },
   epsilon_sub_r_reflection_coef: {
     label: 'Sail Reflection Efficiency (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   alpha_reflector_absorption: {
     label: 'Sail Absorption of Light not Reflected (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   epsilon_emissivity_front: {
     label: 'Sail Front Emissivity (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   epsilon_emissivity_back: {
     label: 'Sail Back Emissivity (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   use_circular_array: {
     label: 'Use Circular Laser Array',
     type: 'checkbox',
     val: true,
     update: function() {
+      // We want this to run when this input is changed, so trick the algorithm by
+      // making it think this function is dependent upon the input
+      // Tricking the algorithm: inputs.use_circular_array.val
+
+      // Enable circular and spherical sail shapes when using circular laser array
+      var element = document.getElementById('circular');
+      if (element) {
+        element.disabled = !this.val;
+      }
+
+      element = document.getElementById('spherical');
+      if (element) {
+        element.disabled = !this.val;
+      }
+
       if (this.val) {
-        enableInput(inputs.use_circular_sail);
-        enableInput(inputs.use_spherical_sail);
+        inputs.d_array_size.label = 'Laser Array Diameter';
       } else {
-        disableInput(inputs.use_circular_sail);
-        disableInput(inputs.use_spherical_sail);
-        inputs.use_square_sail.val = true;
-        inputs.use_square_sail.element.checked = true;
+        inputs.d_array_size.label = 'Laser Array Side Length';
+        inputs.sail_shape.val = 'square';
       }
     },
   },
   d_array_size: {
     label: 'Laser Array Side Length',
+    type: 'number',
     unit: {
       m: m,
     },
@@ -322,39 +530,38 @@ var inputs = {
     unit: {
       GW: GW,
     },
+    type: 'number',
     val: 100,
   },
   epsilon_sub_beam_beam_eff: {
     label: 'Beam Efficiency (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   lambda_wavelength: {
     label: 'Wavelength',
     unit: {
       nm: nm,
     },
+    type: 'number',
     val: 1060,
-    attributes: {
-      min: 1,
-    },
+    min: 1,
   },
   epsilon_sub_elec_photon_to_electrical_eff: {
     label: 'Electrical Efficiency (0 - 1)',
+    type: 'number',
     val: 1,
-    attributes: {
-      min: 0,
-      max: 1,
-    },
+    min: 0,
+    max: 1,
   },
   energy_cost: {
     label: 'Electrical Energy Cost',
     unit: {
       '$/kW-hr': (1 / (kW * hr)),
     },
+    type: 'number',
     val: 0.1,
   },
   energy_storage_cost: {
@@ -362,6 +569,7 @@ var inputs = {
     unit: {
       '$/W-hr': (1 / (W * hr)),
     },
+    type: 'number',
     val: 0.1,
   },
   Laser_comm_spacecraft_power_peak: {
@@ -369,6 +577,7 @@ var inputs = {
     unit: {
       W: W,
     },
+    type: 'number',
     val: 1,
   },
   Photons_per_bit_for_communication: {
@@ -376,6 +585,7 @@ var inputs = {
     unit: {
       'ph/bit': 1,
     },
+    type: 'number',
     val: 1,
   },
   lambda_laser_comm_wavelength: {
@@ -383,10 +593,12 @@ var inputs = {
     unit: {
       nm: nm,
     },
+    type: 'number',
     val: 600,
   },
   Laser_comm_beam_efficiency: {
     label: 'Laser Comm Beam Efficiency (0 - 1)',
+    type: 'number',
     val: 1,
   },
   use_circular_laser_comm_optics: {
@@ -399,6 +611,7 @@ var inputs = {
     unit: {
       m: m,
     },
+    type: 'number',
     val: 1,
   },
   L_target: {
@@ -406,53 +619,10 @@ var inputs = {
     unit: {
       ly: ly,
     },
+    type: 'number',
     val: 4.37,
   },
 };
-
-/**
- * Hidden variables
- * @typedef {Object} Hidden
- * @property {Number} val - Calculated value
- * @property {Function} update() - Updates val
- */
-var hiddens = {
-  xi_sail_constant: {
-    update: function() {
-      if (inputs.use_circular_sail.val) {
-        this.val = Math.PI / 4;
-      } else if (inputs.use_spherical_sail.val) {
-        this.val = Math.PI;
-      } else {
-        this.val = 1;
-      }
-    },
-  },
-  xi_array_constant: {
-    update: function() {
-      this.val = inputs.use_circular_sail.val ? Math.PI / 4 : 1;
-    },
-  },
-  alpha_array_constant: {
-    update: function() {
-      this.val = inputs.use_circular_array.val ? 1.22 : 1;
-    },
-  },
-  alpha_laser_comm_optics_constant: {
-    update: function() {
-      this.val = inputs.use_circular_laser_comm_optics.val ? 1.22 : 1;
-    },
-  },
-  total_light_efficiency: {
-    update: function() {
-      this.val = (2 * inputs.epsilon_sub_r_reflection_coef.val +
-        (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption
-        .val
-      );
-    },
-  },
-};
-
 /**
  * Output variables
  *
@@ -761,6 +931,185 @@ var outputs = {
   },
 };
 
+/**
+ * Hidden variables
+ * @typedef {Object} Hidden
+ * @property {Number} val - Calculated value
+ * @property {Function} update() - Updates val
+ */
+var hiddens = {
+  xi_sail_constant: {
+    update: function() {
+      if (inputs.sail_shape.val === 'circular') {
+        this.val = Math.PI / 4;
+      } else if (inputs.sail_shape.val === 'spherical') {
+        this.val = Math.PI;
+      } else {
+        this.val = 1;
+      }
+    },
+  },
+  xi_array_constant: {
+    update: function() {
+      this.val = inputs.sail_shape.val === 'circular' ? Math.PI / 4 : 1;
+    },
+  },
+  alpha_array_constant: {
+    update: function() {
+      this.val = inputs.use_circular_array.val ? 1.22 : 1;
+    },
+  },
+  alpha_laser_comm_optics_constant: {
+    update: function() {
+      this.val = inputs.use_circular_laser_comm_optics.val ? 1.22 : 1;
+    },
+  },
+  total_light_efficiency: {
+    update: function() {
+      this.val = (2 * inputs.epsilon_sub_r_reflection_coef.val +
+        (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption.val
+      );
+    },
+  },
+};
+
+/**
+ * Initialize watch functions
+ */
+function initializeWatch() {
+  var watch = {};
+
+  // Create functions for each input which convert the input value to standard units when the input changes
+  for (var id in inputs) {
+    var input = inputs[id];
+
+    // Create a copy of .val because it will be overwritten later
+    input.default = input.val;
+
+    if (input.type !== 'number') {
+      continue;
+    }
+
+    input.displayVal = input.val;
+
+    var dependency = 'inputs.' + id + '.displayVal';
+
+    // Converts input value to standard unit value
+    var updateFunc = (function() {
+
+      // For unitless quantities
+      if (typeof this.unit === 'undefined') {
+        this.val = this.displayVal;
+        return;
+      }
+
+      for (var unit in this.unit) {
+        this.val = this.displayVal * this.unit[unit];
+
+        // There should only be one unit for inputs!
+        return;
+      }
+    }).bind(input);
+
+    // Update the val immediately
+    updateFunc();
+
+    if (dependency in watch) {
+      watch[dependency].push(updateFunc);
+    } else {
+      watch[dependency] = [updateFunc];
+    }
+  }
+
+  initializeUpdateFunctions(inputs);
+  initializeUpdateFunctions(hiddens);
+  initializeUpdateFunctions(outputs);
+
+  // When a dependency is triggered, run all of its dependent functions
+  for (var id in watch) {
+    var func = watch[id];
+
+    watch[id] = (function(funcs) {
+      for (var i = 0; i < funcs.length; i++) {
+        var func = funcs[i];
+        func();
+      }
+    }).bind(this, func);
+  }
+
+  return watch;
+
+  /**
+   * watch object is a dictionary where there's a key for each hidden dependency and
+   * a value containing an array for the update functions relying on those dependencies
+   */
+  function initializeUpdateFunctions(dict) {
+    for (var id in dict) {
+      var obj = dict[id];
+
+      if (!('update' in obj)) {
+        continue;
+      }
+
+      var updateFunc = obj.update.bind(obj);
+
+      // Compute the initial value of the hidden
+      updateFunc();
+
+      // Convert update function to a string
+      var updateString = '' + obj.update;
+
+      // Search for references to input, output, or hidden variables
+      // e.g. inputs.m0_payload_mass.val
+      var regex = /(inputs|outputs|hiddens)\.\w+\.val/g;
+      var regexArray = [];
+      var results = {};
+      while ((regexArray = regex.exec(updateString)) !== null) {
+        var dependency = regexArray[0];
+
+        // Run when there's multiple references to a single variable in the function
+        if (dependency in results) {
+          continue;
+        }
+
+        results[dependency] = true;
+
+        if (dependency in watch) {
+          watch[dependency].push(updateFunc);
+        } else {
+          watch[dependency] = [updateFunc];
+        }
+      }
+    }
+  }
+};
+
+/**
+ * Reset inputs to their default values
+ */
+function reset() {
+  var inputsArray = Object.getOwnPropertyNames(inputs);
+  for (var i = 0; i < inputsArray.length; i++) {
+    var id = inputsArray[i];
+    var input = inputs[id];
+    var val = input.default;
+
+    if (input.type === 'number') {
+      input.displayVal = parseFloat(val);
+    } else {
+      input.val = val;
+    }
+  }
+
+  saveLocalStorage();
+}
+
+/**
+ *
+ * CSV Import and Export
+ *
+ */
+
 /** Finds the number of keys an object posesses to inline checking if an input has only one unit
  * @param {Object} obj - An object to return the number of keys an object posesses.
  * @return {Number} - the number of keys obj has.
@@ -789,273 +1138,13 @@ function isDefined(v) {
 }
 
 /**
- * Enable a disabled input
- * Remove "(Disabled)" from its label
- */
-function enableInput(input) {
-  input.element.disabled = false;
-
-  var label = input.label;
-  var i = label.search(/\s\(Disabled\)/g);
-  if (i > -1) {
-    input.label = label.substring(0, i);
-  }
-
-  input.htmlLabel.innerHTML = input.label;
-}
-
-/**
- * Disable an enabled input
- * Append "(Disabled)" to its label
- */
-function disableInput(input) {
-  input.element.disabled = true;
-
-  if (isDefined(input.element.checked)) {
-    input.element.checked = false;
-  }
-
-  var label = input.label;
-  var i = label.search(/\s\(Disabled\)/g);
-  if (i === -1) {
-    input.label += ' (Disabled)';
-  }
-
-  input.htmlLabel.innerHTML = input.label;
-
-  if (input.type === 'radio' || input.type === 'checked') {
-    input.val = false;
-  }
-}
-
-/** Initializes the HTML input and output tables
- * Note this is an immediately invoked function and will run immediately
- */
-(function init() {
-  /** Create a two column row
-   *
-   * @param {Array} cells - Array of cells/ columns to populate the row
-   * @return {DOMElement} Table row/ tr DOM Element
-   */
-  function createTableRow(cells) {
-    var row = document.createElement('tr');
-
-    for (var i = 0; i < cells.length; i++) {
-      var cell = document.createElement('td');
-
-      // Create a cell with multiple children
-      if (Array.isArray(cells[i])) {
-        for (var j = 0; j < cells[i].length; j++) {
-          cell.appendChild(cells[i][j]);
-        }
-      } else {
-        // Create a cell with one child
-        cell.appendChild(cells[i]);
-      }
-
-      row.appendChild(cell);
-    }
-
-    return row;
-  }
-
-  // Populate the input form/ table with inputs
-  var inputs_element = document.getElementById('inputs');
-  for (var id in inputs) {
-    var input = inputs[id];
-
-    var label = input.htmlLabel = document.createElement('label');
-    label.innerHTML = input.label;
-    label.setAttribute('for', id);
-
-    var element = input.element = document.createElement('input');
-    element.setAttribute('type', (input.type || 'number'));
-    element.setAttribute('id', id);
-
-    switch (input.type) {
-      case 'checkbox':
-        if (input.val) {
-          element.setAttribute('checked', true);
-        }
-        element.addEventListener('click', updateInput, false);
-
-        break;
-      case 'radio':
-        if (input.val) {
-          element.setAttribute('checked', true);
-        }
-        element.addEventListener('click', updateInput, false);
-
-        break;
-      default: // Number
-        element.setAttribute('value', input.val);
-        element.addEventListener('input', updateInput, false);
-
-        // Convert default values to their correct units
-        var i = 0;
-        for (var unit in input.unit) {
-          if (i > 0) {
-            throw 'Only one input unit allowed';
-          }
-
-          label.innerHTML += ' <label class="unit">(' + unit + ')</label>';
-          input.val *= input.unit[unit];
-
-          // Only allow one unit for inputs
-          i++;
-        }
-    }
-
-    // Add attributes to the DOMElement (such as max, min, and step for inputs)
-    for (var attribute in input.attributes) {
-      element.setAttribute(attribute, input.attributes[attribute]);
-    }
-
-    // Create a table row for the input element and its label
-    var table_row = createTableRow([label, element]);
-    inputs_element.appendChild(table_row);
-  }
-
-  // Populate the output form/ table with outputs
-  var outputs_element = document.getElementById('outputs');
-  for (var id in outputs) {
-    var output = outputs[id];
-    var label = document.createElement('label');
-    var rowCells = [label];
-    var element = output.element = {};
-
-    label.innerHTML = output.label;
-
-    // Create object to store values for each unit
-    outputs[id].unitVal = {};
-
-    // Create a table cell with the output and its units
-    for (var unit in output.unit) {
-      var unitVal = document.createElement('div');
-      var unitLabel = document.createElement('label');
-      unitLabel.className = 'unit';
-      unitLabel.innerHTML = ' ' + unit;
-
-      rowCells.push([unitVal, unitLabel]);
-      element[unit] = unitVal;
-    }
-
-    var table_row = createTableRow(rowCells);
-    outputs_element.appendChild(table_row);
-  }
-
-  document.getElementById('download_csv').addEventListener('click', downloadCSV, false);
-  document.getElementById('import_csv').addEventListener('change', importCSV, false);
-
-  update();
-})();
-
-/** Record changes to an HTML input
- *
- * @param {Event} e - Event
- */
-function updateInput(e) {
-  var input_element = e.target;
-  var input = inputs[input_element.getAttribute('id')];
-  var type = input.type;
-  input.val = input.rawVal = parseFloat(input_element.value);
-
-  if (type === 'checkbox') {
-    input.val = input_element.checked;
-
-    if (isDefined(input.update) && input.update() === false) {
-      return;
-    }
-
-  } else if (type === 'radio') {
-    if (isDefined(input.update) && input.update() === false) {
-      return;
-    }
-
-    for (var id in inputs) {
-      var i = inputs[id];
-      if (isDefined(i.type) && i.type === 'radio') {
-        i.val = i.element.checked;
-      }
-    }
-  } else {
-    if (isDefined(input.attributes)) {
-      // Value is below allowed range
-      if (isDefined(input.attributes.min) && input.val < input.attributes.min) {
-        input.val = input.rawVal = input.attributes.min;
-      }
-
-      // Value is above allowed range
-      if (isDefined(input.attributes.max) && input.val > input.attributes.max) {
-        input.val = input.rawVal = input.attributes.max;
-      }
-    }
-
-    // Update function to modify the entered value
-    if (isDefined(input.update) && input.update() === false) {
-      return;
-    }
-
-    // Convert to standard units
-    for (var unit in input.unit) {
-      input.val *= input.unit[unit];
-    }
-  }
-
-  update();
-}
-
-/** Event handler when inputs are changed
- * Re-calculate the outputs based on the new inputs
- */
-function update() {
-  // Update hidden variables
-  for (var id in hiddens) {
-    hiddens[id].update();
-  }
-
-  optimizeSailSize();
-
-  // Update output variables
-  for (var id in outputs) {
-    // Calculate standard output value
-    outputs[id].update();
-
-    // Convert output's value to non-standard units
-    for (var unit in outputs[id].unit) {
-      outputs[id].unitVal[unit] = (outputs[id].val / outputs[id].unit[unit]).toPrecision(3);
-    }
-  }
-
-  // Update output view
-  for (var id in outputs) {
-    for (var unit in outputs[id].unitVal) {
-      outputs[id].element[unit].innerHTML = outputs[id].unitVal[unit] + ' ';
-    }
-  }
-}
-
-/** 
- * Optimize the size of the sail
- */
-function optimizeSailSize() {
-  inputs.D_sail_size.element.disabled = inputs.auto_sail.val;
-  if (!inputs.auto_sail.val) {
-    return;
-  }
-
-  // Calculate sail size for sail mass = m0_payload_mass mass
-  inputs.D_sail_size.element.value = inputs.D_sail_size.val =
-    Math.sqrt(inputs.m0_payload_mass.val / (hiddens.xi_sail_constant.val *
-      inputs.rho_sail_density.val * inputs.h_sail_thickness.val));
-}
-
-/**
  * Download a CSV file 
  */
-function downloadCSV() {
-  var filename = prompt('Enter filename for CSV', 'laser_propulsion_calculations.csv');
-  exportToCsv(filename);
+function saveCSV() {
+  var filename = prompt(
+    'Saving does not work in all web browsers - Firefox is recommended. \n\nEnter filename for CSV:',
+    'laser_propulsion_calculations.csv');
+  exportToCSV(filename);
 }
 
 /**
@@ -1063,7 +1152,7 @@ function downloadCSV() {
  *
  * @param {String} filename - Name of the file being downloaded
  */
-function exportToCsv(filename) {
+function exportToCSV(filename) {
 
   // Creates a row in the CSV string
   var processRow = function(row) {
@@ -1103,21 +1192,25 @@ function exportToCsv(filename) {
     navigator.msSaveBlob(blob, filename);
   } else {
     var link = document.createElement('a');
-    if (link.download !== undefined) { // feature detection
-      // Browsers that support HTML5 download attribute
-      var url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', filename);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    if (typeof link.download === 'undefined') {
+      alert('Save as CSV failed. Try using Firefox.');
+      return;
     }
+
+    // Browsers that support HTML5 download attribute
+    var url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    document.body.removeChild(link);
   }
 }
 
 /**
  * Generate a JSON object, which can easily be converted to a CSV file
+ *
+ * @return {Array} - JSON object containing calculator input and output values
  */
 function createCSV() {
   var lineArray = [
@@ -1165,8 +1258,10 @@ function createCSV() {
     if (isDefined(output)) {
       line.push(htmlToText(output.label));
 
-      for (var unit in output.unitVal) {
-        line.push(output.unitVal[unit]);
+      for (var unit in output.unit) {
+        var convertedVal = output.val / output.unit[unit];
+
+        line.push(convertedVal);
         line.push(htmlToText(unit));
       }
 
@@ -1179,20 +1274,23 @@ function createCSV() {
 
 /**
  * Convert a unit in HTML format to text
+ *
+ * @param {String} unitHTML - Contains HTML markup
+ * @return {String} - Contains the ASCII equivalent of HTML markup elements
  */
-function htmlToText(unitHTML) {
-  if (!isDefined(unitHTML)) {
-    return unitHTML;
+function htmlToText(htmlString) {
+  if (!isDefined(htmlString)) {
+    return htmlString;
   }
 
-  unitHTML = String(unitHTML).replace(/&mu;/g, 'u');
-  unitHTML = String(unitHTML).replace(/<sup>/g, '^');
-  unitHTML = String(unitHTML).replace(/<sub>/g, '_');
+  htmlString = String(htmlString).replace(/&mu;/g, 'u');
+  htmlString = String(htmlString).replace(/<sup>/g, '^');
+  htmlString = String(htmlString).replace(/<sub>/g, '_');
 
-  unitHTML = String(unitHTML).replace(/<\/sup>/g, '');
-  unitHTML = String(unitHTML).replace(/<\/sub>/g, '');
+  htmlString = String(htmlString).replace(/<\/sup>/g, '');
+  htmlString = String(htmlString).replace(/<\/sub>/g, '');
 
-  return unitHTML;
+  return htmlString;
 }
 
 /**
@@ -1203,11 +1301,13 @@ function htmlToText(unitHTML) {
 function importCSV(e) {
   var files = e.target.files;
   if (files.length !== 1) {
+    alert('Select only one CSV file.')
     return;
   }
 
   var file = files[0];
   if (file.type !== 'text/csv') {
+    alert('The file type was not CSV.')
     return;
   }
 
@@ -1219,33 +1319,161 @@ function importCSV(e) {
     var inputsArray = Object.getOwnPropertyNames(inputs);
 
     // Iterate through each input
-    for (var i = 0; i < Math.max(inputsArray.length); i++) {
+    for (var i = 1; i < inputsArray.length; i++) {
       var input = inputs[inputsArray[i]];
-      var cells = rows[i + 1].split(',');
+      var cells = rows[i].split(',');
 
-      // Set the input's value
-      var event;
-      var type = input.type;
-      if (type === 'checkbox' || type === 'radio') {
-        input.element.checked = (cells[1] === 'true');
-        event = new CustomEvent('click', {
-          target: input.element
-        });
-      } else {
-        input.element.value = parseFloat(cells[1]);
-        event = new CustomEvent('input', {
-          target: input.element
-        });
+      var label = cells[0];
+      if (input.label !== label) {
+        alert("Failed to import CSV. Check to make sure all input labels match the calculator's.");
+        return;
       }
 
-      // Trigger an input event to recompute outputs
-      input.element.dispatchEvent(event);
+      var val = cells[1];
+      var type = input.type;
+      if (type === 'number') {
+        input.displayVal = parseFloat(val);
+      } else {
+        input.displayVal = val;
+      }
     }
   };
 
   // Read body text of file
   reader.readAsText(file);
 }
+
+/**
+ *
+ * Local Storage
+ *
+ */
+
+/**
+ * Check if the web browser supports local storage
+ *
+ * @return {Boolean} - Indicates whether local storage is enabled or not
+ */
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. 
+ *
+ * @param {Function} func - Function to be called
+ * @param {Number} wait - Time to wait before calling func
+ * @param {Boolean} immediate - If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing.
+ */
+function debounce(func, wait, immediate) {
+
+  // This shouldn't be in saveLocalStorageCore, but this is more efficient
+  if (!supports_html5_storage()) {
+    return;
+  }
+
+  var timeout;
+  return function() {
+    var context = this,
+      args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+/**
+ * Saves inputs to local storage after waiting some time (known as debouncing)
+ */
+var saveLocalStorage = debounce(saveLocalStorageCore, 2000);
+
+/**
+ * Save the inputs to local storage to persist them across user sessions
+ */
+function saveLocalStorageCore() {
+  var inputsArray = Object.getOwnPropertyNames(inputs);
+
+  for (var i = 0; i < inputsArray.length; i++) {
+    var id = inputsArray[i];
+    var input = inputs[id];
+    var val = input.type === 'number' ? input.displayVal : input.val;
+
+    localStorage.setItem(id, val);
+  }
+}
+
+/**
+ * Import the inputs from local storage to resume a calculation
+ */
+function importLocalStorage() {
+  if (!supports_html5_storage()) {
+    return;
+  }
+
+  var inputsArray = Object.getOwnPropertyNames(inputs);
+  for (var i = 0; i < inputsArray.length; i++) {
+    var id = inputsArray[i];
+    var input = inputs[id];
+    var val = localStorage.getItem(id);
+
+    if (val === null) {
+      continue;
+    }
+
+    if (input.type === 'number') {
+      input.displayVal = parseFloat(val);
+    } else {
+      input.val = val;
+    }
+  }
+}
+
+/**
+ *
+ *
+ * VueJS Main Application
+ *
+ */
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    debug_mode: false,
+    inputs: inputs,
+    outputs: outputs,
+    hiddens: hiddens,
+  },
+  watch: initializeWatch(),
+  filters: {
+    formatFloat: function(value) {
+      return value.toPrecision(3);
+    },
+  },
+  methods: {
+    saveCSV: saveCSV,
+    importCSV: importCSV,
+    saveLocalStorage: saveLocalStorage,
+    reset: reset,
+  },
+});
+
+// Restore inputs from previous session (if any)
+importLocalStorage();
+
+// Manually update to disable D_sail_size input
+inputs.D_sail_size.update();
 </script>
 </body>
 </html>
