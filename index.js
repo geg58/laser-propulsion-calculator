@@ -156,7 +156,7 @@ var inputs = {
 		update: function() {
 			// We want this to run when this input is changed, so trick the algorithm by
 			// making it think this function is dependent upon the input
-			// Tricking the algorithm: inputs.use_circular_array.val
+			var trick = inputs.use_circular_array.val;
 
 			// Enable circular and spherical sail shapes when using circular laser array
 			var element = document.getElementById('circular');
