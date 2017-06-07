@@ -1404,7 +1404,7 @@ function createCSV() {
   var lineArray = [
     ['Inputs', 'Value', 'Unit', '',
       'Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit', '',
-      'Relativistic Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit'],
+      'Estimated Relativistic Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit'],
   ];
 
   var inputsArray = Object.getOwnPropertyNames(inputs);
