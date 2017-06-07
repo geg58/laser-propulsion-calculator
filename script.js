@@ -293,12 +293,26 @@ var hiddens = {
   total_light_efficiency: {
     update: function() {
       this.val = (2 * inputs.epsilon_sub_r_reflection_coef.val +
-        (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption
-        .val
+        (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption.val
       );
     },
   },
 };
+
+var hiddens_relativistic = {
+  beta_non_relativistic: {
+    update: function() {
+      this.val = outputs.v_0_speed_to_L0.val / c_speed_light;
+      console.log("hidden changed beta_0:" + hiddens_relativistic.beta_non_relativistic.val);
+    }
+  },
+  beta_relativistic: { // to change
+    update: function() {
+      // to change
+      this.val = hiddens_relativistic.beta_non_relativistic.val;
+    }
+  }
+}
 
 /**
  * Output variables
@@ -716,11 +730,10 @@ var outputs_relativistic = {
             s: s,
         },
         update() {
-            this.val = (Math.sqrt(c_speed_light * inputs.d_array_size.val *
-                inputs.D_sail_size.val * outputs_relativistic.m_total_mass.val /
-                (hiddens.total_light_efficiency.val *
-                    outputs_relativistic.P0_laser_power_in_main_beam.val *
-                    inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val)));
+            var beta = hiddens_relativistic.beta_relativistic.val;
+            var gamma = 1 / Math.sqrt(1 - beta * beta);
+            this.val = outputs.t0_time_to_L0.val / (3 * beta) * (
+                          (1 + beta) * (2 - beta) * gamma / (1 - beta) - 2);
         },
     },
     v_0_speed_to_L0: {
@@ -730,11 +743,8 @@ var outputs_relativistic = {
             '% c': (c_speed_light / 100),
         },
         update() {
-            this.val = (Math.sqrt(hiddens.total_light_efficiency.val *
-                outputs_relativistic.P0_laser_power_in_main_beam.val * inputs.d_array_size.val *
-                inputs.D_sail_size.val /
-                (c_speed_light * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val *
-                    outputs_relativistic.m_total_mass.val)));
+          var beta = hiddens_relativistic.beta_relativistic.val;
+          this.val = outputs.v_0_speed_to_L0.val * Math.sqrt((1 - beta) / (1 + beta));
         },
     },
     l0_ke: {
@@ -1218,6 +1228,13 @@ function update() {
     }
   }
 
+  // Update hiddens_relativistic variables
+  for (var id in hiddens_relativistic) {
+    hiddens_relativistic[id].update();
+  }
+
+  console.log("updated");
+
   // Update output relativistic variables
   for (var id in outputs_relativistic) {
     // Calculate standard output value
@@ -1256,7 +1273,8 @@ function optimizeSailSize() {
  * Download a CSV file 
  */
 function downloadCSV() {
-  var filename = prompt('Enter filename for CSV', 'laser_propulsion_calculations.csv');
+  var filename = prompt('Enter filename for CSV', 
+    'laser_propulsion_calculations.csv');
   exportToCsv(filename);
 }
 
