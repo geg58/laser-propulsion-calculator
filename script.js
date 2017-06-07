@@ -1515,19 +1515,7 @@ function htmlToText(unitHTML) {
  * Reset inputs to their default values
  */
 function reset() {
-  var inputsArray = Object.getOwnPropertyNames(inputs);
-  for (var i = 0; i < inputsArray.length; i++) {
-    var id = inputsArray[i];
-    var input = inputs[id];
-    var val = input.default;
-    if (input.type === 'checkbox' || input.type === 'radio') {
-      input.val = val;
-    } else {
-      input.displayVal = parseFloat(val);
-    }
-  }
-  updateInput(false);
-  update();
+  location.reload();
 }
 
 /**
