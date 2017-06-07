@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>UC Santa Barbara Laser Propulsion (Classical 1D)</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- Piwik -->
+	<script type="text/javascript">
+		var _paq = _paq || [];
+		_paq.push(["setDomains", ["*.www.deepspace.ucsb.edu/wp-content/uploads/2015/04/Laser-Propulsion-Classical-1D-Standalone.html"]]);
+		_paq.push(['trackPageView']);
+		_paq.push(['enableLinkTracking']);
+		(function() {
+			var u="https://rjdlee.com/analytics/";
+			_paq.push(['setTrackerUrl', u+'piwik.php']);
+			_paq.push(['setSiteId', 5]);
+			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+			g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+		})();
+	</script>
+	<noscript><p><img src="https://rjdlee.com/analytics/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
+	<!-- End Piwik Code -->
+</head>
+<body>
+	<div id='app'>
+		<header>
+			<nav>
+				<ul>
+					<li>
+						<h1>
+							UC Santa Barbara Laser Propulsion 
+							<label class='dark'>
+								(Classical 1D)
+							</label>
+						</h1>
+					</li>
+					<li>
+						<input type='button' value='Save as CSV' v-on:click='saveCSV'/>
+					</li>
+					<li>
+						<label class='custom-file-upload'>
+							<input type='file' v-on:change='importCSV'/>
+							Import CSV
+						</label>
+					</li>
+					<li>
+						<input type='button' value='Reset' v-on:click='reset'/>
+					</li>
+					<li v-on:click='debug_mode = !debug_mode'>
+						<input type='button' :value='(debug_mode ? "Hide" : "Show") + " Debug"'/>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<div id="main">
+			<table class="modal" id="hiddens" v-show='debug_mode'>
+				<caption>
+					<h2>
+						Hiddens
+					</h2>
+				</caption>
+				<tbody>
+					<tr v-for='(hidden, id) in hiddens'>
+						<td>
+							{{id}}: {{hidden.val}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="modal" id="inputs">
+				<caption>
+					<h2>
+						Inputs
+					</h2>
+				</caption>
+				<tbody>
+					<tr v-for='(input, id) in inputs'>
+						<td>
+							<label>
+								{{ input.label }}
+								<label v-for="(_, unit) in input.unit" class="unit" v-html="'(' + unit + ')'"></label>
+							</label>
+						</td>
+						<td>
+							<input v-if="input.type === 'number'" v-model.number="input.displayVal" v-on:change="saveLocalStorage" type="number" :id="id" :min="input.min" :max="input.max" :title="input.label">
+							<input v-if="input.type === 'checkbox'" v-model="input.val" v-on:change="saveLocalStorage" type="checkbox" :id="id" :title="input.label">
+
+							<div v-if="input.type === 'radio'">
+								<div v-for="radio in input.radios" >
+									<label :for="radio.val">{{ radio.label}}&nbsp;</label>
+									<input v-model="input.val" v-on:change="saveLocalStorage" type="radio" :value="radio.val" :id="radio.val" :title="input.label">
+								</div>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+	    </table><!--
+	--><table class="modal" id="outputs">
+	<caption>
+		<h2>
+			Outputs
+		</h2>
+	</caption>
+	<tr v-for='(output, id) in outputs'>
+		<td>
+			<label v-html="output.label"></label>
+		</td>
+		<td v-for="(conversion, unit) in output.unit">
+			<div>
+				{{ output.val / conversion | formatFloat }}
+			</div>
+			<label class="unit" v-html="unit"></label>
+		</td>
+	</tr>
+</table>
+</div>
+
+<footer>
+	<nav>
+		<ul>
+			<li>
+				<h1>Photon Propulsion Calculator</h1>
+			</li>
+			<li>
+				<p><a href='https://arxiv.org/abs/1604.01356' target='_blank'>Based on the calculations in "A Roadmap to Interstellar Flight" - https://arxiv.org/abs/1604.01356</a></p>
+			</li>
+		</ul>
+	</nav>
+</footer>
+</div>
+
+<script src='https://unpkg.com/vue@2.1.8/dist/vue.min.js'></script>
+<script src='index.js'></script>
+</body>
+</html>

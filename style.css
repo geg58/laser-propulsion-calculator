@@ -1,0 +1,111 @@
+html, body {
+  font-family: arial, sans-serif;
+  margin: 0;
+  color: #FFF;
+}
+
+body {
+  background-color: #202025;
+}
+
+span {
+  display: block;
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+}
+
+h1, h2 {
+  font-weight: 100;
+}
+
+  h1 {
+    color: #FFF;
+    font-size: 1rem;
+  }
+
+a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+table {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 12pt;
+  width: 33%;
+}
+
+  caption {
+    text-align: left;
+  }
+
+td {
+  height: 20px;
+  padding: 0.4rem;
+  text-align: right;
+}
+
+td > div {
+  display: inline-block;
+}
+
+input {
+  
+}
+
+input[type="number"] {
+  background: none;
+  border: none;
+  border-bottom: 1px dotted #666;
+  color: #94c27d;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input[type="number"]:disabled {
+  color: #999;
+}
+
+header, footer {
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+  background-color: #3B8686;
+  box-shadow: 0 0 1px 1px #050505;
+}
+
+  header > p {
+    color: #DDD;
+  }
+
+nav > ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+  nav li {
+    display: inline-block;
+  }
+
+#main {
+  display: inline-block;
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+}
+
+.unit {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+table tr:nth-child(odd) {
+  background-color: #32323a;
+}
+
+#outputs td {
+  color: #94c27d;
+}
+
+#outputs td:first-child {
+  color: unset;
+}
