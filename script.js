@@ -303,13 +303,75 @@ var hiddens_relativistic = {
   beta_non_relativistic: {
     update: function() {
       this.val = outputs.v_0_speed_to_L0.val / c_speed_light;
-      console.log("hidden changed beta_0:" + hiddens_relativistic.beta_non_relativistic.val);
     }
   },
   beta_relativistic: { // to change
     update: function() {
       // to change
-      this.val = hiddens_relativistic.beta_non_relativistic.val;
+      var x = hiddens_relativistic.beta_non_relativistic.val;
+      var lookup_table = {
+        0: 1,
+        0.05: 1.03,
+        0.1: 1.07,
+        0.15:1.12,
+        0.2: 1.17,
+        0.25: 1.21,
+        0.3: 1.28,
+        0.35: 1.35,
+        0.4: 1.43,
+        0.45: 1.52,
+        0.5: 1.63,
+        0.55: 1.76,
+        0.6: 1.92,
+        0.65: 2.12,
+        0.7: 2.38,
+        0.75: 2.73,
+        0.78: 3,
+        0.8: 3.23,
+        0.82: 3.49,
+        0.85: 4,
+        0.87: 4.46,
+        0.89: 5,
+        0.9: 5.43,
+        0.91: 5.88,
+        0.92: 6.43,
+        0.93: 7.11,
+        0.94: 7.98,
+        0.95: 9.15,
+        0.96: 10.83,
+        0.97: 13.44,
+        0.98: 18.23,
+        0.99: 30.67,
+      };
+      var last = 0;
+      var ratio = 1;
+      for (var key in lookup_table) {
+        if (key == x) {
+          ratio = lookup_table[x];
+          break;
+        } else if (key < x) {
+          last = key;
+        } else {
+          var slope = (lookup_table[key] - lookup_table[last]) / (key - last);
+          ratio = (x - last) * slope + lookup_table[last];
+          console.log("last: " + last);
+          console.log("now: "  + key);
+          break;
+        }
+      }
+      if (last == 1) {
+        ratio = lookup_table[1];
+      }
+      this.val = x * ratio;
+      console.log("beta_non_relativistic: " + x);
+      console.log("beta_relativistic: " + ratio);
+      console.log("value: " + this.val);
+    }
+  },
+  gamma: {
+    update: function () {
+      var beta = hiddens_relativistic.beta_relativistic.val;
+      this.val = 1 / Math.sqrt(1 - beta * beta);
     }
   }
 }
@@ -731,9 +793,8 @@ var outputs_relativistic = {
         },
         update() {
             var beta = hiddens_relativistic.beta_relativistic.val;
-            var gamma = 1 / Math.sqrt(1 - beta * beta);
             this.val = outputs.t0_time_to_L0.val / (3 * beta) * (
-                          (1 + beta) * (2 - beta) * gamma / (1 - beta) - 2);
+                          (1 + beta) * (2 - beta) * hiddens_relativistic.gamma.val / (1 - beta) - 2);
         },
     },
     v_0_speed_to_L0: {
@@ -745,6 +806,7 @@ var outputs_relativistic = {
         update() {
           var beta = hiddens_relativistic.beta_relativistic.val;
           this.val = outputs.v_0_speed_to_L0.val * Math.sqrt((1 - beta) / (1 + beta));
+          // this.val = hiddens_relativistic.beta_relativistic.val;
         },
     },
     l0_ke: {
@@ -1233,7 +1295,6 @@ function update() {
     hiddens_relativistic[id].update();
   }
 
-  console.log("updated");
 
   // Update output relativistic variables
   for (var id in outputs_relativistic) {
