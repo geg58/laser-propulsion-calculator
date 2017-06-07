@@ -311,7 +311,15 @@ var hiddens_relativistic = {
       var x = hiddens_relativistic.beta_non_relativistic.val;
       var lookup_table = {
         0: 1,
+        0.01: 1.0067,
+        0.02: 1.0136,
+        0.03: 1.0206,
+        0.04: 1.0277,
         0.05: 1.03,
+        0.06: 1.0425,
+        0.07: 1.0501,
+        0.08: 1.0578,
+        0.09: 1.0657,
         0.1: 1.07,
         0.15:1.12,
         0.2: 1.17,
