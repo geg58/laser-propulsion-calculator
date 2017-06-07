@@ -1413,8 +1413,8 @@ function exportToCsv(filename) {
 function createCSV() {
   var lineArray = [
     ['Inputs', 'Value', 'Unit', '',
-      'Non Relativistic Output', 'Value 1', 'Unit', 'Value 2', 'Unit', '',
-      'Relativistic Output', 'Value 1', 'Unit', 'Value 2', 'Unit'],
+      'Non Relativistic Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit', '',
+      'Relativistic Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit'],
   ];
 
   var inputsArray = Object.getOwnPropertyNames(inputs);
