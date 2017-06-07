@@ -1336,7 +1336,9 @@ function optimizeSailSize() {
 function downloadCSV() {
   var filename = prompt('Enter filename for CSV', 
     'laser_propulsion_calculations.csv');
-  exportToCsv(filename);
+  if (filename != null) {
+    exportToCsv(filename);
+  }
 }
 
 /**
