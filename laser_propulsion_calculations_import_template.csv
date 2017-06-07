@@ -1,27 +1,27 @@
-Inputs,Value
-Payload,0.001
-Use Optimal Sail,TRUE
-Use Square Sail,TRUE
-Use Circular Sail,FALSE
-Sail Diameter,0.119522861
-Sail Thickness,3
-Sail Density,35
-Sail Reflection Efficiency (0 - 1),0.2
-Sail Absorption of Light not Reflected (0 - 1),0.5
-Sail Front Emissivity (0 - 1),1
-Sail Back Emissivity (0 - 1),1
-Use Circular Laser Array,TRUE
-Laser Array Side Length,10000
-Total Optical Power,100
-Beam Efficiency (0 - 1),1
-Wavelength,1060
-Electrical Efficiency (0 - 1),1
-Electrical Energy Cost,0.1
-Energy Storage Cost,0.1
-Peak Laser Comm Power,1
-Photons Per Bit for Communication,1
-Laser Comm Wavelength,600
-Laser Comm Beam Efficiency (0 - 1),1
-Use Circular Comm Optics,TRUE
-Spacecraft Laser Comm Optical Size,1
-Target Distance,4.37
+Inputs,Value,,,,,,,,,,,,
+Payload,0.001,,,,,,,,,,,,
+Use Optimal Sail,TRUE,,,,,,,,,,,,
+Use Square Sail,TRUE,,,,,,,,,,,,
+Use Circular Sail,FALSE,,,,,,,,,,,,
+Use Spherical Sail,FALSE,,,,,,,,,,,,
+Sail Thickness,1,,,,,,,,,,,,
+Sail Density,1,,,,,,,,,,,,
+Sail Reflection Efficiency (0 - 1),1,,,,,,,,,,,,
+Sail Absorption of Light not Reflected (0 - 1),1,,,,,,,,,,,,
+Sail Front Emissivity (0 - 1),1,,,,,,,,,,,,
+Sail Back Emissivity (0 - 1),1,,,,,,,,,,,,
+Use Circular Laser Array,TRUE,,,,,,,,,,,,
+Laser Array Side Length,10000,,,,,,,,,,,,
+Total Optical Power,100,,,,,,,,,,,,
+Beam Efficiency (0 - 1),1,,,,,,,,,,,,
+Wavelength,1060,,,,,,,,,,,,
+Electrical Efficiency (0 - 1),1,,,,,,,,,,,,
+Electrical Energy Cost,0.1,,,,,,,,,,,,
+Energy Storage Cost,0.1,,,,,,,,,,,,
+Peak Laser Comm Power,1,,,,,,,,,,,,
+Photons Per Bit for Communication,1,,,,,,,,,,,,
+Laser Comm Wavelength,600,,,,,,,,,,,,
+Laser Comm Beam Efficiency (0 - 1),1,,,,,,,,,,,,
+Use Circular Comm Optics,TRUE,,,,,,,,,,,,
+Spacecraft Laser Comm Optical Size,1,,,,,,,,,,,,
+Target Distance,4.37,,,,,,,,,,,,
