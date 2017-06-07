@@ -11,8 +11,11 @@
     <nav>
       <ul>
         <li>
-          <input type='button' id='download_csv' value='Save as CSV or Export Parameters - Browse to Import Parameters'/>
-          <input type='file' id='import_csv' value='Import CSV'/>
+          <input type="button" id="reset" value="reset">
+          <input type='button' id='download_csv' value='Save Results as CSV'/>
+          <button><label for="import_csv">Import Parameters through CSV</label></button>
+          <button><a target="_blank" download href="laser_propulsion_calculations_import_template.csv" style="color: black">Download Parameter Template</a></button>
+          <input type='file' id='import_csv' style="visibility: none; width: 0">
         </li>
       </ul>
     </nav>

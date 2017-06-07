@@ -354,8 +354,6 @@ var hiddens_relativistic = {
         } else {
           var slope = (lookup_table[key] - lookup_table[last]) / (key - last);
           ratio = (x - last) * slope + lookup_table[last];
-          console.log("last: " + last);
-          console.log("now: "  + key);
           break;
         }
       }
@@ -363,9 +361,9 @@ var hiddens_relativistic = {
         ratio = lookup_table[1];
       }
       this.val = x * ratio;
-      console.log("beta_non_relativistic: " + x);
-      console.log("beta_relativistic: " + ratio);
-      console.log("value: " + this.val);
+      // console.log("beta_non_relativistic: " + x);
+      // console.log("beta_relativistic: " + ratio);
+      // console.log("value: " + this.val);
     }
   },
   gamma: {
@@ -1091,6 +1089,7 @@ function disableInput(input) {
   var inputs_element = document.getElementById('inputs');
   for (var id in inputs) {
     var input = inputs[id];
+    input.default = input.val;
 
     var label = input.htmlLabel = document.createElement('label');
     label.innerHTML = input.label;
@@ -1202,6 +1201,7 @@ function disableInput(input) {
 
   document.getElementById('download_csv').addEventListener('click', downloadCSV, false);
   document.getElementById('import_csv').addEventListener('change', importCSV, false);
+  document.getElementById('reset').addEventListener('click', reset, false);
 
   update();
 })();
@@ -1509,6 +1509,25 @@ function htmlToText(unitHTML) {
   unitHTML = String(unitHTML).replace(/<\/sub>/g, '');
 
   return unitHTML;
+}
+
+/**
+ * Reset inputs to their default values
+ */
+function reset() {
+  var inputsArray = Object.getOwnPropertyNames(inputs);
+  for (var i = 0; i < inputsArray.length; i++) {
+    var id = inputsArray[i];
+    var input = inputs[id];
+    var val = input.default;
+    if (input.type === 'checkbox' || input.type === 'radio') {
+      input.val = val;
+    } else {
+      input.displayVal = parseFloat(val);
+    }
+  }
+  updateInput(false);
+  update();
 }
 
 /**
