@@ -109,3 +109,12 @@ table tr:nth-child(odd) {
 #outputs td:first-child {
   color: unset;
 }
+
+#outputs_relativistic td:first-child {
+  color: unset;
+}
+
+#outputs_relativistic td {
+  color: #94c27d;
+}
+
