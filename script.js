@@ -1323,15 +1323,21 @@ function exportToCsv(filename) {
  */
 function createCSV() {
   var lineArray = [
-    ['Inputs', 'Value', 'Unit', 'Outputs', 'Value', 'Unit'],
+    ['Inputs', 'Value', 'Unit', '',
+      'Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit', '',
+      'Relativistic Outputs', 'Value 1', 'Unit', 'Value 2', 'Unit'],
   ];
 
   var inputsArray = Object.getOwnPropertyNames(inputs);
   var outputsArray = Object.getOwnPropertyNames(outputs);
+  var relativisticsArray = Object.getOwnPropertyNames(outputs_relativistic);
 
-  for (var i = 0; i < Math.max(inputsArray.length, outputsArray.length); i++) {
+  var endCondition = Math.max(relativisticsArray.length, 
+                              Math.max(inputsArray.length, outputsArray.length));
+  for (var i = 0; i < endCondition; i++) {
     var input = inputs[inputsArray[i]];
     var output = outputs[outputsArray[i]];
+    var relativistic = outputs_relativistic[relativisticsArray[i]]
 
     var line = [];
 
@@ -1359,21 +1365,50 @@ function createCSV() {
           line.push('');
         }
       }
+
+      line.push('');
     } else {
       // More outputs than inputs so add empty input line
-      line = line.concat(['', '', '']);
+      line = line.concat(['', '', '', '']);
     }
 
     if (isDefined(output)) {
       line.push(htmlToText(output.label));
-
+      var count = 0;
       for (var unit in output.unitVal) {
         line.push(output.unitVal[unit]);
         line.push(htmlToText(unit));
+        count = count + 1;
+      }
+      if (count != 2) {
+        line.push('');
+        line.push('');
       }
 
-      lineArray.push(line);
+      line.push('');
+    } else {
+      // More outputs than inputs so add empty input line
+      line = line.concat(['', '', '', '', '', '']);
     }
+
+    if (isDefined(relativistic)) {
+      line.push(htmlToText(relativistic.label));
+      var count = 0;
+      for (var unit in relativistic.unitVal) {
+        line.push(relativistic.unitVal[unit]);
+        line.push(htmlToText(unit));
+        count = count + 1;
+      }
+      if (count != 2) {
+        line.push('');
+        line.push('');
+      }
+    } else {
+      // More outputs than inputs so add empty input line
+      line = line.concat(['', '', '', '', '']);
+  }
+
+    lineArray.push(line);
   }
 
   return lineArray;
