@@ -822,7 +822,7 @@ var outputs_relativistic = {
             J: J,
         },
         update() {
-            this.val = 0.5 * outputs_relativistic.m_total_mass.val * Math.pow(outputs_relativistic.v_0_speed_to_L0.val, 2);
+            this.val = 0.5 * outputs_relativistic.m_total_mass.val * Math.pow(c_speed_light, 2) * (hiddens_relativistic.gamma.val - 1);
         },
     },
     E_gamma_photon_energy_in_main_beam_to_time_t0: {
@@ -1164,17 +1164,29 @@ function disableInput(input) {
     // Create object to store values for each unit
     outputs[id].unitVal = {};
 
+    var count = 0;
     // Create a table cell with the output and its units
     for (var unit in output.unit) {
       var unitVal = document.createElement('div');
       var unitLabel = document.createElement('label');
       unitLabel.className = 'unit';
       unitLabel.innerHTML = ' ' + unit;
+      count = count + 1;
 
       rowCells.push([unitVal, unitLabel]);
       element[unit] = unitVal;
     }
 
+    if (count == 1) {
+      var unitVal = document.createElement('div');
+      var unitLabel = document.createElement('label');
+      unitLabel.className = 'unit';
+      unitLabel.innerHTML = ' ';
+      count = count + 1;
+
+      rowCells.push([unitVal, unitLabel]);
+    }
+ 
     var table_row = createTableRow(rowCells);
     outputs_element.appendChild(table_row);
   }
@@ -1192,15 +1204,26 @@ function disableInput(input) {
     // Create object to store values for each unit
     outputs_relativistic[id].unitVal = {};
 
+    var count = 0;
     // Create a table cell with the output and its units
     for (var unit in output.unit) {
       var unitVal = document.createElement('div');
       var unitLabel = document.createElement('label');
       unitLabel.className = 'unit';
       unitLabel.innerHTML = ' ' + unit;
-
+      count = count + 1;
       rowCells.push([unitVal, unitLabel]);
       element[unit] = unitVal;
+    }
+
+    if (count == 1) {
+      var unitVal = document.createElement('div');
+      var unitLabel = document.createElement('label');
+      unitLabel.className = 'unit';
+      unitLabel.innerHTML = ' ';
+      count = count + 1;
+
+      rowCells.push([unitVal, unitLabel]);
     }
 
     var table_row = createTableRow(rowCells);
