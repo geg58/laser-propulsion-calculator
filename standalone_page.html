@@ -4,8 +4,7 @@
   <title>UC Santa Barbara Laser Propulsion</title>
   <meta charset="UTF-8">
   <style type="text/css">
-    @import "compass/css3";
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
 @import url(https://fonts.googleapis.com/css?family=Muli);
 @import url(https://fonts.googleapis.com/css?family=Gentium+Basic);
 
@@ -244,7 +243,8 @@ table thead th {
             <label type='button' for='import_csv' class="control_menu_button" id="import_csv_button">Import Parameters through CSV</label>
             <input type='file' id='import_csv' style="visibility: hidden; width: 0">
             <!-- <button class="control_menu_button"><label for="import_csv">Import Parameters through CSV</label></button> -->
-            <button class="control_menu_button" id="download_template"><a target="_blank" download href="laser_propulsion_calculations_import_template.csv">Download Parameter Template</a></button>
+            <!-- <button class="control_menu_button" id="download_template"><a target="_blank" download href="laser_propulsion_calculations_import_template.csv">Download Parameter Template</a></button> -->
+            <a type="button" target="_blank" download href="laser_propulsion_calculations_import_template.csv" class="control_menu_button" id="download_template">Download Parameter Template</a>
           </li>
         </ul>
       </nav>
@@ -598,7 +598,7 @@ var hiddens_relativistic = {
     update: function() {
       // to change
       var x = hiddens_relativistic.beta_non_relativistic.val;
-      var lookup_table = {
+      var relativistic_beta_to_raio = {
         0: 1,
         0.01: 1.0067,
         0.02: 1.0136,
@@ -639,9 +639,21 @@ var hiddens_relativistic = {
         0.97: 13.44,
         0.98: 18.23,
         0.99: 30.67,
+        0.995: 51.6133,
+        0.999: 172.6483,
+        0.9995: 290.3748,
+        0.9999: 970.9717,
+        0.99995: 1632.9832,
+        0.99999: 5460.235,
+        0.999995: 9182.9897,
       };
+      var lookup_table = {};
+      for (var b in relativistic_beta_to_raio) {
+        lookup_table[b * relativistic_beta_to_raio[b]] = relativistic_beta_to_raio[b];
+      }
       var last = 0;
-      var ratio = 1;
+      var ratio = 9182.9897;
+      var calculated = false;
       for (var key in lookup_table) {
         if (key == x) {
           ratio = lookup_table[x];
@@ -654,19 +666,20 @@ var hiddens_relativistic = {
           break;
         }
       }
-      if (last == 1) {
-        ratio = lookup_table[1];
+      this.val = x / ratio;
+      if (this.val >= 1) {
+        this.val = 1;
       }
-      this.val = x * ratio;
-      // console.log("beta_non_relativistic: " + x);
-      // console.log("beta_relativistic: " + ratio);
-      // console.log("value: " + this.val);
     }
   },
   gamma: {
     update: function () {
       var beta = hiddens_relativistic.beta_relativistic.val;
-      this.val = 1 / Math.sqrt(1 - beta * beta);
+      if (beta >= 1) {
+        this.val = 1 / Math.sqrt(0.00000000000000000001);// manual to prevent NaN
+      } else{
+        this.val = 1 / Math.sqrt(1 - beta * beta);
+      }
     }
   }
 }
@@ -1099,8 +1112,7 @@ var outputs_relativistic = {
             '% c': (c_speed_light / 100),
         },
         update() {
-          var beta = hiddens_relativistic.beta_relativistic.val;
-          this.val = outputs.v_0_speed_to_L0.val * Math.sqrt((1 - beta) / (1 + beta));
+          this.val = hiddens_relativistic.beta_relativistic.val * c_speed_light;
           // this.val = hiddens_relativistic.beta_relativistic.val;
         },
     },
@@ -1111,7 +1123,7 @@ var outputs_relativistic = {
             J: J,
         },
         update() {
-            this.val = 0.5 * outputs_relativistic.m_total_mass.val * Math.pow(c_speed_light, 2) * (hiddens_relativistic.gamma.val - 1);
+            this.val = outputs_relativistic.m_total_mass.val * Math.pow(c_speed_light, 2) * (hiddens_relativistic.gamma.val - 1);
         },
     },
     E_gamma_photon_energy_in_main_beam_to_time_t0: {
