@@ -45,5 +45,5 @@ This creates a text element, which displays the "Total Mass" in grams. The updat
 
 And that's the basic overview. Here's one more important detail:
 
-In addition to the "inputs" and "outputs" objects, we have the "hiddens" object variable, which work in a similar way to "outputs", but they don't show up on the user interface.
+In addition to the "inputs" and "outputs" objects, we have the "hiddens" and "hiddens_relativistic" object variable, which work in a similar way to "outputs", but they don't show up on the user interface. These are useful for intermediate calculation results.
 

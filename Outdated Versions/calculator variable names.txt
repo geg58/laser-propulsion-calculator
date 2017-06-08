@@ -1,0 +1,49 @@
+Constants
+* c_speed_light: Speed of Light
+* h_planck: Planck's Constant
+* g_n: Gravitational Constant
+
+Inputs
+* m0_payload_mass: Payload
+* D_sail_size: Sail Size
+* h_sail_thickness: Sail Thickness
+* rho_sail_density: Sail Density
+* d_array_size: Laser Size
+* P_optical: Total Optical Power
+* epsilon_sub_beam_beam_eff: Beam Efficiency
+* lambda_wavelength: Wavelength
+* epsilon_sub_elec_photon_to_electrical_eff: Electrical Efficiency
+* energy_cost: Electrical Energy Cost
+* energy_storage_cost: Energy Storage Cost
+* Laser_comm_spacecraft_power_peak: Peak Laser Comm Power (W)
+* Photons_per_bit_for_communication: Photons Per Bit for Communication
+* lambda_laser_comm_wavelength: Laser Comm Wavelength (nm)
+* Laser_comm_beam_efficiency: Laser Comm Beam Efficiency
+* Laser_comm_spacecraft_optics_size: Spacecraft Laser Comm Optical Size
+* L_target: Target Distance
+
+Outputs
+* m_sail: Sail Mass
+* m_total_mass: Total Mass
+* sail_areal: Areal Density
+* P0_laser_power_in_main_beam: Laser Power in Main Beam
+* a_acceleration: Peak Acceleration
+* L0_distance_to_spot_size_equals_sail_size: Accel Distance at L0
+* t0_time_to_L0: Time to L0
+* v_0_speed_to_L0: Speed at L0
+* l0_ke: Kinetic Energy at L0
+* E_gamma_photon_energy_in_main_beam_to_time_t0: Laser Energy at L0
+* E_elec_total_electrical_energy_used_to_t0: Electrical Energy at L0
+* energy_cost_per_launch: Electrical Energy Cost at L0
+* energy_storage_cost_per_launch: Energy Storage Cost at L0
+* v_infinity_speed_with_continued_illumination: Limiting Sped
+* Laser_comm_flux_at_earth: Laser Comm Flux at Earth (ph/s-m^2)
+* Laser_comm_rate_at_earth: Laser Comm Rate at Earth Received in Array (ph/s)
+* laser_comm_photometric_magnitude: Equivalent Photometric Magnitude m_v
+
+Unused
+* P_electrical_total_electrical_power
+* beta
+* epsilon_sub_r_reflection_coef
+* epsilon_sub_launch_eff
+* epsilon_sub_laser_comm_beam_eff
