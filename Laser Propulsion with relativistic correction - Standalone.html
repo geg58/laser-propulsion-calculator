@@ -1,97 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>UC Santa Barbara Laser Propulsion (Classical 1D)</title>
+  <title>UC Santa Barbara Laser Propulsion</title>
   <meta charset="UTF-8">
   <style type="text/css">
-    html, body {
-  font-family: arial, sans-serif;
-  margin: 0;
-  color: #FFF;
-}
+    @import "compass/css3";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+@import url(https://fonts.googleapis.com/css?family=Muli);
+@import url(https://fonts.googleapis.com/css?family=Gentium+Basic);
 
-body {
-  background-color: #202025;
-}
 
-span {
-  display: block;
-  font-weight: bold;
-  padding-left: 5px;
-  text-align: left;
-}
-
-h1, h2 {
-  font-weight: 100;
-}
-
-  h1 {
-    color: #FFF;
-    font-size: 1rem;
-  }
-
-a {
-  color: #FFF;
-  text-decoration: none;
-}
-
+/* --- The Table Structure --- */
 table {
-  display: inline-block;
-  vertical-align: top;
-  font-size: 12pt;
-  width: 33%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table tr th,
+table tr td {
+  border-top: 1px solid #bbb;
+  border-right: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  box-shadow: 2px 2px 1px #dcdcdc;
+}
+table tr th:first-child,
+table tr td:first-child {
+  border-left: 1px solid #bbb;
+  font-weight: 500;
+  text-shadow: 1px 1px #bbb;
 }
 
-  caption {
-    text-align: left;
-  }
-
-td {
-  height: 20px;
-  padding: 0.4rem;
-  text-align: right;
+table tr td:first-child {
+  background: rgba(233, 233, 233, 0.65);
 }
 
-td > div {
-  display: inline-block;
+
+table tr th {
+  border-top: 1px solid #bbb;
 }
 
-input {
-  
+/* top-left border-radius */
+table tr:first-child th:first-child {
+  border-top-left-radius: 6px;
 }
 
-input[type="number"] {
-  background: none;
-  border: none;
-  border-bottom: 1px dotted #666;
-  color: #94c27d;
-  font-size: 1rem;
-  width: 100%;
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 6px;
 }
 
-input[type="number"]:disabled {
-  color: #999;
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 6px;
 }
 
-header, footer {
-  width: calc(100% - 4rem);
-  padding: 1rem 2rem;
-  background-color: #3B8686;
-  box-shadow: 0 0 1px 1px #050505;
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 6px;
 }
 
-  header > p {
-    color: #DDD;
-  }
+
+/* Custom Style */
+body {
+  margin: 30px;
+  font-family: 'Muli', Serif;
+}
+
+header > h1 {
+   color: #111;
+   font-family: 'Helvetica Neue',sans-serif;
+   font-size: 55px;
+   letter-spacing: -1px; 
+   line-height: 1; 
+   text-align: center; 
+}
+
+h2 {
+  color: black;
+    font-family: 'Raleway',sans-serif; 
+    font-size: 22px; 
+    font-weight: 800;
+    line-height: 72px; 
+    margin: 0 0 24px; 
+    text-transform: uppercase;
+}
+
 
 nav > ul {
   list-style-type: none;
   padding: 0;
 }
 
-  nav li {
-    display: inline-block;
-  }
+nav li {
+  display: inline-block;
+}
+
 
 #main {
   display: inline-block;
@@ -104,71 +106,181 @@ nav > ul {
   color: #999;
 }
 
+header {
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+}
+
+footer {
+  width: calc(100% - 4rem);
+  padding: 1rem 2rem;
+  font-style: italic;
+  font-size: 8px
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  color: grey;
+}
+
+.control_menu_button {
+  -moz-border-radius:28px;
+  -webkit-border-radius:28px;
+  border-radius:28px;
+  display:inline-block;
+  cursor:pointer;
+  font-family:Arial;
+  font-size:17px;
+  padding:16px 31px;
+  text-decoration:none;
+  margin: 10px;
+  color:#ffffff;
+  text-shadow:0px 1px 0px #2f6627;
+}
+.control_menu_button:active {
+  position:relative;
+  top:1px;
+}
+
+#reset {
+  border:1px solid #f59608;
+  background-color:#f5a731;
+}
+#reset:hover {
+  background-color:#f39d12;
+}
+
+
+#download_csv {
+  border:1px solid #18ab29;
+  background-color:#36cd6a;
+}
+#download_csv:hover {
+  background-color:#42c063;
+}
+
+#import_csv_button {
+  border:1px solid #2c81ba;
+  background-color:#38a3eb;
+}
+#import_csv_button:hover {
+  background-color:#3498db;
+}
+
+#download_template {
+  border:1px solid #e14a3b;
+  background-color:#f85240;
+}
+#download_template:hover {
+  background-color:#e74c3c;
+}
+#download_template > a:link, a:visited{
+  text-decoration: none;
+  color: white;
+}
+
+
+
+input[type="number"] {
+  background: none;
+  border: none;
+  border-bottom: 1px dotted #666;
+  color: black;
+  font-size: 1rem;
+  width: 100%;
+}
+
+input[type="number"]:disabled {
+  color: black;
+}
+
+/* -- The Table Stlyes -- */
+table {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 11pt;
+  width: 30%;
+  padding: 10px;
+  overflow-x:auto;
+}
+th, td{
+  padding: 8px 10px;
+}
+th{
+  background: #E5E6EB;
+  color: #111;
+}
+td{
+  height: 20px;
+  padding: 0.4rem;
+  text-align: right;
+}
+
 table tr:nth-child(odd) {
-  background-color: #32323a;
+  background: #e0e0e0;
 }
 
-#outputs td {
-  color: #94c27d;
+table tr:nth-child(even) {
+  background: #fafafa;
 }
 
-#outputs td:first-child {
-  color: unset;
+table thead th {
+  background: #333;
+  color: white;
 }
 
-#outputs_relativistic td:first-child {
-  color: unset;
-}
-
-#outputs_relativistic td {
-  color: #94c27d;
-}
-
-
+/*Custom Style Ends*/
   </style>
 </head>
 <body>
-  <header>
-    <h1>UC Santa Barbara Laser Propulsion (Classical 1D)</h1>
-    <nav>
-      <ul>
-        <li>
-          <input type="button" id="reset" value="Reset">
-          <input type='button' id='download_csv' value='Save Results as CSV'/>
-          <button><label for="import_csv">Import Parameters through CSV</label></button>
-          <button><a target="_blank" download href="laser_propulsion_calculations_import_template.csv" style="color: black">Download Parameter Template</a></button>
-          <input type='file' id='import_csv' style="visibility: none; width: 0">
-        </li>
-      </ul>
-    </nav>
-  </header>
+  <div>
+    <header>
+      <h1>UC Santa Barbara Laser Propulsion</h1>
+      <nav>
+        <ul>
+          <li id="control_menu">
+            <button id="reset" class="control_menu_button">Reset</button>
+            <button id='download_csv' class="control_menu_button">Save Results as CSV</button>
+            <label type='button' for='import_csv' class="control_menu_button" id="import_csv_button">Import Parameters through CSV</label>
+            <input type='file' id='import_csv' style="visibility: hidden; width: 0">
+            <!-- <button class="control_menu_button"><label for="import_csv">Import Parameters through CSV</label></button> -->
+            <button class="control_menu_button" id="download_template"><a target="_blank" download href="laser_propulsion_calculations_import_template.csv">Download Parameter Template</a></button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+
   <div id="main">
+
     <table id="inputs">
-      <caption>
-        <h2>
-          Inputs
-          <hr>
-        </h2>
-      </caption>
+      <thead>
+        <tr>
+           <th colspan="2">Input Parameters</th>
+        </tr>
+       </thead>
+
     </table><!--
+
  --><table id="outputs">
-      <caption>
-        <h2>
-          Non Relativistic Output
-          <hr>
-        </h2>
-      </caption>
+      <thead>
+        <tr>
+           <th colspan="3"> Non Relativistic Output</th>
+        </tr>
+       </thead>
+
     </table>
 
     <table id="outputs_relativistic">
-      <caption>
-        <h2>
-          Relativistic Output
-          <hr>
-        </h2>
-      </caption>
+      <thead>
+        <tr>
+           <th colspan="3"> Relativistic Output</th>
+        </tr>
+       </thead>
     </table>
+
   </div>
+
   <footer>
     <p>Photon Propulsion Calculator - Based on the calculations in "A Roadmap to Interstellar Flight" - <a href=http://arxiv.org/abs/1604.01356 target="_blank">http://arxiv.org/abs/1604.01356</a></p>
   </footer>
@@ -999,7 +1111,7 @@ var outputs_relativistic = {
             J: J,
         },
         update() {
-            this.val = 0.5 * outputs_relativistic.m_total_mass.val * Math.pow(outputs_relativistic.v_0_speed_to_L0.val, 2);
+            this.val = 0.5 * outputs_relativistic.m_total_mass.val * Math.pow(c_speed_light, 2) * (hiddens_relativistic.gamma.val - 1);
         },
     },
     E_gamma_photon_energy_in_main_beam_to_time_t0: {
@@ -1341,17 +1453,29 @@ function disableInput(input) {
     // Create object to store values for each unit
     outputs[id].unitVal = {};
 
+    var count = 0;
     // Create a table cell with the output and its units
     for (var unit in output.unit) {
       var unitVal = document.createElement('div');
       var unitLabel = document.createElement('label');
       unitLabel.className = 'unit';
       unitLabel.innerHTML = ' ' + unit;
+      count = count + 1;
 
       rowCells.push([unitVal, unitLabel]);
       element[unit] = unitVal;
     }
 
+    if (count == 1) {
+      var unitVal = document.createElement('div');
+      var unitLabel = document.createElement('label');
+      unitLabel.className = 'unit';
+      unitLabel.innerHTML = ' ';
+      count = count + 1;
+
+      rowCells.push([unitVal, unitLabel]);
+    }
+ 
     var table_row = createTableRow(rowCells);
     outputs_element.appendChild(table_row);
   }
@@ -1369,15 +1493,26 @@ function disableInput(input) {
     // Create object to store values for each unit
     outputs_relativistic[id].unitVal = {};
 
+    var count = 0;
     // Create a table cell with the output and its units
     for (var unit in output.unit) {
       var unitVal = document.createElement('div');
       var unitLabel = document.createElement('label');
       unitLabel.className = 'unit';
       unitLabel.innerHTML = ' ' + unit;
-
+      count = count + 1;
       rowCells.push([unitVal, unitLabel]);
       element[unit] = unitVal;
+    }
+
+    if (count == 1) {
+      var unitVal = document.createElement('div');
+      var unitLabel = document.createElement('label');
+      unitLabel.className = 'unit';
+      unitLabel.innerHTML = ' ';
+      count = count + 1;
+
+      rowCells.push([unitVal, unitLabel]);
     }
 
     var table_row = createTableRow(rowCells);
@@ -1521,7 +1656,9 @@ function optimizeSailSize() {
 function downloadCSV() {
   var filename = prompt('Enter filename for CSV', 
     'laser_propulsion_calculations.csv');
-  exportToCsv(filename);
+  if (filename != null) {
+    exportToCsv(filename);
+  }
 }
 
 /**
