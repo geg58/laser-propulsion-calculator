@@ -1,339 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>UC Santa Barbara Laser Propulsion (Classical 1D)</title>
-	<meta charset="UTF-8">
-	<style>
-		html, body {
-			font-family: arial, sans-serif;
-			margin: 0;
-			color: #FFF;
-		}
-
-		body {
-			/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2d3f51+0,263545+100 */
-			background: #2d3f51; /* Old browsers */
-			background: -moz-linear-gradient(-45deg, #2d3f51 0%, #263545 100%); /* FF3.6-15 */
-			background: -webkit-linear-gradient(-45deg, #2d3f51 0%,#263545 100%); /* Chrome10-25,Safari5.1-6 */
-			background: linear-gradient(135deg, #2d3f51 0%,#263545 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		}
-
-		span {
-			display: block;
-			font-weight: bold;
-			padding-left: 5px;
-			text-align: left;
-		}
-
-		h1, h2 {
-			font-weight: 100;
-		}
-
-		h1 {
-			color: #FFF;
-			font-size: 1rem;
-		}
-
-		h2 {
-			font-size: 1.2rem;
-		}
-
-		a {
-			color: #FFF;
-			text-decoration: none;
-		}
-
-		table {
-			display: inline-block;
-			vertical-align: top;
-			font-size: 12pt;
-			margin: 1rem;
-			border-radius: 5px;
-			width: calc(50% - 2px - 2rem);
-			background-color: rgba(0, 0, 0, 0.4);
-			box-shadow: inset 0 0px 10px #11181f;
-			border: 1px solid #333;
-		}
-
-		tbody {
-			padding: 1rem;
-		}
-
-		tr:nth-child(even) {
-			background-color: #1f2c38;
-		}
-
-		tr:hover td {
-			transition: background 0.3s;
-			background-color: rgba(0, 0, 0, 0.2);
-		}
-
-		td {
-			height: 1.3rem;
-			padding: 0.4rem;
-			text-align: right;
-		}
-
-		td > div {
-			display: inline-block;
-		}
-
-		/* Numbers are green */
-		#outputs td {
-			color: #94c27d;
-		}
-
-		/* Labels are white */
-		#outputs td:first-child {
-			color: unset;
-		}
-
-		caption {
-			display: block;
-			background-color: #1f2c38;
-			box-shadow: 0 2px 2px #11181f;
-		}
-
-		caption > h2 {
-			display: inline-block;
-			padding: 0.85rem 4%;
-			border-radius: 4px;
-			background-color: #3B8686;
-			box-shadow: 0 0 4px #11181f;
-		}
-
-		caption:after {
-			content: '';
-			display: block;
-			margin-top: -2.5rem;
-			margin-bottom: 2.6rem;
-			border-bottom: 1px solid #11181f;
-		}
-
-		input {
-			margin: 0;
-			padding: 0;
-			background: none;
-			border: none;
-			font-size: unset;
-		}
-
-		input[type="button"] {
-			color: unset;
-			cursor: pointer;
-		}
-
-		input[type="number"] {
-			border-bottom: 1px dotted #666;
-			color: #94c27d;
-			width: 100%;
-		}
-
-		input[type="number"]:disabled {
-			color: #999;
-		}
-
-		input[type="radio"] {
-			margin: 0.49rem 0;
-		}
-
-		input[type="file"] {
-			display: none;
-		}
-
-		.custom-file-upload {
-			line-height: 3rem;
-			cursor: pointer;
-		}
-
-		header, footer {
-			background-color: #3B8686;
-			box-shadow: inset 0 0 4px #2f6b6b;
-		}
-
-		header {
-			width: 100%;
-		}
-
-		nav {}
-
-		nav > ul {
-			border-top: 1px solid #295d5d;
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			flex-wrap: wrap;
-			align-items: center;
-		}
-
-		nav li {
-			display: flex;
-			flex: 1 1 auto;
-			height: 3rem;
-			border-right: 1px solid #295d5d;
-			box-shadow: 2px 0 4px #2f6b6b;
-		}
-
-		nav li > * {
-			width: 100%;
-			text-align: center;
-		}
-
-		nav h1 {
-			line-height: 1.4rem;
-		}
-
-		nav li:first-child {
-			background-color: #419494;
-		}
-
-		nav li:hover {
-			transition: background 0.3s;
-			background-color: #419494;
-		}
-
-		#main {
-			display: inline-block;
-			width: calc(100% - 4rem);
-			padding: 1rem 2rem;
-		}
-
-		.unit, .dark {
-			color: #97b3b3;
-		}
-
-		.unit {
-			font-size: 0.8rem;
-		}
-	</style>
-
-	<!-- Piwik -->
-	<script type="text/javascript">
-		var _paq = _paq || [];
-		_paq.push(["setDomains", ["*.www.deepspace.ucsb.edu/wp-content/uploads/2015/04/Laser-Propulsion-Classical-1D-Standalone.html"]]);
-		_paq.push(['trackPageView']);
-		_paq.push(['enableLinkTracking']);
-		(function() {
-			var u="https://rjdlee.com/analytics/";
-			_paq.push(['setTrackerUrl', u+'piwik.php']);
-			_paq.push(['setSiteId', 5]);
-			var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-			g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-		})();
-	</script>
-	<noscript><p><img src="https://rjdlee.com/analytics/piwik.php?idsite=5" style="border:0;" alt="" /></p></noscript>
-	<!-- End Piwik Code -->
+  <title>UC Santa Barbara Laser Propulsion</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<div id='app'>
-		<header>
-			<nav>
-				<ul>
-					<li>
-						<h1>
-							UC Santa Barbara Laser Propulsion 
-							<label class='dark'>
-								(Classical 1D)
-							</label>
-						</h1>
-					</li>
-					<li>
-						<input type='button' value='Save as CSV' v-on:click='saveCSV'/>
-					</li>
-					<li>
-						<label class='custom-file-upload'>
-							<input type='file' v-on:change='importCSV'/>
-							Import CSV
-						</label>
-					</li>
-					<li>
-						<input type='button' value='Reset' v-on:click='reset'/>
-					</li>
-					<li v-on:click='debug_mode = !debug_mode'>
-						<input type='button' :value='(debug_mode ? "Hide" : "Show") + " Debug"'/>
-					</li>
-				</ul>
-			</nav>
-		</header>
-		<div id="main">
-			<table class="modal" id="hiddens" v-show='debug_mode'>
-				<caption>
-					<h2>
-						Hiddens
-					</h2>
-				</caption>
-				<tbody>
-					<tr v-for='(hidden, id) in hiddens'>
-						<td>
-							{{id}}: {{hidden.val}}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<table class="modal" id="inputs">
-				<caption>
-					<h2>
-						Inputs
-					</h2>
-				</caption>
-				<tbody>
-					<tr v-for='(input, id) in inputs'>
-						<td>
-							<label>
-								{{ input.label }}
-								<label v-for="(_, unit) in input.unit" class="unit" v-html="'(' + unit + ')'"></label>
-							</label>
-						</td>
-						<td>
-							<input v-if="input.type === 'number'" v-model.number="input.displayVal" v-on:change="saveLocalStorage" type="number" :id="id" :min="input.min" :max="input.max" :title="input.label">
-							<input v-if="input.type === 'checkbox'" v-model="input.val" v-on:change="saveLocalStorage" type="checkbox" :id="id" :title="input.label">
+  <div>
+    <header>
+      <h1>UC Santa Barbara Laser Propulsion</h1>
+      <nav>
+        <ul>
+          <li id="control_menu">
+            <button id="reset" class="control_menu_button">Reset</button>
+            <button id='download_csv' class="control_menu_button">Save Results as CSV</button>
+            <label type='button' for='import_csv' class="control_menu_button" id="import_csv_button">Import Parameters through CSV</label>
+            <input type='file' id='import_csv' style="visibility: hidden; width: 0">
+            <!-- <button class="control_menu_button"><label for="import_csv">Import Parameters through CSV</label></button> -->
+            <button class="control_menu_button" id="download_template"><a target="_blank" download href="laser_propulsion_calculations_import_template.csv">Download Parameter Template</a></button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </div>
 
-							<div v-if="input.type === 'radio'">
-								<div v-for="radio in input.radios" >
-									<label :for="radio.val">{{ radio.label}}&nbsp;</label>
-									<input v-model="input.val" v-on:change="saveLocalStorage" type="radio" :value="radio.val" :id="radio.val" :title="input.label">
-								</div>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-	    </table><!--
-	--><table class="modal" id="outputs">
-	<caption>
-		<h2>
-			Outputs
-		</h2>
-	</caption>
-	<tr v-for='(output, id) in outputs'>
-		<td>
-			<label v-html="output.label"></label>
-		</td>
-		<td v-for="(conversion, unit) in output.unit">
-			<div>
-				{{ output.val / conversion | formatFloat }}
-			</div>
-			<label class="unit" v-html="unit"></label>
-		</td>
-	</tr>
-</table>
-</div>
+  <div id="main">
 
-<footer>
-	<nav>
-		<ul>
-			<li>
-				<h1>Photon Propulsion Calculator</h1>
-			</li>
-			<li>
-				<p><a href='https://arxiv.org/abs/1604.01356' target='_blank'>Based on the calculations in "A Roadmap to Interstellar Flight" - https://arxiv.org/abs/1604.01356</a></p>
-			</li>
-		</ul>
-	</nav>
-</footer>
-</div>
+    <table id="inputs">
+      <thead>
+        <tr>
+           <th colspan="2">Input Parameters</th>
+        </tr>
+       </thead>
 
-<script src='https://unpkg.com/vue@2.1.8/dist/vue.min.js'></script>
-<script src='index.js'></script>
+    </table><!--
+
+ --><table id="outputs">
+      <thead>
+        <tr>
+           <th colspan="3"> Non Relativistic Output</th>
+        </tr>
+       </thead>
+
+    </table>
+
+    <table id="outputs_relativistic">
+      <thead>
+        <tr>
+           <th colspan="3"> Relativistic Output</th>
+        </tr>
+       </thead>
+    </table>
+
+  </div>
+
+  <footer>
+    <p>Photon Propulsion Calculator - Based on the calculations in "A Roadmap to Interstellar Flight" - <a href=http://arxiv.org/abs/1604.01356 target="_blank">http://arxiv.org/abs/1604.01356</a></p>
+  </footer>
+
+  <!-- scripts -->
+  <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
