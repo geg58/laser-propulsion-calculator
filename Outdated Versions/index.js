@@ -589,6 +589,15 @@ var outputs = {
 				Math.pow((1 + beta_infinity) / (1 - beta_infinity), 1 / 2);
 		},
 	},
+	michael: {
+		label: "michael",
+		unit: {
+			'awesomeness': 100
+		},
+		update() {
+			
+		}
+	}
 };
 
 /**
