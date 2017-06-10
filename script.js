@@ -40,6 +40,233 @@ var g_n = 9.80665 * m / Math.pow(s, 2);
 var h_planck = 6.626070040e-34 * J / s;
 var sigma_stefan_boltzmann = 5.67036713 * Math.pow(10, -8) * W / (Math.pow(s, 2) * Math.pow(K, 4));
 
+// Look Up Tables
+var relativistic_beta_to_ratio = {
+    0: 1,
+    0.01: 1.0067,
+    0.02: 1.0136,
+    0.03: 1.0206,
+    0.04: 1.0277,
+    0.05: 1.03,
+    0.06: 1.0425,
+    0.07: 1.0501,
+    0.08: 1.0578,
+    0.09: 1.0657,
+    0.1: 1.07,
+    0.15:1.12,
+    0.2: 1.17,
+    0.25: 1.21,
+    0.3: 1.28,
+    0.35: 1.35,
+    0.4: 1.43,
+    0.45: 1.52,
+    0.5: 1.63,
+    0.55: 1.76,
+    0.6: 1.92,
+    0.65: 2.12,
+    0.7: 2.38,
+    0.75: 2.73,
+    0.78: 3,
+    0.8: 3.23,
+    0.82: 3.49,
+    0.85: 4,
+    0.87: 4.46,
+    0.89: 5,
+    0.9: 5.43,
+    0.91: 5.88,
+    0.92: 6.43,
+    0.93: 7.11,
+    0.94: 7.98,
+    0.95: 9.15,
+    0.96: 10.83,
+    0.97: 13.44,
+    0.98: 18.23,
+    0.99: 30.67,
+    0.995: 51.6133,
+    0.999: 172.6483,
+    0.9995: 290.3748,
+    0.9999: 970.9717,
+    0.99995: 1632.9832,
+    0.99999: 5460.235,
+    0.999995: 9182.9897,
+};
+
+var beta_non_relativistic_to_ratio = {
+  0.0000: 1.0000,
+  0.0101: 1.0067,
+  0.0203: 1.0136,
+  0.0306: 1.0206,
+  0.0411: 1.0277,
+  0.0515: 1.0300,
+  0.0625: 1.0425,
+  0.0735: 1.0501,
+  0.0846: 1.0578,
+  0.0959: 1.0657,
+  0.1070: 1.0700,
+  0.1680: 1.1200,
+  0.2340: 1.1700,
+  0.3025: 1.2100,
+  0.3840: 1.2800,
+  0.4725: 1.3500,
+  0.5720: 1.4300,
+  0.6840: 1.5200,
+  0.8150: 1.6300,
+  0.9680: 1.7600,
+  1.1520: 1.9200,
+  1.3780: 2.1200,
+  1.6660: 2.3800,
+  2.0475: 2.7300,
+  2.3400: 3.0000,
+  2.5840: 3.2300,
+  2.8618: 3.4900,
+  3.4000: 4.0000,
+  3.8802: 4.4600,
+  4.4500: 5.0000,
+  4.8870: 5.4300,
+  5.3508: 5.8800,
+  5.9156: 6.4300,
+  6.6123: 7.1100,
+  7.5012: 7.9800,
+  8.6925: 9.1500,
+  10.3968: 10.8300,
+  13.0368: 13.4400,
+  17.8654: 18.2300,
+  30.3633: 30.6700,
+  51.3552: 51.6133,
+  172.4757: 172.6483,
+  290.2296: 290.3748,
+  970.8746: 970.9717,
+  1632.9016: 1632.9832,
+  5460.1804: 5460.2350,
+  9182.9438: 9182.9897,
+};
+// for (var b in relativistic_beta_to_ratio) {
+//   beta_non_relativistic_to_ratio[b * relativistic_beta_to_ratio[b]] = relativistic_beta_to_ratio[b];
+// }
+
+var beta_fn_calculated_values_final_speed = {
+  0.0: 0.3333,
+  0.01: 0.3332,
+  0.02: 0.3329,
+  0.03: 0.3324,
+  0.04: 0.3316,
+  0.05: 0.3307,
+  0.06: 0.3294,
+  0.07: 0.3279,
+  0.08: 0.3262,
+  0.09: 0.3241,
+  0.1: 0.3218,
+  0.15: 0.3053,
+  0.2: 0.2790,
+  0.25: 0.2404,
+  0.3: 0.1858,
+  0.35: 0.1101,
+  0.4: 0.0061,
+  0.45: -0.1365,
+  0.5: -0.3333,
+  0.55: -0.6083,
+  0.6: -1.0000,
+  0.65: -1.5740,
+  0.7: -2.4493,
+  0.75: -3.8610,
+  0.78: -5.1603,
+  0.8: -6.3333,
+  0.82: -7.8706,
+  0.85: -11.2592,
+  0.87: -14.7262,
+  0.89: -19.9283,
+  0.9: -23.5808,
+  0.91: -28.3151,
+  0.92: -34.6262,
+  0.93: -43.3403,
+  0.94: -55.9321,
+  0.95: -75.2733,
+  0.96: -107.6667,
+  0.97: -169.6064,
+  0.98: -318.7293,
+  0.99: -921.9734,
+  0.995: -2637.0313,
+  0.999: -29747.5050,
+  0.9995: -84232.8792,
+  0.9999: -942597.2473,
+  0.99995: -2666367.0031,
+  0.99999: -29813569.2145,
+  0.999995: -84326455.9213,
+};
+
+var fn_calculated_to_beta_inf_final_speed = {
+  "-42163227.794": 1.0000,
+  "-14906784.4406": 1.0000,
+  "-1333183.3349": 1.0000,
+  "-471298.457": 0.9999,
+  "-42116.2729": 0.9995,
+  "-14873.5858": 0.9990,
+  "-1318.349": 0.9950,
+  "-460.82": 0.9900,
+  "-159.198": 0.9800,
+  "-84.6365": 0.9700,
+  "-53.6667": 0.9600,
+  "-37.47": 0.9500,
+  "-27.7994": 0.9400,
+  "-21.5035": 0.9300,
+  "-17.1464": 0.9200,
+  "-13.9909": 0.9100,
+  "-11.6237": 0.9000,
+  "-9.7975": 0.8900,
+  "-7.1964": 0.8700,
+  "-5.4629": 0.8500,
+  "-3.7686": 0.8200,
+  "-3": 0.8000,
+  "-2.4135": 0.7800,
+  "-1.7638": 0.7500,
+  "-1.058": 0.7000,
+  "-0.6204": 0.6500,
+  "-0.3333": 0.6000,
+  "-0.1375": 0.5500,
+  "-0.0239": 0.5100,
+  0.0984: 0.4500,
+  0.1697: 0.4000,
+  0.2217: 0.3500,
+  0.2596: 0.3000,
+  0.2869: 0.2500,
+  0.3062: 0.2000,
+  0.3193: 0.1500,
+  0.3276: 0.1000,
+  0.3287: 0.0900,
+  0.3298: 0.0800,
+  0.3306: 0.0700,
+  0.3314: 0.0600,
+  0.332: 0.0500,
+  0.3325: 0.0400,
+  0.3329: 0.0300,
+  0.3331: 0.0200,
+  0.33328: 0.0100,
+  0.33333: 0.0000,
+};
+
+
+function get_value_from_sorted_table_with_newton_approx_for_missing (table, target, default_value) {
+  var last = parseFloat(Object.keys(table)[0]);
+  if (last == 0) {
+    last = parseFloat(Object.keys(table)[1]);
+  }
+  for (var key in table) {
+      key = parseFloat(key);
+      if (key == target) {
+        return table[target];
+      } else if (key < target) {
+        last = key;
+      } else {
+        var slope = (table[key] - table[last]) / (key - last);
+        console.log("slope: " + slope);
+        console.log("key " + key + " " + table[key]);
+        console.log("last " + last + " " + table[last]);
+        return (target - last) * slope + table[last];
+      }
+  }
+  return default_value;
+}
+
 /**
  * Input variables
  *
@@ -309,74 +536,7 @@ var hiddens_relativistic = {
     update: function() {
       // to change
       var x = hiddens_relativistic.beta_non_relativistic.val;
-      var relativistic_beta_to_raio = {
-        0: 1,
-        0.01: 1.0067,
-        0.02: 1.0136,
-        0.03: 1.0206,
-        0.04: 1.0277,
-        0.05: 1.03,
-        0.06: 1.0425,
-        0.07: 1.0501,
-        0.08: 1.0578,
-        0.09: 1.0657,
-        0.1: 1.07,
-        0.15:1.12,
-        0.2: 1.17,
-        0.25: 1.21,
-        0.3: 1.28,
-        0.35: 1.35,
-        0.4: 1.43,
-        0.45: 1.52,
-        0.5: 1.63,
-        0.55: 1.76,
-        0.6: 1.92,
-        0.65: 2.12,
-        0.7: 2.38,
-        0.75: 2.73,
-        0.78: 3,
-        0.8: 3.23,
-        0.82: 3.49,
-        0.85: 4,
-        0.87: 4.46,
-        0.89: 5,
-        0.9: 5.43,
-        0.91: 5.88,
-        0.92: 6.43,
-        0.93: 7.11,
-        0.94: 7.98,
-        0.95: 9.15,
-        0.96: 10.83,
-        0.97: 13.44,
-        0.98: 18.23,
-        0.99: 30.67,
-        0.995: 51.6133,
-        0.999: 172.6483,
-        0.9995: 290.3748,
-        0.9999: 970.9717,
-        0.99995: 1632.9832,
-        0.99999: 5460.235,
-        0.999995: 9182.9897,
-      };
-      var lookup_table = {};
-      for (var b in relativistic_beta_to_raio) {
-        lookup_table[b * relativistic_beta_to_raio[b]] = relativistic_beta_to_raio[b];
-      }
-      var last = 0;
-      var ratio = 9182.9897;
-      var calculated = false;
-      for (var key in lookup_table) {
-        if (key == x) {
-          ratio = lookup_table[x];
-          break;
-        } else if (key < x) {
-          last = key;
-        } else {
-          var slope = (lookup_table[key] - lookup_table[last]) / (key - last);
-          ratio = (x - last) * slope + lookup_table[last];
-          break;
-        }
-      }
+      var ratio = get_value_from_sorted_table_with_newton_approx_for_missing(beta_non_relativistic_to_ratio, x, 9182.9897);
       this.val = x / ratio;
       if (this.val >= 1) {
         this.val = 1;
@@ -824,7 +984,6 @@ var outputs_relativistic = {
         },
         update() {
           this.val = hiddens_relativistic.beta_relativistic.val * c_speed_light;
-          // this.val = hiddens_relativistic.beta_relativistic.val;
         },
     },
     l0_ke: {
@@ -893,7 +1052,13 @@ var outputs_relativistic = {
             '% c': (c_speed_light / 100),
         },
         update() {
-            this.val = Math.sqrt(2) * outputs_relativistic.v_0_speed_to_L0.val;
+            // this.val = Math.sqrt(2) * outputs_relativistic.v_0_speed_to_L0.val;
+            var beta_0 = hiddens_relativistic.beta_relativistic.val;
+            var value  = get_value_from_sorted_table_with_newton_approx_for_missing(beta_fn_calculated_values_final_speed, beta_0, -84326455.9213);
+            this.val = get_value_from_sorted_table_with_newton_approx_for_missing(fn_calculated_to_beta_inf_final_speed, value, 0.9999) * c_speed_light;
+
+            // beta_fn_calculated_values_final_speed
+            // fn_calculated_to_beta_inf_final_speed
         },
     },
     time_to_target_at_limiting_speed: {
@@ -1614,3 +1779,5 @@ function importCSV(e) {
   // Read body text of file
   reader.readAsText(file);
 }
+
+
