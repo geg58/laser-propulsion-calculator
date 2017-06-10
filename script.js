@@ -258,9 +258,6 @@ function get_value_from_sorted_table_with_newton_approx_for_missing (table, targ
         last = key;
       } else {
         var slope = (table[key] - table[last]) / (key - last);
-        console.log("slope: " + slope);
-        console.log("key " + key + " " + table[key]);
-        console.log("last " + last + " " + table[last]);
         return (target - last) * slope + table[last];
       }
   }
