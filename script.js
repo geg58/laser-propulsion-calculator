@@ -1002,7 +1002,7 @@ var outputs_relativistic = {
             // this.val = Math.sqrt(2) * outputs_relativistic.v_0_speed_to_L0.val;
             var beta_0 = hiddens_relativistic.beta_relativistic.val;
             var value  = (2 - 4 * beta_0) * Math.sqrt(1 - beta_0 * beta_0) / 3 / (Math.pow(1 - beta_0, 2)) - 1 / 3;
-            this.val = get_value_from_sorted_table_with_newton_approx_for_missing(fn_calculated_to_beta_inf_final_speed, value, 0.9999) * c_speed_light;
+            this.val = get_value_from_sorted_table_with_newton_approx_for_missing(fn_calculated_to_beta_inf_final_speed, value, 0.00000000001) * c_speed_light;
 
             // beta_fn_calculated_values_final_speed
             // fn_calculated_to_beta_inf_final_speed
