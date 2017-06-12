@@ -432,56 +432,6 @@ table thead th {
     //   beta_non_relativistic_to_ratio[b * relativistic_beta_to_ratio[b]] = relativistic_beta_to_ratio[b];
     // }
 
-    var beta_fn_calculated_values_final_speed = {
-      0.0: 0.3333,
-      0.01: 0.3332,
-      0.02: 0.3329,
-      0.03: 0.3324,
-      0.04: 0.3316,
-      0.05: 0.3307,
-      0.06: 0.3294,
-      0.07: 0.3279,
-      0.08: 0.3262,
-      0.09: 0.3241,
-      0.1: 0.3218,
-      0.15: 0.3053,
-      0.2: 0.2790,
-      0.25: 0.2404,
-      0.3: 0.1858,
-      0.35: 0.1101,
-      0.4: 0.0061,
-      0.45: -0.1365,
-      0.5: -0.3333,
-      0.55: -0.6083,
-      0.6: -1.0000,
-      0.65: -1.5740,
-      0.7: -2.4493,
-      0.75: -3.8610,
-      0.78: -5.1603,
-      0.8: -6.3333,
-      0.82: -7.8706,
-      0.85: -11.2592,
-      0.87: -14.7262,
-      0.89: -19.9283,
-      0.9: -23.5808,
-      0.91: -28.3151,
-      0.92: -34.6262,
-      0.93: -43.3403,
-      0.94: -55.9321,
-      0.95: -75.2733,
-      0.96: -107.6667,
-      0.97: -169.6064,
-      0.98: -318.7293,
-      0.99: -921.9734,
-      0.995: -2637.0313,
-      0.999: -29747.5050,
-      0.9995: -84232.8792,
-      0.9999: -942597.2473,
-      0.99995: -2666367.0031,
-      0.99999: -29813569.2145,
-      0.999995: -84326455.9213,
-    };
-
     var fn_calculated_to_beta_inf_final_speed = {
       "-42163227.794": 1.0000,
       "-14906784.4406": 1.0000,
@@ -1339,7 +1289,7 @@ table thead th {
             update() {
                 // this.val = Math.sqrt(2) * outputs_relativistic.v_0_speed_to_L0.val;
                 var beta_0 = hiddens_relativistic.beta_relativistic.val;
-                var value  = get_value_from_sorted_table_with_newton_approx_for_missing(beta_fn_calculated_values_final_speed, beta_0, -84326455.9213);
+                var value  = (2 - 4 * beta_0) * Math.sqrt(1 - beta_0 * beta_0) / 3 / (Math.pow(1 - beta_0, 2)) - 1 / 3;
                 this.val = get_value_from_sorted_table_with_newton_approx_for_missing(fn_calculated_to_beta_inf_final_speed, value, 0.9999) * c_speed_light;
 
                 // beta_fn_calculated_values_final_speed
