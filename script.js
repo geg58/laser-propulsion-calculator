@@ -517,7 +517,7 @@ var outputs = {
     unit: {
       g: g,
     },
-    update() {
+    update: function() {
       this.val = (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2) *
         inputs.h_sail_thickness.val * inputs.rho_sail_density.val);
     },
@@ -527,7 +527,7 @@ var outputs = {
     unit: {
       g: g,
     },
-    update() {
+    update: function() {
       this.val = inputs.m0_payload_mass.val + outputs.m_sail.val;
     },
   },
@@ -536,7 +536,7 @@ var outputs = {
     unit: {
       'g/m<sup>2</sup>': (g / Math.pow(m, 2)),
     },
-    update() {
+    update: function() {
       this.val = inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
     },
   },
@@ -545,7 +545,7 @@ var outputs = {
     unit: {
       GW: GW,
     },
-    update() {
+    update: function() {
       this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
     },
   },
@@ -554,7 +554,7 @@ var outputs = {
     unit: {
       'GW/m<sup>2</sup>': (GW / Math.pow(m, 2)),
     },
-    update() {
+    update: function() {
       this.val = (outputs.P0_laser_power_in_main_beam.val /
         (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2)));
     },
@@ -564,7 +564,7 @@ var outputs = {
     unit: {
       'N': 1,
     },
-    update() {
+    update: function() {
       this.val = hiddens.total_light_efficiency.val *
         outputs.P0_laser_power_in_main_beam.val / (c_speed_light);
     },
@@ -575,7 +575,7 @@ var outputs = {
       'Pa': 1,
       'psi': psi,
     },
-    update() {
+    update: function() {
       this.val = hiddens.total_light_efficiency.val *
         outputs.flux_on_sail.val / (c_speed_light);
     },
@@ -586,7 +586,7 @@ var outputs = {
       'm/s<sup>2</sup>': 1,
       'g<sub>n</sub>': g_n,
     },
-    update() {
+    update: function() {
       this.val = hiddens.total_light_efficiency.val *
         outputs.P0_laser_power_in_main_beam.val / (outputs.m_total_mass.val * c_speed_light);
     },
@@ -597,7 +597,7 @@ var outputs = {
       au: au,
       km: km,
     },
-    update() {
+    update: function() {
       this.val = (inputs.d_array_size.val * inputs.D_sail_size.val /
         (2 * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val));
     },
@@ -608,7 +608,7 @@ var outputs = {
       d: d,
       s: s,
     },
-    update() {
+    update: function() {
       this.val = (Math.sqrt(c_speed_light * inputs.d_array_size.val *
         inputs.D_sail_size.val * outputs.m_total_mass.val /
         (hiddens.total_light_efficiency.val *
@@ -622,7 +622,7 @@ var outputs = {
       'km/s': (km / s),
       '% c': (c_speed_light / 100),
     },
-    update() {
+    update: function() {
       this.val = (Math.sqrt(hiddens.total_light_efficiency.val *
         outputs.P0_laser_power_in_main_beam.val * inputs.d_array_size.val *
         inputs.D_sail_size.val /
@@ -636,7 +636,7 @@ var outputs = {
       'GW*hr': (GW * hr),
       J: J,
     },
-    update() {
+    update: function() {
       this.val = 0.5 * outputs.m_total_mass.val * Math.pow(outputs.v_0_speed_to_L0.val, 2);
     },
   },
@@ -646,7 +646,7 @@ var outputs = {
       'GW*hr': (GW * hr),
       J: J,
     },
-    update() {
+    update: function() {
       this.val = outputs.P0_laser_power_in_main_beam.val * outputs.t0_time_to_L0.val;
     },
   },
@@ -656,7 +656,7 @@ var outputs = {
       'GW*hr': (GW * hr),
       J: J,
     },
-    update() {
+    update: function() {
       this.val = (inputs.P_optical.val * outputs.t0_time_to_L0.val /
         inputs.epsilon_sub_elec_photon_to_electrical_eff.val);
     },
@@ -666,7 +666,7 @@ var outputs = {
     unit: {
       '%': 1 / 100,
     },
-    update() {
+    update: function() {
       this.val = outputs.l0_ke.val / outputs.E_elec_total_electrical_energy_used_to_t0.val;
     },
   },
@@ -675,7 +675,7 @@ var outputs = {
     unit: {
       '$': 1,
     },
-    update() {
+    update: function() {
       this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_cost.val;
     },
   },
@@ -684,7 +684,7 @@ var outputs = {
     unit: {
       '$': 1,
     },
-    update() {
+    update: function() {
       this.val = outputs.E_elec_total_electrical_energy_used_to_t0.val *
         inputs.energy_storage_cost.val;
     },
@@ -695,7 +695,7 @@ var outputs = {
       'km/s': (km / s),
       '% c': (c_speed_light / 100),
     },
-    update() {
+    update: function() {
       this.val = Math.sqrt(2) * outputs.v_0_speed_to_L0.val;
     },
   },
@@ -704,7 +704,7 @@ var outputs = {
     unit: {
       'yr': yr,
     },
-    update() {
+    update: function() {
       this.val = inputs.L_target.val / outputs.v_infinity_speed_with_continued_illumination.val;
     },
   },
@@ -713,7 +713,7 @@ var outputs = {
     unit: {
       'GW/m<sup>2</sup>': (GW / Math.pow(m, 2)),
     },
-    update() {
+    update: function() {
       this.val = (outputs.flux_on_sail.val *
         (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption.val
       );
@@ -724,7 +724,7 @@ var outputs = {
     unit: {
       'GW': (GW / Math.pow(m, 2)),
     },
-    update() {
+    update: function() {
       this.val = (outputs.flux_absorbed_by_sail.val *
         (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2)));
     },
@@ -734,7 +734,7 @@ var outputs = {
     unit: {
       'K': 1,
     },
-    update() {
+    update: function() {
       this.val = Math.pow((outputs.flux_absorbed_by_sail.val) / (sigma_stefan_boltzmann *
           (inputs.epsilon_emissivity_front.val + inputs.epsilon_emissivity_back.val)), 1 /
         4);
@@ -745,7 +745,7 @@ var outputs = {
     unit: {
       'ph s<sup>-1</sup>m<sup>-2</sup>': (1 / (s * Math.pow(m, 2))),
     },
-    update() {
+    update: function() {
       this.val = (inputs.Laser_comm_beam_efficiency.val *
         inputs.Laser_comm_spacecraft_power_peak.val /
         (h_planck * c_speed_light / (inputs.lambda_laser_comm_wavelength.val)) /
@@ -759,7 +759,7 @@ var outputs = {
     unit: {
       '': 1, // Unitless
     },
-    update() {
+    update: function() {
       this.val = -2.5 * Math.log(outputs.Laser_comm_flux_at_earth.val / 3e10) / Math.log(10);
     },
   },
@@ -768,7 +768,7 @@ var outputs = {
     unit: {
       'ph/s': (1 / s),
     },
-    update() {
+    update: function() {
       this.val = outputs.Laser_comm_flux_at_earth.val * hiddens.xi_sail_constant.val *
         Math.pow(inputs.d_array_size.val, 2);
     },
@@ -778,7 +778,7 @@ var outputs = {
     unit: {
       'bits/s': 1,
     },
-    update() {
+    update: function() {
       this.val = outputs.Laser_comm_rate_at_earth.val /
         inputs.Photons_per_bit_for_communication.val;
     },
@@ -788,7 +788,7 @@ var outputs = {
     unit: {
       'nm': nm,
     },
-    update() {
+    update: function() {
       var beta_0 = outputs.v_0_speed_to_L0.val / c_speed_light;
 
       this.val = inputs.lambda_laser_comm_wavelength.val *
@@ -800,7 +800,7 @@ var outputs = {
     unit: {
       'nm': nm,
     },
-    update() {
+    update: function() {
       var beta_infinity = outputs.v_infinity_speed_with_continued_illumination.val /
         c_speed_light;
 
@@ -826,7 +826,7 @@ var outputs_relativistic = {
         unit: {
             g: g,
         },
-        update() {
+        update: function() {
             this.val = (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2) *
                 inputs.h_sail_thickness.val * inputs.rho_sail_density.val);
         },
@@ -836,7 +836,7 @@ var outputs_relativistic = {
         unit: {
             g: g,
         },
-        update() {
+        update: function() {
             this.val = inputs.m0_payload_mass.val + outputs_relativistic.m_sail.val;
         },
     },
@@ -845,7 +845,7 @@ var outputs_relativistic = {
         unit: {
             'g/m<sup>2</sup>': (g / Math.pow(m, 2)),
         },
-        update() {
+        update: function() {
             this.val = inputs.h_sail_thickness.val * inputs.rho_sail_density.val;
         },
     },
@@ -854,7 +854,7 @@ var outputs_relativistic = {
         unit: {
             GW: GW,
         },
-        update() {
+        update: function() {
             this.val = inputs.epsilon_sub_beam_beam_eff.val * inputs.P_optical.val;
         },
     },
@@ -863,7 +863,7 @@ var outputs_relativistic = {
         unit: {
             'GW/m<sup>2</sup>': (GW / Math.pow(m, 2)),
         },
-        update() {
+        update: function() {
             this.val = (outputs_relativistic.P0_laser_power_in_main_beam.val /
                 (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2)));
         },
@@ -873,7 +873,7 @@ var outputs_relativistic = {
         unit: {
             'N': 1,
         },
-        update() {
+        update: function() {
             this.val = hiddens.total_light_efficiency.val *
                 outputs_relativistic.P0_laser_power_in_main_beam.val / (c_speed_light);
         },
@@ -884,7 +884,7 @@ var outputs_relativistic = {
             'Pa': 1,
             'psi': psi,
         },
-        update() {
+        update: function() {
             this.val = hiddens.total_light_efficiency.val *
                 outputs_relativistic.flux_on_sail.val / (c_speed_light);
         },
@@ -895,7 +895,7 @@ var outputs_relativistic = {
             'm/s<sup>2</sup>': 1,
             'g<sub>n</sub>': g_n,
         },
-        update() {
+        update: function() {
             this.val = hiddens.total_light_efficiency.val *
                 outputs_relativistic.P0_laser_power_in_main_beam.val / (outputs_relativistic.m_total_mass.val * c_speed_light);
         },
@@ -906,7 +906,7 @@ var outputs_relativistic = {
             au: au,
             km: km,
         },
-        update() {
+        update: function() {
             this.val = (inputs.d_array_size.val * inputs.D_sail_size.val /
                 (2 * inputs.lambda_wavelength.val * hiddens.alpha_array_constant.val));
         },
@@ -917,7 +917,7 @@ var outputs_relativistic = {
             d: d,
             s: s,
         },
-        update() {
+        update: function() {
             var beta = hiddens_relativistic.beta_relativistic.val;
             this.val = outputs.t0_time_to_L0.val / (3 * beta) * (
                           (1 + beta) * (2 - beta) * hiddens_relativistic.gamma.val / (1 - beta) - 2);
@@ -929,7 +929,7 @@ var outputs_relativistic = {
             'km/s': (km / s),
             '% c': (c_speed_light / 100),
         },
-        update() {
+        update: function() {
           this.val = hiddens_relativistic.beta_relativistic.val * c_speed_light;
         },
     },
@@ -939,7 +939,7 @@ var outputs_relativistic = {
             'GW*hr': (GW * hr),
             J: J,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.m_total_mass.val * Math.pow(c_speed_light, 2) * (hiddens_relativistic.gamma.val - 1);
         },
     },
@@ -949,7 +949,7 @@ var outputs_relativistic = {
             'GW*hr': (GW * hr),
             J: J,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.P0_laser_power_in_main_beam.val * outputs_relativistic.t0_time_to_L0.val;
         },
     },
@@ -959,7 +959,7 @@ var outputs_relativistic = {
             'GW*hr': (GW * hr),
             J: J,
         },
-        update() {
+        update: function() {
             this.val = (inputs.P_optical.val * outputs_relativistic.t0_time_to_L0.val /
                 inputs.epsilon_sub_elec_photon_to_electrical_eff.val);
         },
@@ -969,7 +969,7 @@ var outputs_relativistic = {
         unit: {
             '%': 1 / 100,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.l0_ke.val / outputs_relativistic.E_elec_total_electrical_energy_used_to_t0.val;
         },
     },
@@ -978,7 +978,7 @@ var outputs_relativistic = {
         unit: {
             '$': 1,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.E_elec_total_electrical_energy_used_to_t0.val * inputs.energy_cost.val;
         },
     },
@@ -987,7 +987,7 @@ var outputs_relativistic = {
         unit: {
             '$': 1,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.E_elec_total_electrical_energy_used_to_t0.val *
                 inputs.energy_storage_cost.val;
         },
@@ -998,7 +998,7 @@ var outputs_relativistic = {
             'km/s': (km / s),
             '% c': (c_speed_light / 100),
         },
-        update() {
+        update: function() {
             // this.val = Math.sqrt(2) * outputs_relativistic.v_0_speed_to_L0.val;
             var beta_0 = hiddens_relativistic.beta_relativistic.val;
             var value  = (2 - 4 * beta_0) * Math.sqrt(1 - beta_0 * beta_0) / 3 / (Math.pow(1 - beta_0, 2)) - 1 / 3;
@@ -1017,7 +1017,7 @@ var outputs_relativistic = {
         unit: {
             'yr': yr,
         },
-        update() {
+        update: function() {
             this.val = inputs.L_target.val / outputs_relativistic.v_infinity_speed_with_continued_illumination.val;
         },
     },
@@ -1026,7 +1026,7 @@ var outputs_relativistic = {
         unit: {
             'GW/m<sup>2</sup>': (GW / Math.pow(m, 2)),
         },
-        update() {
+        update: function() {
             this.val = (outputs_relativistic.flux_on_sail.val *
                 (1 - inputs.epsilon_sub_r_reflection_coef.val) * inputs.alpha_reflector_absorption.val
             );
@@ -1037,7 +1037,7 @@ var outputs_relativistic = {
         unit: {
             'GW': (GW / Math.pow(m, 2)),
         },
-        update() {
+        update: function() {
             this.val = (outputs_relativistic.flux_absorbed_by_sail.val *
                 (hiddens.xi_sail_constant.val * Math.pow(inputs.D_sail_size.val, 2)));
         },
@@ -1047,7 +1047,7 @@ var outputs_relativistic = {
         unit: {
             'K': 1,
         },
-        update() {
+        update: function() {
             this.val = Math.pow((outputs_relativistic.flux_absorbed_by_sail.val) / (sigma_stefan_boltzmann *
                     (inputs.epsilon_emissivity_front.val + inputs.epsilon_emissivity_back.val)), 1 /
                 4);
@@ -1058,7 +1058,7 @@ var outputs_relativistic = {
         unit: {
             'ph s<sup>-1</sup>m<sup>-2</sup>': (1 / (s * Math.pow(m, 2))),
         },
-        update() {
+        update: function() {
             this.val = (inputs.Laser_comm_beam_efficiency.val *
                 inputs.Laser_comm_spacecraft_power_peak.val /
                 (h_planck * c_speed_light / (inputs.lambda_laser_comm_wavelength.val)) /
@@ -1072,7 +1072,7 @@ var outputs_relativistic = {
         unit: {
             '': 1, // Unitless
         },
-        update() {
+        update: function() {
             this.val = -2.5 * Math.log(outputs_relativistic.Laser_comm_flux_at_earth.val / 3e10) / Math.log(10);
         },
     },
@@ -1081,7 +1081,7 @@ var outputs_relativistic = {
         unit: {
             'ph/s': (1 / s),
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.Laser_comm_flux_at_earth.val * hiddens.xi_sail_constant.val *
                 Math.pow(inputs.d_array_size.val, 2);
         },
@@ -1091,7 +1091,7 @@ var outputs_relativistic = {
         unit: {
             'bits/s': 1,
         },
-        update() {
+        update: function() {
             this.val = outputs_relativistic.Laser_comm_rate_at_earth.val /
                 inputs.Photons_per_bit_for_communication.val;
         },
@@ -1101,7 +1101,7 @@ var outputs_relativistic = {
         unit: {
             'nm': nm,
         },
-        update() {
+        update: function() {
             var beta_0 = outputs_relativistic.v_0_speed_to_L0.val / c_speed_light;
 
             this.val = inputs.lambda_laser_comm_wavelength.val *
@@ -1113,7 +1113,7 @@ var outputs_relativistic = {
         unit: {
             'nm': nm,
         },
-        update() {
+        update: function() {
             var beta_infinity = outputs_relativistic.v_infinity_speed_with_continued_illumination.val /
                 c_speed_light;
 
