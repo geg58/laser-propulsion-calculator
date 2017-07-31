@@ -1361,7 +1361,7 @@ function disableInput(input) {
   document.getElementById('download_csv').addEventListener('click', downloadCSV, false);
   document.getElementById('import_csv').addEventListener('change', importCSV, false);
   document.getElementById('reset').addEventListener('click', reset, false);
-
+  document.getElementById('download_template').addEventListener('click', downloadTemplate, false);
   update();
 })();
 
@@ -1487,6 +1487,55 @@ function optimizeSailSize() {
   inputs.D_sail_size.element.value = inputs.D_sail_size.val =
     Math.sqrt(inputs.m0_payload_mass.val / (hiddens.xi_sail_constant.val *
       inputs.rho_sail_density.val * inputs.h_sail_thickness.val));
+}
+
+
+/** 
+ * Download Templates
+ */
+function downloadTemplate() {
+  var filename = "laser_propulsion_calculations_import_template.csv";
+  var rows = [["Inputs","Value","Unit"],["Payload","0.001","kg"],["Use Optimal Sail","TRUE",""],["Use Square Sail","TRUE",""],["Use Circular Sail","FALSE",""],["Use Spherical Sail","FALSE",""],["Sail Thickness","1","um"],["Sail Density","1","g/cm^3"],["Sail Reflection Efficiency (0 - 1)","1",""],["Sail Absorption of Light not Reflected (0 - 1)","1",""],["Sail Front Emissivity (0 - 1)","1",""],["Sail Back Emissivity (0 - 1)","1",""],["Use Circular Laser Array","TRUE",""],["Laser Array Side Length","10000","m"],["Total Optical Power","100","GW"],["Beam Efficiency (0 - 1)","1",""],["Wavelength","1060","nm"],["Electrical Efficiency (0 - 1)","1",""],["Electrical Energy Cost","0.1","$/kW-hr"],["Energy Storage Cost","0.1","$/W-hr"],["Peak Laser Comm Power","1","W"],["Photons Per Bit for Communication","1","ph/bit"],["Laser Comm Wavelength","600","nm"],["Laser Comm Beam Efficiency (0 - 1)","1",""],["Use Circular Comm Optics","TRUE",""],["Spacecraft Laser Comm Optical Size","1","m"],["Target Distance","4.37","ly"]];
+
+  var processRow = function (row) {
+      var finalVal = '';
+      for (var j = 0; j < row.length; j++) {
+          var innerValue = row[j] === null ? '' : row[j].toString();
+          if (row[j] instanceof Date) {
+              innerValue = row[j].toLocaleString();
+          };
+          var result = innerValue.replace(/"/g, '""');
+          if (result.search(/("|,|\n)/g) >= 0)
+              result = '"' + result + '"';
+          if (j > 0)
+              finalVal += ',';
+          finalVal += result;
+      }
+      return finalVal + '\n';
+  };
+
+  var csvFile = '';
+  for (var i = 0; i < rows.length; i++) {
+      csvFile += processRow(rows[i]);
+  }
+
+  var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+  if (navigator.msSaveBlob) { // IE 10+
+      navigator.msSaveBlob(blob, filename);
+  } else {
+      var link = document.createElement("a");
+      if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          var url = URL.createObjectURL(blob);
+          link.setAttribute("href", url);
+          link.setAttribute("download", filename);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+      }
+  }
+  console.log("success download template");
 }
 
 /**
