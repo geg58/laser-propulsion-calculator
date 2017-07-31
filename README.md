@@ -1,6 +1,8 @@
 # laser-propulsion-calculator
 Breakthrough Starshot laser propulsion calculator
 
+The calculators can be visited on [Starlight](http://www.deepspace.ucsb.edu/projects/directed-energy-interstellar-precursors) website.
+
 # Contribution Guide
 
 ## Tooling
